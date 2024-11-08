@@ -40,21 +40,6 @@
     font-weight: bold;
 }
 
-.book-button,
 .book-link {
-    display: inline-block;
-    font-size: var(--font-size-small); /* Small font size */
-    padding: var(--spacing-4) var(--spacing-8); /* 4px vertical, 8px horizontal spacing */
-    border: 1px solid var(--color-text);
-    background-color: var(--color-white);
-    color: var(--color-text);
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.book-button:hover,
-.book-link:hover {
-    background-color: var(--color-border); /* Subtle background color change on hover */
+    font-size: var(--font-size-small);
 }
