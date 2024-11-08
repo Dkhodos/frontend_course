@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - New Flight</title>
+    <link rel="stylesheet" href="../../global.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>OnoAir</h1>
+        </header>
+
+        <main class="main-content">
+            <h2>New Flight</h2>
+
+            <form class="flight-form">
+                <label for="flightNo">Flight No.:</label>
+                <input type="text" id="flightNo" name="flightNo">
+
+                <label for="origin">Origin:</label>
+                <select id="origin" name="origin">
+                    <option value="">Select Origin</option>
+                    <!-- Options would be dynamically populated -->
+                </select>
+
+                <label for="destination">Destination:</label>
+                <select id="destination" name="destination">
+                    <option value="">Select Destination</option>
+                    <!-- Options would be dynamically populated -->
+                </select>
+
+                <label for="boardingDate">Boarding date:</label>
+                <input type="date" id="boardingDate" name="boardingDate">
+
+                <label for="boardingTime">Boarding time:</label>
+                <input type="time" id="boardingTime" name="boardingTime">
+
+                <label for="arrivalDate">Arrival date:</label>
+                <input type="date" id="arrivalDate" name="arrivalDate">
+
+                <label for="arrivalTime">Arrival time:</label>
+                <input type="time" id="arrivalTime" name="arrivalTime">
+
+                <label for="seats">No. of seats:</label>
+                <input type="number" id="seats" name="seats" min="1">
+
+                <button type="submit" class="save-button">Save</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

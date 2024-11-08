@@ -1,33 +1,4 @@
-.container {
-    width: 80%;
-    max-width: 600px;
-    border: 1px solid #ccc;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.header h1 {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.main-content {
-    text-align: center;
-}
-
-.main-content h2 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.flight-form {
+.destination-form {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 10px;
@@ -35,14 +6,13 @@
     margin-top: 20px;
 }
 
-.flight-form label {
+.destination-form label {
     font-weight: bold;
     text-align: right;
     padding-right: 10px;
 }
 
-.flight-form input,
-.flight-form select {
+.destination-form input {
     padding: 8px;
     border: 1px solid #ccc;
     width: 100%;

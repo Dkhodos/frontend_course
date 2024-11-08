@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User - Book Flight W61283</title>
+    <link rel="stylesheet" href="../../../global.css">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>OnoAir</h1>
+        </header>
+
+        <main class="main-content">
+            <h2>Book a Flight</h2>
+
+            <div class="flight-info">
+                <p><strong>Origin:</strong> Tel Aviv <strong>Boarding:</strong> 16/7/2025 20:00</p>
+                <p><strong>Destination:</strong> Krakow <strong>Landing:</strong> 17/7/2025 01:00</p>
+            </div>
+
+            <form class="booking-form">
+                <label for="passengerCount">No of passengers:</label>
+                <input type="number" id="passengerCount" name="passengerCount" value="5" readonly>
+
+                <div class="passenger-details">
+                    <h3>Passenger 1</h3>
+                    <label for="name1">Name:</label>
+                    <input type="text" id="name1" name="name1">
+
+                    <label for="passport1">Passport ID:</label>
+                    <input type="text" id="passport1" name="passport1">
+                </div>
+
+                <button type="submit" class="save-button">Save</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
