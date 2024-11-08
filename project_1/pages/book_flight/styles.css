@@ -1,0 +1,97 @@
+.container {
+    width: 80%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.main-content {
+    text-align: center;
+}
+
+.main-content h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.filter-section {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.filter-section label {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.filter-section select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.flight-table th,
+.flight-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.flight-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.book-button {
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book-button:hover {
+    background-color: #e0e0e0;
+}
+
+.book-link {
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book-link:hover {
+    background-color: #e0e0e0;
+}
