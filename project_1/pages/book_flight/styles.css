@@ -1,46 +1,49 @@
 .flight-info {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-8); /* 8px spacing */
+    margin-bottom: var(--spacing-20); /* 20px spacing */
     text-align: left;
 }
 
 .flight-info p {
-    margin: 5px 0;
+    margin: var(--spacing-4) 0; /* 4px vertical margin */
+    font-size: var(--font-size-base); /* Base font size */
 }
 
 .booking-form {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 10px;
+    gap: var(--spacing-8); /* 8px spacing */
     align-items: center;
-    margin-top: 20px;
+    margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .booking-form label {
     font-weight: bold;
     text-align: right;
-    padding-right: 10px;
+    padding-right: var(--spacing-8); /* 8px spacing */
+    font-size: var(--font-size-base); /* Base font size */
 }
 
 .booking-form input[type="text"],
 .booking-form input[type="number"] {
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: var(--spacing-8); /* 8px padding */
+    border: 1px solid var(--color-border);
     width: 100%;
+    font-size: var(--font-size-base); /* Base font size */
 }
 
 .save-button {
     grid-column: 1 / -1;
-    font-size: 16px;
-    padding: 10px 20px;
-    border: 1px solid #000;
-    background-color: #fff;
+    font-size: var(--font-size-large); /* Larger font size for emphasis */
+    padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
+    border: 1px solid var(--color-text);
+    background-color: var(--color-white);
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 20px;
+    margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .save-button:hover {
-    background-color: #e0e0e0;
+    background-color: var(--color-border); /* Subtle background color change on hover */
 }

@@ -1,68 +1,60 @@
 .filter-section {
     display: grid;
     grid-template-columns: auto auto auto;
-    gap: 10px;
+    gap: var(--spacing-8); /* 8px spacing */
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-20); /* 20px spacing */
     justify-content: center;
 }
 
 .filter-section label {
     font-weight: bold;
     text-align: right;
-    padding-right: 5px;
+    padding-right: var(--spacing-4); /* 4px spacing */
+    font-size: var(--font-size-base); /* Base font size */
 }
 
 .filter-section select {
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: var(--spacing-8); /* 8px spacing */
+    border: 1px solid var(--color-border);
     width: 100%;
+    font-size: var(--font-size-base); /* Base font size */
 }
 
 .flight-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-20); /* 20px spacing */
 }
 
 .flight-table th,
 .flight-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-8); /* 8px spacing */
     text-align: center;
+    font-size: var(--font-size-base); /* Base font size */
 }
 
 .flight-table th {
-    background-color: #f0f0f0;
+    background-color: var(--color-background); /* Background color */
     font-weight: bold;
 }
 
-.book-button {
-    font-size: 14px;
-    padding: 5px 10px;
-    border: 1px solid #000;
-    background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.book-button:hover {
-    background-color: #e0e0e0;
-}
-
+.book-button,
 .book-link {
     display: inline-block;
-    font-size: 14px;
-    padding: 5px 10px;
-    border: 1px solid #000;
-    background-color: #fff;
-    color: #000;
+    font-size: var(--font-size-small); /* Small font size */
+    padding: var(--spacing-4) var(--spacing-8); /* 4px vertical, 8px horizontal spacing */
+    border: 1px solid var(--color-text);
+    background-color: var(--color-white);
+    color: var(--color-text);
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
+.book-button:hover,
 .book-link:hover {
-    background-color: #e0e0e0;
+    background-color: var(--color-border); /* Subtle background color change on hover */
 }

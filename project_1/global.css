@@ -1,3 +1,30 @@
+:root {
+    /* Colors */
+    --color-background: #f0f2f5;
+    --color-white: #ffffff;
+    --color-border: #ccc;
+    --color-text: #000;
+    --color-text-muted: #555;
+    --color-header-border: #eee;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Spacing in 4px increments */
+    --spacing-4: 4px;
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-28: 28px;
+    --spacing-32: 32px;
+
+    /* Font Sizes */
+    --font-size-small: 12px;
+    --font-size-base: 16px;
+    --font-size-large: 20px;
+    --font-size-xlarge: 24px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,34 +39,35 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f0f2f5;
+    background-color: var(--color-background);
 }
 
 .container {
     width: 80%;
     max-width: 600px;
-    border: 1px solid #ccc;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-20);
+    background-color: var(--color-white);
+    box-shadow: var(--box-shadow);
     border-radius: 4px;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    margin-bottom: var(--spacing-20);
+    padding-bottom: var(--spacing-20);
+    border-bottom: 1px solid var(--color-header-border);
 }
 
 .header h1 {
     font-size: 24px;
     font-weight: bold;
+    color: var(--color-text);
 }
 
 a.header-link {
     text-decoration: none;
-    color: black;
+    color: var(--color-text);
 }
 
 .main-content {
@@ -49,12 +77,12 @@ a.header-link {
 .main-content h2 {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-20);
+    color: var(--color-text);
 }
 
-
 .plane-image {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-8);
 }
 
 .rounded-image {
