@@ -1,18 +1,18 @@
 .help-section {
-    text-align: left;
-    margin-top: var(--spacing-20); /* 20px spacing */
-    padding: var(--spacing-8); /* 8px padding */
-    border-top: 1px solid var(--color-header-border); /* Using header border color */
+  text-align: left;
+  margin-top: var(--spacing-20); /* 20px spacing */
+  padding: var(--spacing-8); /* 8px padding */
+  border-top: 1px solid var(--color-header-border); /* Using header border color */
 }
 
 .help-section h3 {
-    font-size: var(--font-size-large); /* Large font size */
-    font-weight: bold;
-    margin-bottom: var(--spacing-8); /* 8px spacing */
+  font-size: var(--font-size-large); /* Large font size */
+  font-weight: bold;
+  margin-bottom: var(--spacing-8); /* 8px spacing */
 }
 
 .help-section p {
-    font-size: var(--font-size-base); /* Base font size */
-    line-height: 1.5;
-    color: var(--color-text-muted); /* Muted text color */
+  font-size: var(--font-size-base); /* Base font size */
+  line-height: 1.5;
+  color: var(--color-text-muted); /* Muted text color */
 }

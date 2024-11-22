@@ -1,45 +1,47 @@
 .destination-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: var(--spacing-20); /* 20px spacing */
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-20); /* 20px spacing */
 }
 
 .destination-table th,
 .destination-table td {
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-8); /* 8px spacing */
-    text-align: center;
-    font-size: var(--font-size-base); /* Base font size */
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-8); /* 8px spacing */
+  text-align: center;
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .destination-table th {
-    background-color: var(--color-background); /* Using background color variable */
-    font-weight: bold;
+  background-color: var(
+    --color-background
+  ); /* Using background color variable */
+  font-weight: bold;
 }
 
 .destination-table td a {
-    color: var(--color-text);
-    text-decoration: none;
+  color: var(--color-text);
+  text-decoration: none;
 }
 
 .destination-table td a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .add-destination-button {
-    display: inline-block;
-    font-size: var(--font-size-large); /* Larger font size */
-    padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
-    border: 1px solid var(--color-text);
-    background-color: var(--color-white);
-    color: var(--color-text);
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: var(--spacing-20); /* 20px spacing */
+  display: inline-block;
+  font-size: var(--font-size-large); /* Larger font size */
+  padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
+  border: 1px solid var(--color-text);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .add-destination-button:hover {
-    background-color: var(--color-border); /* Subtle background color change */
+  background-color: var(--color-border); /* Subtle background color change */
 }

@@ -22,7 +22,9 @@ export class FormValidator {
     this.validations.forEach(({ inputId }) => {
       const inputElement = this.form.querySelector(`#${inputId}`);
       if (inputElement) {
-        inputElement.addEventListener('input', () => this.#clearError(inputElement));
+        inputElement.addEventListener('input', () =>
+          this.#clearError(inputElement)
+        );
       }
     });
   }
@@ -38,7 +40,9 @@ export class FormValidator {
     this.validations.forEach(({ inputId }) => {
       const inputElement = this.form.querySelector(`#${inputId}`);
       if (inputElement) {
-        inputElement.removeEventListener('input', () => this.#clearError(inputElement));
+        inputElement.removeEventListener('input', () =>
+          this.#clearError(inputElement)
+        );
       }
     });
   }
@@ -55,28 +59,30 @@ export class FormValidator {
     const errorMessages = [];
 
     // Iterate over each validation rule
-    this.validations.forEach(({ inputId, validationCallback, errorMessage }) => {
-      const inputElement = this.form.querySelector(`#${inputId}`);
+    this.validations.forEach(
+      ({ inputId, validationCallback, errorMessage }) => {
+        const inputElement = this.form.querySelector(`#${inputId}`);
 
-      if (!inputElement) {
-        console.error(`Input element with id "${inputId}" not found.`);
-        allValid = false;
-        errorMessages.push(`Input element with id "${inputId}" not found.`);
-        return;
+        if (!inputElement) {
+          console.error(`Input element with id "${inputId}" not found.`);
+          allValid = false;
+          errorMessages.push(`Input element with id "${inputId}" not found.`);
+          return;
+        }
+
+        // Extract the input's value and validate
+        const value = inputElement.value;
+        const isValid = validationCallback(value);
+
+        if (isValid) {
+          this.#clearError(inputElement);
+        } else {
+          allValid = false;
+          this.#showError(inputElement);
+          errorMessages.push(errorMessage || `Invalid input for ${inputId}.`);
+        }
       }
-
-      // Extract the input's value and validate
-      const value = inputElement.value;
-      const isValid = validationCallback(value);
-
-      if (isValid) {
-        this.#clearError(inputElement);
-      } else {
-        allValid = false;
-        this.#showError(inputElement);
-        errorMessages.push(errorMessage || `Invalid input for ${inputId}.`);
-      }
-    });
+    );
 
     if (allValid) {
       // All validations passed, submit the form

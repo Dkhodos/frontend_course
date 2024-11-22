@@ -22,19 +22,19 @@ const logger = winston.createLogger({
       return `${timestamp} [${level.toUpperCase()}]: ${message}`;
     })
   ),
-  transports: [
-    new winston.transports.Console(),
-  ],
+  transports: [new winston.transports.Console()],
 });
 
 // Use express-winston middleware for request logging
-app.use(expressWinston.logger({
-  winstonInstance: logger,
-  meta: true,
-  msg: "{{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms",
-  expressFormat: false,
-  colorize: false,
-}));
+app.use(
+  expressWinston.logger({
+    winstonInstance: logger,
+    meta: true,
+    msg: '{{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
+    expressFormat: false,
+    colorize: false,
+  })
+);
 
 // Serve static files from root and 'public' directory
 app.use(express.static(path.join(__dirname, '.')));
@@ -46,9 +46,11 @@ app.get('*', (req, res) => {
 });
 
 // Error logging middleware (optional)
-app.use(expressWinston.errorLogger({
-  winstonInstance: logger,
-}));
+app.use(
+  expressWinston.errorLogger({
+    winstonInstance: logger,
+  })
+);
 
 // Start the server
 app.listen(PORT, () => {

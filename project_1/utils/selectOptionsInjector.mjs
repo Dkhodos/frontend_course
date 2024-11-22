@@ -29,7 +29,7 @@ export class SelectOptionsInjector {
    * @private
    */
   #clearOptions(select) {
-    select.innerHTML = "";
+    select.innerHTML = '';
   }
 
   /**
@@ -42,7 +42,9 @@ export class SelectOptionsInjector {
   #populateOptions(select, options) {
     options.forEach(({ label, value }) => {
       if (typeof label !== 'string' || typeof value !== 'string') {
-        throw new Error('Each option must have a "label" and "value" of type string.');
+        throw new Error(
+          'Each option must have a "label" and "value" of type string.'
+        );
       }
 
       const optionElement = document.createElement('option');

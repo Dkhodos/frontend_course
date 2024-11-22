@@ -1,45 +1,45 @@
 .filter-section {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    gap: var(--spacing-8); /* 8px spacing */
-    align-items: center;
-    margin-bottom: var(--spacing-20); /* 20px spacing */
-    justify-content: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: var(--spacing-8); /* 8px spacing */
+  align-items: center;
+  margin-bottom: var(--spacing-20); /* 20px spacing */
+  justify-content: center;
 }
 
 .filter-section label {
-    font-weight: bold;
-    text-align: right;
-    padding-right: var(--spacing-4); /* 4px spacing */
-    font-size: var(--font-size-base); /* Base font size */
+  font-weight: bold;
+  text-align: right;
+  padding-right: var(--spacing-4); /* 4px spacing */
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .filter-section select {
-    padding: var(--spacing-8); /* 8px spacing */
-    border: 1px solid var(--color-border);
-    width: 100%;
-    font-size: var(--font-size-base); /* Base font size */
+  padding: var(--spacing-8); /* 8px spacing */
+  border: 1px solid var(--color-border);
+  width: 100%;
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .flight-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: var(--spacing-20); /* 20px spacing */
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-20); /* 20px spacing */
 }
 
 .flight-table th,
 .flight-table td {
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-8); /* 8px spacing */
-    text-align: center;
-    font-size: var(--font-size-base); /* Base font size */
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-8); /* 8px spacing */
+  text-align: center;
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .flight-table th {
-    background-color: var(--color-background); /* Background color */
-    font-weight: bold;
+  background-color: var(--color-background); /* Background color */
+  font-weight: bold;
 }
 
 .book-link {
-    font-size: var(--font-size-small);
+  font-size: var(--font-size-small);
 }

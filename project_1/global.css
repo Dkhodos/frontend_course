@@ -1,118 +1,120 @@
 :root {
-    /* Colors */
-    --color-background: #f0f2f5;
-    --color-white: #ffffff;
-    --color-border: #ccc;
-    --color-text: #000;
-    --color-text-muted: #555;
-    --color-header-border: #eee;
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Colors */
+  --color-background: #f0f2f5;
+  --color-white: #ffffff;
+  --color-border: #ccc;
+  --color-text: #000;
+  --color-text-muted: #555;
+  --color-header-border: #eee;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-    /* Spacing in 4px increments */
-    --spacing-4: 4px;
-    --spacing-8: 8px;
-    --spacing-12: 12px;
-    --spacing-16: 16px;
-    --spacing-20: 20px;
-    --spacing-24: 24px;
-    --spacing-28: 28px;
-    --spacing-32: 32px;
+  /* Spacing in 4px increments */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
 
-    /* Font Sizes */
-    --font-size-small: 12px;
-    --font-size-base: 16px;
-    --font-size-large: 20px;
-    --font-size-xlarge: 24px;
+  /* Font Sizes */
+  --font-size-small: 12px;
+  --font-size-base: 16px;
+  --font-size-large: 20px;
+  --font-size-xlarge: 24px;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: var(--color-background);
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--color-background);
 }
 
 .container {
-    width: 80%;
-    max-width: 600px;
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-20);
-    background-color: var(--color-white);
-    box-shadow: var(--box-shadow);
-    border-radius: 4px;
+  width: 80%;
+  max-width: 600px;
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-20);
+  background-color: var(--color-white);
+  box-shadow: var(--box-shadow);
+  border-radius: 4px;
 }
 
 .header {
-    text-align: center;
-    margin-bottom: var(--spacing-20);
-    padding-bottom: var(--spacing-20);
-    border-bottom: 1px solid var(--color-header-border);
+  text-align: center;
+  margin-bottom: var(--spacing-20);
+  padding-bottom: var(--spacing-20);
+  border-bottom: 1px solid var(--color-header-border);
 }
 
 .header h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--color-text);
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-text);
 }
 
 a.header-link {
-    text-decoration: none;
-    color: var(--color-text);
+  text-decoration: none;
+  color: var(--color-text);
 }
 
 .main-content {
-    text-align: center;
+  text-align: center;
 }
 
 .main-content h2 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: var(--spacing-20);
-    color: var(--color-text);
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: var(--spacing-20);
+  color: var(--color-text);
 }
 
 .plane-image {
-    margin-bottom: var(--spacing-8);
+  margin-bottom: var(--spacing-8);
 }
 
 .rounded-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 
 .button {
-    display: inline-block;
-    font-size: var(--font-size-base); /* Base font size */
-    padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal padding */
-    border: 1px solid var(--color-text); /* Border color */
-    background-color: var(--color-white); /* Button background */
-    color: var(--color-text); /* Text color */
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: inline-block;
+  font-size: var(--font-size-base); /* Base font size */
+  padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal padding */
+  border: 1px solid var(--color-text); /* Border color */
+  background-color: var(--color-white); /* Button background */
+  color: var(--color-text); /* Text color */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .button:hover,
-.button:active{
-    background-color: var(--color-border); /* Background change on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+.button:active {
+  background-color: var(--color-border); /* Background change on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
 }
 
 input.error {

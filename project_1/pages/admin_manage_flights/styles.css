@@ -1,36 +1,36 @@
 .flight-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: var(--spacing-20); /* 20px spacing */
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-20); /* 20px spacing */
 }
 
 .flight-table th,
 .flight-table td {
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-8); /* 8px spacing */
-    text-align: center;
-    font-size: var(--font-size-base); /* Base font size */
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-8); /* 8px spacing */
+  text-align: center;
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .flight-table th {
-    background-color: var(--color-background); /* Background color variable */
-    font-weight: bold;
+  background-color: var(--color-background); /* Background color variable */
+  font-weight: bold;
 }
 
 .add-flight-button {
-    display: inline-block;
-    font-size: var(--font-size-large); /* Larger font size */
-    padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
-    border: 1px solid var(--color-text);
-    background-color: var(--color-white);
-    color: var(--color-text);
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: var(--spacing-20); /* 20px spacing */
+  display: inline-block;
+  font-size: var(--font-size-large); /* Larger font size */
+  padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
+  border: 1px solid var(--color-text);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .add-flight-button:hover {
-    background-color: var(--color-border); /* Subtle background color change */
+  background-color: var(--color-border); /* Subtle background color change */
 }

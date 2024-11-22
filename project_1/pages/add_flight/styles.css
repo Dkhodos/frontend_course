@@ -1,37 +1,37 @@
 .flight-form {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--spacing-8); /* 8px spacing */
-    align-items: center;
-    margin-top: var(--spacing-20); /* 20px spacing */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-8); /* 8px spacing */
+  align-items: center;
+  margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .flight-form label {
-    font-weight: bold;
-    text-align: right;
-    padding-right: var(--spacing-8); /* 8px spacing */
-    font-size: var(--font-size-base); /* Base font size */
+  font-weight: bold;
+  text-align: right;
+  padding-right: var(--spacing-8); /* 8px spacing */
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .flight-form input,
 .flight-form select {
-    padding: var(--spacing-8); /* 8px spacing */
-    border: 1px solid var(--color-border);
-    width: 100%;
-    font-size: var(--font-size-base); /* Consistent base font size */
+  padding: var(--spacing-8); /* 8px spacing */
+  border: 1px solid var(--color-border);
+  width: 100%;
+  font-size: var(--font-size-base); /* Consistent base font size */
 }
 
 .save-button {
-    grid-column: 1 / -1;
-    font-size: var(--font-size-large); /* Larger font size for emphasis */
-    padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
-    border: 1px solid var(--color-text);
-    background-color: var(--color-white);
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: var(--spacing-20); /* 20px spacing */
+  grid-column: 1 / -1;
+  font-size: var(--font-size-large); /* Larger font size for emphasis */
+  padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
+  border: 1px solid var(--color-text);
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .save-button:hover {
-    background-color: var(--color-border); /* Background color change on hover */
+  background-color: var(--color-border); /* Background color change on hover */
 }

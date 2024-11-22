@@ -68,7 +68,7 @@ The application uses an Express server built with Node.js to serve static files 
 ### File Descriptions
 
 - **server.mjs**: The server entry point using ES6 modules. It sets up the Express server, serves static files, and includes logging.
-- **nodemon.json** *(optional)*: Configuration file for Nodemon to specify which files and directories to watch.
+- **nodemon.json** _(optional)_: Configuration file for Nodemon to specify which files and directories to watch.
 
 ## Requirements
 
@@ -76,10 +76,13 @@ The application uses an Express server built with Node.js to serve static files 
 - Basic knowledge of command-line operations.
 
 ## Run project
+
 ```shell
 yarn start
 ```
+
 or
+
 ```angular2html
 npm start
 ```

@@ -1,49 +1,51 @@
 .flight-info {
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-8); /* 8px spacing */
-    margin-bottom: var(--spacing-20); /* 20px spacing */
-    text-align: left;
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-8); /* 8px spacing */
+  margin-bottom: var(--spacing-20); /* 20px spacing */
+  text-align: left;
 }
 
 .flight-info p {
-    margin: var(--spacing-4) 0; /* 4px vertical margin */
-    font-size: var(--font-size-base); /* Base font size */
+  margin: var(--spacing-4) 0; /* 4px vertical margin */
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .booking-form {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: var(--spacing-8); /* 8px spacing */
-    align-items: center;
-    margin-top: var(--spacing-20); /* 20px spacing */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-8); /* 8px spacing */
+  align-items: center;
+  margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .booking-form label {
-    font-weight: bold;
-    text-align: right;
-    padding-right: var(--spacing-8); /* 8px spacing */
-    font-size: var(--font-size-base); /* Base font size */
+  font-weight: bold;
+  text-align: right;
+  padding-right: var(--spacing-8); /* 8px spacing */
+  font-size: var(--font-size-base); /* Base font size */
 }
 
-.booking-form input[type="text"],
-.booking-form input[type="number"] {
-    padding: var(--spacing-8); /* 8px padding */
-    border: 1px solid var(--color-border);
-    width: 100%;
-    font-size: var(--font-size-base); /* Base font size */
+.booking-form input[type='text'],
+.booking-form input[type='number'] {
+  padding: var(--spacing-8); /* 8px padding */
+  border: 1px solid var(--color-border);
+  width: 100%;
+  font-size: var(--font-size-base); /* Base font size */
 }
 
 .save-button {
-    grid-column: 1 / -1;
-    font-size: var(--font-size-large); /* Larger font size for emphasis */
-    padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
-    border: 1px solid var(--color-text);
-    background-color: var(--color-white);
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: var(--spacing-20); /* 20px spacing */
+  grid-column: 1 / -1;
+  font-size: var(--font-size-large); /* Larger font size for emphasis */
+  padding: var(--spacing-8) var(--spacing-20); /* 8px vertical, 20px horizontal spacing */
+  border: 1px solid var(--color-text);
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: var(--spacing-20); /* 20px spacing */
 }
 
 .save-button:hover {
-    background-color: var(--color-border); /* Subtle background color change on hover */
+  background-color: var(
+    --color-border
+  ); /* Subtle background color change on hover */
 }

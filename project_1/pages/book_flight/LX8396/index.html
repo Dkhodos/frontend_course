@@ -1,47 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User - Book Flight LX8396</title>
-    <link rel="stylesheet" href="../../../global.css">
-    <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../../global.css" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <header class="header">
-            <a href="../../../index.html" class="header-link">
-                <div class="plane-image">
-                    <img src="../../../public/plain.webp" alt="Plane Icon" class="rounded-image">
-                </div>
-                <h1>OnoAir</h1>
-            </a>
-        </header>
+      <header class="header">
+        <a href="../../../index.html" class="header-link">
+          <div class="plane-image">
+            <img
+              src="../../../public/plain.webp"
+              alt="Plane Icon"
+              class="rounded-image"
+            />
+          </div>
+          <h1>OnoAir</h1>
+        </a>
+      </header>
 
-        <main class="main-content">
-            <h2>Book a Flight</h2>
+      <main class="main-content">
+        <h2>Book a Flight</h2>
 
-            <div class="flight-info">
-                <p><strong>Origin:</strong> Larnaca <strong>Boarding:</strong> 16/7/2025 18:00</p>
-                <p><strong>Destination:</strong> Zurich <strong>Landing:</strong> 17/7/2025 02:00</p>
-            </div>
+        <div class="flight-info">
+          <p>
+            <strong>Origin:</strong> Larnaca
+            <strong>Boarding:</strong> 16/7/2025 18:00
+          </p>
+          <p>
+            <strong>Destination:</strong> Zurich
+            <strong>Landing:</strong> 17/7/2025 02:00
+          </p>
+        </div>
 
-            <form class="booking-form">
-                <label for="passengerCount">No of passengers:</label>
-                <input type="number" id="passengerCount" name="passengerCount" value="5" readonly>
+        <form class="booking-form">
+          <label for="passengerCount">No of passengers:</label>
+          <input
+            type="number"
+            id="passengerCount"
+            name="passengerCount"
+            value="5"
+            readonly
+          />
 
-                <div class="passenger-details">
-                    <h3>Passenger 1</h3>
-                    <label for="name1">Name:</label>
-                    <input type="text" id="name1" name="name1" required>
+          <div class="passenger-details">
+            <h3>Passenger 1</h3>
+            <label for="name1">Name:</label>
+            <input type="text" id="name1" name="name1" required />
 
-                    <label for="passport1">Passport ID:</label>
-                    <input type="text" id="passport1" name="passport1" required>
-                </div>
+            <label for="passport1">Passport ID:</label>
+            <input type="text" id="passport1" name="passport1" required />
+          </div>
 
-                <button type="submit" class="button">Save</button>
-            </form>
-        </main>
+          <button type="submit" class="button">Save</button>
+        </form>
+      </main>
     </div>
-</body>
+  </body>
 </html>

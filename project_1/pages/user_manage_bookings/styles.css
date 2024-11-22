@@ -1,34 +1,34 @@
 .booking {
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--color-border);
-    padding: var(--spacing-8); /* 8px padding */
-    margin-bottom: var(--spacing-20); /* 20px spacing */
-    box-shadow: var(--box-shadow); /* Box shadow variable */
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-8); /* 8px padding */
+  margin-bottom: var(--spacing-20); /* 20px spacing */
+  box-shadow: var(--box-shadow); /* Box shadow variable */
 }
 
 .destination-image {
-    width: 100px;
-    height: 100px;
-    background-color: var(--color-background); /* Background color variable */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: var(--spacing-20); /* 20px spacing */
-    border: 1px solid var(--color-border);
+  width: 100px;
+  height: 100px;
+  background-color: var(--color-background); /* Background color variable */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-20); /* 20px spacing */
+  border: 1px solid var(--color-border);
 }
 
 .destination-image p {
-    font-size: var(--font-size-small); /* Small font size */
-    color: var(--color-text-muted); /* Muted text color */
-    text-align: center;
+  font-size: var(--font-size-small); /* Small font size */
+  color: var(--color-text-muted); /* Muted text color */
+  text-align: center;
 }
 
 .booking-info {
-    text-align: left;
+  text-align: left;
 }
 
 .booking-info p {
-    margin: var(--spacing-4) 0; /* 4px vertical margin */
-    font-size: var(--font-size-base); /* Base font size */
+  margin: var(--spacing-4) 0; /* 4px vertical margin */
+  font-size: var(--font-size-base); /* Base font size */
 }
