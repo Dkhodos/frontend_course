@@ -1,0 +1,20 @@
+{
+  "name": "flights",
+  "version": "1.0.0",
+  "main": "server.mjs",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.mjs",
+    "dev": "yarn start"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-winston": "^4.2.0",
+    "winston": "^3.17.0"
+  }
+}
