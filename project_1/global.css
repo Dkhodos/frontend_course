@@ -114,3 +114,7 @@ a.header-link {
     background-color: var(--color-border); /* Background change on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
 }
+
+input.error {
+  border: 1px solid red !important;
+}

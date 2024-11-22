@@ -1,0 +1,8 @@
+# Ignore all files except JavaScript, HTML, and CSS
+!*.js
+!*.html
+!*.css
+
+# Exclude specific directories
+node_modules/
+dist/
