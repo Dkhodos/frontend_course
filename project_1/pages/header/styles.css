@@ -1,0 +1,25 @@
+.header-link {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: center;
+}
+
+.header-link .plane-image {
+  width: fit-content;
+}
+
+a.header-link {
+  text-decoration: none;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.header-link .rounded-image {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+}
+
+.header-link h1 {
+  color: white;
+}

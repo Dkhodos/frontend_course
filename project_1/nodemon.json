@@ -1,5 +1,5 @@
 {
   "watch": ["server.mjs", "pages/*", "styles.css", "global.css", "global.mjs"],
-  "ext": "js html css",
+  "ext": "js,html,css,jsm",
   "ignore": ["node_modules"]
 }
