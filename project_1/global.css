@@ -7,6 +7,8 @@
   --color-text-muted: #555;
   --color-header-border: #eee;
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --header-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --footer-box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 
   /* Spacing in 4px increments */
   --spacing-4: 4px;
@@ -49,7 +51,19 @@ header {
   left: 0;
   background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--header-box-shadow);
+  z-index: 1000;
+  padding: var(--spacing-8) var(--spacing-12);
+}
+
+footer {
+  width: 100%;
+  background-color: white;
+  padding: 10px 0;
+  box-shadow: var(--footer-box-shadow);
+  position: fixed;
+  bottom: 0;
+  left: 0;
   z-index: 1000;
   padding: var(--spacing-8) var(--spacing-12);
 }

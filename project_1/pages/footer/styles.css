@@ -1,0 +1,11 @@
+.footer-container {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+.help-link {
+  text-decoration: none;
+  width: 32px;
+  height: 32px;
+}
