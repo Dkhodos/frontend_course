@@ -1,10 +1,19 @@
 .filter-section {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  gap: var(--spacing-8); /* 8px spacing */
+  display: flex;
+  gap: var(--spacing-20); /* 8px spacing */
   align-items: center;
   margin-bottom: var(--spacing-20); /* 20px spacing */
-  justify-content: center;
+}
+
+.filter-section .filter-by-text {
+  text-align: left;
+}
+
+.filter-section .filter-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 300px;
 }
 
 .filter-section label {
@@ -42,4 +51,8 @@
 
 .book-link {
   font-size: var(--font-size-small);
+}
+
+.button#filter-button {
+  width: 150px;
 }

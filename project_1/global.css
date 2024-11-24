@@ -125,3 +125,7 @@ footer {
 input.error {
   border: 1px solid red !important;
 }
+
+.grow {
+  flex-grow: 1;
+}
