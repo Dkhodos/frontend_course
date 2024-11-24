@@ -5,10 +5,12 @@ export class FormValidator {
    * @param {Object} params - Parameters for form validation.
    * @param {HTMLFormElement} params.form - The form element to validate.
    * @param {Array<{inputId: string, validationCallback: Function, errorMessage?: string}>} params.validations - An array of validation rules.
+   * @param {Function} [params.onValidSubmit] - Callback function to call when the form is valid.
    */
-  constructor({ form, validations }) {
+  constructor({ form, validations, onValidSubmit }) {
     this.form = form;
     this.validations = validations;
+    this.onValidSubmit = onValidSubmit;
   }
 
   /**
@@ -85,8 +87,13 @@ export class FormValidator {
     );
 
     if (allValid) {
-      // All validations passed, submit the form
-      this.form.submit();
+      // All validations passed, call the onValidSubmit callback if provided
+      if (this.onValidSubmit) {
+        this.onValidSubmit();
+      } else {
+        // Default behavior: submit the form
+        this.form.submit();
+      }
     } else {
       // Show all error messages in an alert
       alert(`Form validation failed:\n\n${errorMessages.join('\n')}`);

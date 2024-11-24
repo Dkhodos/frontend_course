@@ -77,6 +77,10 @@ footer {
   border-radius: 4px;
 }
 
+.container.max-width-container {
+  max-width: 600px;
+}
+
 .main-content {
   text-align: center;
 }
