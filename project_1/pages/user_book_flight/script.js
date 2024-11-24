@@ -21,11 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Add the "Book" button
       const bookCell = document.createElement('td');
-      const bookLink = document.createElement('a');
-      bookLink.href = `../book_flight/${flight.flightNumber}/index.html`;
-      bookLink.className = 'button book-link';
-      bookLink.textContent = 'Book';
-      bookCell.appendChild(bookLink);
+      const bookButton = document.createElement('button');
+      bookButton.className = 'button book-link';
+      bookButton.textContent = 'Book';
+      bookButton.addEventListener('click', () => {
+        window.location.href = `../book_flight/index.html?flightNumber=${flight.flightNumber}`;
+      });
+      bookCell.appendChild(bookButton);
       row.appendChild(bookCell);
 
       tableBody.appendChild(row);
@@ -48,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
   filterButton.addEventListener('click', () => {
     const selectedOrigin = originSelect.value;
     const selectedDestination = destinationSelect.value;
-
-    console.log(selectedOrigin, selectedDestination);
 
     const filteredFlights = flights.filter((flight) => {
       const matchesOrigin = selectedOrigin

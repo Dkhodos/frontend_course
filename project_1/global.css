@@ -129,3 +129,9 @@ input.error {
 .grow {
   flex-grow: 1;
 }
+
+.divider {
+  border-top: 1px solid var(--color-border);
+  margin: var(--spacing-20) 0;
+  width: 100%;
+}

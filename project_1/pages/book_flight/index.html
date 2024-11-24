@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User - Book Flight</title>
+    <link rel="stylesheet" href="../../../global.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="../../utils/loadHeaderFooter.js" defer></script>
+    <script type="module" src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="container max-width-container">
+      <header></header>
+
+      <main class="main-content">
+        <h2>Book a Flight</h2>
+
+        <div class="flight-info" id="flight-info">
+          <!-- Flight details will be dynamically inserted here -->
+        </div>
+
+        <form class="booking-form">
+          <div class="passenger-count-field">
+            <label for="passengerCount">No of passengers:</label>
+            <input
+              type="number"
+              id="passengerCount"
+              name="passengerCount"
+              value="1"
+              min="1"
+            />
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="passenger-fields">
+            <!-- Passenger fields will be dynamically inserted here -->
+          </div>
+
+          <button type="submit" class="button">Save</button>
+        </form>
+      </main>
+    </div>
+
+    <footer></footer>
+  </body>
+</html>
