@@ -12,7 +12,7 @@ const flights = [
   {
     flightNumber: 'LX8396',
     originCode: 'LCA',
-    destinationCode: 'ZRH',
+    destinationCode: 'DXB',
     boardingDate: '2025-08-10',
     boardingTime: '14:30',
     arrivalDate: '2025-08-10',

@@ -6,9 +6,16 @@ document.addEventListener('DOMContentLoaded', function () {
   destinations.forEach((destination) => {
     const row = document.createElement('tr');
 
-    Object.values(destination).forEach((value) => {
+    Object.entries(destination).forEach(([key, value]) => {
       const cell = document.createElement('td');
-      if (typeof value === 'string' && value.startsWith('http')) {
+      if (key === 'imageUrl') {
+        const img = document.createElement('img');
+        img.src = value;
+        img.alt = destination.name;
+        img.width = 80;
+        img.height = 80;
+        cell.appendChild(img);
+      } else if (typeof value === 'string' && value.startsWith('http')) {
         const link = document.createElement('a');
         link.href = value;
         link.target = '_blank';

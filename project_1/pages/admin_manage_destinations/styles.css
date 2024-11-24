@@ -1,3 +1,8 @@
+.container {
+  max-height: 800px;
+  overflow-y: auto;
+}
+
 .destination-table {
   width: 100%;
   border-collapse: collapse;
