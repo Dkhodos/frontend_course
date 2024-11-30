@@ -1,7 +1,6 @@
 import Booking from '../models/booking.js';
 import Passenger from '../models/passenger.js';
 
-// Create the bookings array using the Booking and Passenger classes
 const bookings = [
   new Booking('W61283', [
     new Passenger('John Doe', 'A12345678'),
