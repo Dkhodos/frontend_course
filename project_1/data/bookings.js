@@ -12,9 +12,7 @@ const bookings = [
     new Passenger('Bob Smith', 'D87654321'),
     new Passenger('Charlie Smith', 'E12345678'),
   ]),
-  new Booking('BA345', [
-    new Passenger('Charlie Brown', 'F12345678'),
-  ]),
+  new Booking('BA345', [new Passenger('Charlie Brown', 'F12345678')]),
   new Booking('EK123', [
     new Passenger('David Johnson', 'G12345678'),
     new Passenger('Emma Johnson', 'H87654321'),

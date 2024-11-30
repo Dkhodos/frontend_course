@@ -55,7 +55,7 @@
   overflow: hidden;
 }
 
-.destination-main-wrapper{
-    overflow: auto;
-    height: calc(800px - 70px);
+.destination-main-wrapper {
+  overflow: auto;
+  height: calc(800px - 70px);
 }

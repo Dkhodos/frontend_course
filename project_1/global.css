@@ -130,18 +130,18 @@ input.error {
 }
 
 @keyframes fadeInFromBottom {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-in-from-bottom {
-    animation: fadeInFromBottom 0.5s ease-in-out both;
+  animation: fadeInFromBottom 0.5s ease-in-out both;
 }
 
 input {

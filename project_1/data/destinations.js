@@ -1,4 +1,4 @@
-import Destination from "../models/destination.js";
+import Destination from '../models/destination.js';
 
 const destinations = [
   new Destination(

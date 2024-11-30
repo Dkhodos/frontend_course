@@ -42,9 +42,9 @@
   overflow: hidden;
 }
 
-.bookings-main-wrapper{
-    overflow: auto;
-    height: calc(800px - 70px);
+.bookings-main-wrapper {
+  overflow: auto;
+  height: calc(800px - 70px);
 }
 
 .booking-info-data {
