@@ -1,7 +1,6 @@
 import { SelectOptionsInjector } from '../../utils/selectOptionsInjector.mjs';
 import { FormValidator } from '../../utils/formValidator.mjs';
 import destinations from '../../data/destinations.js';
-import Flight from '../../classes/flight.js';
 
 (() => {
   const injector = new SelectOptionsInjector();

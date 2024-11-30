@@ -1,6 +1,5 @@
 import { FormValidator } from '../../utils/formValidator.mjs';
-import destinations from '../../data/destinations.js';
-import Destination from '../../classes/destination.js';
+import Destination from '../../models/destination.js';
 
 (() => {
   const form = document.getElementById('destination-form');

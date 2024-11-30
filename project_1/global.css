@@ -92,13 +92,6 @@ footer {
   color: var(--color-text);
 }
 
-.rounded-image {
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
 .button {
   display: inline-block;
   font-size: var(--font-size-base); /* Base font size */
@@ -134,4 +127,23 @@ input.error {
   border-top: 1px solid var(--color-border);
   margin: var(--spacing-20) 0;
   width: 100%;
+}
+
+@keyframes fadeInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-from-bottom {
+    animation: fadeInFromBottom 0.5s ease-in-out both;
+}
+
+input {
+  border-radius: 4px;
 }

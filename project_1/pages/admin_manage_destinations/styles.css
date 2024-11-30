@@ -50,3 +50,12 @@
 .add-destination-button:hover {
   background-color: var(--color-border); /* Subtle background color change */
 }
+
+.destination-container {
+  overflow: hidden;
+}
+
+.destination-main-wrapper{
+    overflow: auto;
+    height: calc(800px - 70px);
+}

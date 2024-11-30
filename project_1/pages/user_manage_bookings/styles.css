@@ -37,3 +37,41 @@
   margin: var(--spacing-4) 0; /* 4px vertical margin */
   font-size: var(--font-size-base); /* Base font size */
 }
+
+.bookings-container {
+  overflow: hidden;
+}
+
+.bookings-main-wrapper{
+    overflow: auto;
+    height: calc(800px - 70px);
+}
+
+.booking-info-data {
+  display: grid;
+  gap: var(--spacing-4);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.booking-info-data-row {
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr 70px;
+  gap: var(--spacing-8);
+  align-items: center;
+}
+
+.booking-info-data-row.single-row {
+  grid-template-columns: 1fr 190px;
+}
+
+.booking-info-data-label {
+  font-weight: bold;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.booking-info-data-value {
+  text-align: left;
+  white-space: nowrap;
+}

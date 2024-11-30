@@ -2,6 +2,7 @@
   display: flex;
   gap: var(--spacing-8);
   align-items: center;
+  width: fit-content;
 }
 
 .header-link .plane-image {
@@ -14,12 +15,27 @@ a.header-link {
   text-align: center;
 }
 
+.rounded-image {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
 .header-link .rounded-image {
   width: 50px;
   height: 50px;
   margin: 0;
 }
 
+.header-link:hover .rounded-image {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
 .header-link h1 {
   color: white;
+  font-size: 20px;
+  margin-left: 8px;
 }

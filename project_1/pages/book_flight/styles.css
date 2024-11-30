@@ -7,6 +7,7 @@
   padding: var(--spacing-8); /* 8px spacing */
   margin-bottom: var(--spacing-20); /* 20px spacing */
   text-align: left;
+  border-radius: 4px;
 }
 
 .flight-info p {
@@ -15,18 +16,12 @@
 }
 
 .booking-form {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: var(--spacing-8); /* 8px spacing */
-  align-items: center;
-  margin-top: var(--spacing-20); /* 20px spacing */
+
 }
 
 .passenger-count-field {
-  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: var(--spacing-8); /* 8px spacing */
+  grid-template-columns: 140px auto;
   align-items: center;
 }
 
@@ -62,10 +57,10 @@
 }
 
 .passenger-details {
-  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing-8);
 }
 
 .passenger-details-fields-container {
@@ -73,6 +68,9 @@
   flex-direction: column;
   gap: var(--spacing-8);
   width: 100%;
+  border-left: 1px solid var(--color-border);
+  padding-left: var(--spacing-8);
+  margin-left: var(--spacing-8);
 }
 
 .passenger-number-text {
@@ -80,7 +78,21 @@
 }
 
 .passenger-details-field {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.passenger-details-field label{
+  width: 130px;
+}
+
+.passenger-image {
+    height: 50px;
+    width: 100%;
+}
+
+.passenger-image img {
+    max-width: 100%;
+    max-height: 100%;
 }

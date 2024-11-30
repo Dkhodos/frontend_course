@@ -6,14 +6,14 @@
     <title>User - Book Flight</title>
     <link rel="stylesheet" href="../../../global.css" />
     <link rel="stylesheet" href="../styles.css" />
-    <script src="../../utils/loadHeaderFooter.js" defer></script>
+    <script src="../../utils/loadResources.js" defer></script>
     <script type="module" src="./script.js" defer></script>
   </head>
   <body>
     <div class="container max-width-container">
       <header></header>
 
-      <main class="main-content">
+      <main class="main-content fade-in-from-bottom">
         <h2>Book a Flight</h2>
 
         <div class="flight-info" id="flight-info">
@@ -21,6 +21,8 @@
         </div>
 
         <form class="booking-form">
+          <div class="divider"></div>
+
           <div class="passenger-count-field">
             <label for="passengerCount">No of passengers:</label>
             <input

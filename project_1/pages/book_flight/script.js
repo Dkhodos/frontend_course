@@ -40,7 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
       passengerDetailsDiv.classList.add('passenger-details');
 
       passengerDetailsDiv.innerHTML = `
-        <h5 class="passenger-number-text">Passenger ${i}</h5>
+        <div class="passenger-number-text">
+          <h5>Passenger ${i}</h5>
+          <div class="passenger-image">
+              <img src="../../public/passenger.svg" alt="passenger image">
+          </div>
+        </div>
         <div class="passenger-details-fields-container">
           <div class="passenger-details-field">
             <label for="name${i}">Name:</label>
