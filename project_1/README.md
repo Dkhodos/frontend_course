@@ -1,5 +1,9 @@
 # OnoAir Flight Management and Booking System
 
+<p align="center">
+  <img src="public/plane.webp" alt="OnoAir" style="border-radius: 50%; width: 200px; height: 200px;">
+</p>
+
 ## Project Goal
 
 The purpose of this project is to develop a comprehensive and professional flight booking application that allows users to book flights easily and conveniently. This project will be an ongoing assignment throughout the Frontend Development and Implementation course in the Computer Science department. It will enable students to apply the knowledge and skills acquired during the course.
@@ -34,28 +38,19 @@ OnoAir is a flight booking and management application designed to provide a user
 
 ## Project Structure
 
-### File and Folder Descriptions
+### Folder Descriptions
 
-- **server.mjs**: The main server file that sets up the Express server using ES6 modules. It serves static files, handles routing, and includes logging functionality using Winston.
+- **`models/`**: Contains the core data models representing the system's entities, such as flights, bookings, passengers, and destinations.
 
-- **package.json**: Contains metadata about the project, lists the dependencies, and includes scripts needed to run the application.
+- **`public/`**: Stores static assets such as images, icons, and media files used throughout the application.
 
-- **index.html**: The main landing page of the application. This page serves as the entry point for users and provides links to other sections of the application, such as user and admin interfaces.
+- **`pages/`**: Includes the HTML and CSS files for each feature of the application, such as booking flights, managing flights, and viewing user bookings. Each feature is organized into its own subfolder for better structure and maintainability.
 
-- **global.css**: A global stylesheet for resetting default browser styles and applying base styles like box-sizing, margins, padding, font settings, and body background color. This ensures a consistent foundation for styling across all pages.
-
-- **README.md**: The project's README file, containing an overview of the project, instructions, and descriptions of the file structure and functionality. It serves as a guide for understanding and navigating the project.
-
-- **public/**: A folder for storing static assets such as images, icons, or other media files used throughout the application. For instance, `plain.webp` might be an image used on multiple pages.
-
-- **pages/**: This directory contains all the HTML files for individual pages within the application. Each page or feature (such as booking flights, managing flights, or viewing user bookings) has its own folder within `pages/`, which includes the specific `index.html` and `styles.css` files required for that section. For example:
-  - `pages/book_flight/` contains the HTML and CSS files for booking a flight, organized further by specific flight IDs (e.g., `W61283`, `LX8396`).
-  - `pages/add_flight/` contains files for the add flight functionality.
-  - `pages/user_manage_bookings/` holds files for viewing and managing user bookings.
+- **`styles/`**: A folder dedicated to global and feature-specific stylesheets, ensuring the application maintains a consistent look and feel.
 
 ## Server Setup
 
-The application uses an Express server built with Node.js to serve static files and handle routing. It also includes a logging setup using Winston to log server calls and activity.
+The application uses an Express server built with Node.js to serve static files and handle routing. It also includes logging setup using Winston to log server calls and activity.
 
 ### Dependencies
 
@@ -65,24 +60,16 @@ The application uses an Express server built with Node.js to serve static files 
 - **Winston**: Logging library for Node.js.
 - **express-winston**: Middleware for logging Express requests and responses using Winston.
 
-### File Descriptions
-
-- **server.mjs**: The server entry point using ES6 modules. It sets up the Express server, serves static files, and includes logging.
-- **nodemon.json** _(optional)_: Configuration file for Nodemon to specify which files and directories to watch.
-
 ## Requirements
 
 - **Node.js** and **npm** installed on your machine.
 - Basic knowledge of command-line operations.
 
-## Run project
+## Run Project
+
+To install dependencies  and start the project, run:
 
 ```shell
+yarn install
 yarn start
-```
-
-or
-
-```angular2html
-npm start
 ```
