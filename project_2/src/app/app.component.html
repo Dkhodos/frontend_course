@@ -1,6 +1,11 @@
-<main class="main">
-  <ono-flight-header></ono-flight-header>
-  <ono-flight-footer></ono-flight-footer>
-</main>
+<mat-drawer-container class="h-full">
+  <mat-drawer #sidenav mode="over" class="w-[260px] z-[999]">
+    <ono-flight-sidenav></ono-flight-sidenav>
+  </mat-drawer>
 
-<router-outlet />
+  <mat-drawer-content>
+    <ono-flight-header (onMenuClick)="sidenav.toggle()" />
+    <router-outlet></router-outlet>
+    <ono-flight-footer />
+  </mat-drawer-content>
+</mat-drawer-container>
