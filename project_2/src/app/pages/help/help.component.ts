@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'ono-flight-help',
   imports: [],
   templateUrl: './help.component.html',
-  styleUrl: './help.component.scss'
+  styleUrl: './help.component.scss',
 })
-export class HelpComponent {
-
-}
+export class HelpComponent {}
