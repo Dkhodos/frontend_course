@@ -1,0 +1,9 @@
+/* Minimal or no custom styles to retain Material defaults */
+:host {
+  display: block;
+  width: 100%;
+}
+
+input[matInput] {
+  width: 100%;
+}

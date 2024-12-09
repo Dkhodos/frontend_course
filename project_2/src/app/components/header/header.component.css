@@ -1,4 +1,8 @@
-.header-title {
-  /* remove a underline */
-  text-decoration: none;
+/* Toolbar Styling */
+.header-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-16);
+  background-color: var(--color-primary);
+  color: var(--color-text);
 }

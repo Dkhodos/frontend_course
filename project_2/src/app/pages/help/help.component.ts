@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { PageComponent } from '../../components/page/page.component';
 
 @Component({
   selector: 'ono-flight-help',
-  imports: [],
   templateUrl: './help.component.html',
-  styleUrl: './help.component.scss',
-  standalone: true
+  styleUrls: ['./help.component.scss'],
+  imports: [MatCardModule, MatExpansionModule, PageComponent],
+  standalone: true,
 })
 export class HelpComponent {}

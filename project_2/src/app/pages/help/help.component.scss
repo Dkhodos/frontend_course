@@ -1,0 +1,37 @@
+/* Main Container */
+.container {
+  padding: var(--spacing-16);
+  animation: fade-in-from-bottom 0.5s ease-in-out;
+}
+
+/* Content Styling */
+.main-content {
+  text-align: left;
+  font-size: 16px;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.main-content h2 {
+  font-size: 24px;
+  margin-bottom: var(--spacing-16);
+  color: var(--color-primary);
+}
+
+.help-section {
+  margin-bottom: var(--spacing-24);
+}
+
+.help-section h3 {
+  font-size: 20px;
+  margin-bottom: var(--spacing-8);
+  color: var(--color-secondary);
+}
+
+.help-section p {
+  margin-bottom: var(--spacing-8);
+}
+
+.primary {
+  margin-bottom: var(--spacing-8);
+}

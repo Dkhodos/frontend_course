@@ -16,5 +16,6 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  standalone: true,
 })
 export class AppComponent {}
