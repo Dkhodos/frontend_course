@@ -5,5 +5,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './help.component.html',
   styleUrl: './help.component.scss',
+  standalone: true
 })
 export class HelpComponent {}
