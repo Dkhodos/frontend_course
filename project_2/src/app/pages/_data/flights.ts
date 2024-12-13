@@ -1,13 +1,13 @@
-import Flight from './flight';
+import {Flight} from '../_models/flight.model';
 
-const flights = [
+export const flights = [
   new Flight(
     'W61283',
     'TLV',
     'KRK',
-    '2025-07-16',
+    '2024-11-10',
     '20:00',
-    '2025-07-17',
+    '2024-11-11',
     '01:00',
     180
   ),
@@ -25,9 +25,9 @@ const flights = [
     'BA345',
     'LHR',
     'DXB',
-    '2025-09-20',
+    '2024-12-01',
     '09:00',
-    '2025-09-20',
+    '2024-12-01',
     '20:00',
     250
   ),
@@ -45,9 +45,9 @@ const flights = [
     'LH456',
     'FRA',
     'CDG',
-    '2025-11-15',
+    '2024-10-15',
     '12:15',
-    '2025-11-15',
+    '2024-10-15',
     '14:30',
     150
   ),
@@ -102,5 +102,3 @@ const flights = [
     1
   ),
 ];
-
-export default flights;

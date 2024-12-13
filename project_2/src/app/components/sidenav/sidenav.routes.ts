@@ -17,11 +17,15 @@ export const NAVIGATION_ROUTES: NavItem[] = [
     icon: 'admin_panel_settings',
     children: [
       {
-        label: 'Search a Flight',
-        route: '/admin/search-flight',
-        icon: 'search',
+        label: 'Manage Flights',
+        route: '/admin/manage/flights',
+        icon: 'flight',
       },
-      { label: 'My Bookings', route: '/admin/my-bookings', icon: 'event_note' },
+      {
+        label: 'Manage Destination',
+        route: '/admin/manage/destinations',
+        icon: 'map',
+      },
     ],
   },
   {
@@ -29,11 +33,15 @@ export const NAVIGATION_ROUTES: NavItem[] = [
     icon: 'person',
     children: [
       {
-        label: 'Search a Flight',
-        route: '/user/search-flight',
-        icon: 'search',
+        label: 'Book a Flight',
+        route: '/user/book-a-flight',
+        icon: 'flight',
       },
-      { label: 'My Bookings', route: '/user/my-bookings', icon: 'event_note' },
+      {
+        label: 'My Bookings',
+        route: '/user/my-bookings',
+        icon: 'event_note',
+      },
     ],
   },
   {

@@ -1,4 +1,4 @@
-class Flight {
+export class Flight {
   constructor(
     public flightNumber: string,
     public originCode: string,
@@ -10,5 +10,3 @@ class Flight {
     public seatCount: number
   ) {}
 }
-
-export default Flight;

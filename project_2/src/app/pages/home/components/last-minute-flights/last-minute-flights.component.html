@@ -12,7 +12,7 @@
         <strong>Airport:</strong> {{ getAirportName(flight.destinationCode) }}
       </p>
       <p><strong>Flight Number:</strong> {{ flight.flightNumber }}</p>
-      <p><strong>Departure Time:</strong> {{ flight.boardingTime }}</p>
+      <p><strong>Departure Time:</strong> {{ flight.boardingDate }} / {{ flight.boardingTime }}</p>
       <p><strong>Seats Available:</strong> {{ flight.seatCount }}</p>
     </mat-card-content>
     <mat-card-actions>

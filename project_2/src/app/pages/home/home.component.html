@@ -1,4 +1,4 @@
-<page title="User | Search a Flight">
+<page title="Home">
   <mat-accordion class="search-flight-container">
 
     <!-- Last Minute Flights Panel -->
@@ -34,6 +34,7 @@
         <app-flights-table
           [flights]="flights"
           [destinations]="destinations"
+          [actions]="[FlightTableAction.BookNow]"
         ></app-flights-table>
       </ng-template>
     </mat-expansion-panel>

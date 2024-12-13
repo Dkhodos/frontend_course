@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import Flight from '../../models/flight';
-import { Destination } from '../../models/destination.model';
+import { Flight } from '../../../_models/flight.model';
+import { Destination } from '../../../_models/destination.model';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { NgForOf } from '@angular/common';
 

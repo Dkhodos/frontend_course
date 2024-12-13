@@ -1,4 +1,4 @@
-import { Destination } from './destination.model';
+import { Destination } from '../_models/destination.model';
 
 export const destinations: Destination[] = [
   new Destination(

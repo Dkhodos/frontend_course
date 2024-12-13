@@ -1,0 +1,29 @@
+<page title="User | My bookings">
+  <mat-accordion class="my-bookings-accordion">
+
+    <!-- Upcoming Bookings Section -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">event_available</mat-icon>
+          Upcoming Bookings
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-destinations-cards [bookings]="upcomingBookings"></app-destinations-cards>
+    </mat-expansion-panel>
+
+    <!-- Previous Bookings Section -->
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">history</mat-icon>
+          Previous Bookings
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-destinations-cards [bookings]="previousBookings"></app-destinations-cards>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</page>

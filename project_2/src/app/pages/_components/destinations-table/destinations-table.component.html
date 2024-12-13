@@ -1,0 +1,58 @@
+<table mat-table [dataSource]="destinations" class="mat-elevation-z8">
+
+  <!-- Image URL Column -->
+  <ng-container matColumnDef="imageUrl">
+    <th mat-header-cell *matHeaderCellDef> Image </th>
+    <td mat-cell *matCellDef="let destination">
+      <img [src]="destination.imageUrl" alt="{{ destination.name }}" class="rounded-image" />
+    </td>
+  </ng-container>
+
+  <!-- Code Column -->
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef> Code </th>
+    <td mat-cell *matCellDef="let destination"> {{ destination.code }} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let destination"> {{ destination.name }} </td>
+  </ng-container>
+
+  <!-- Airport Name Column -->
+  <ng-container matColumnDef="airportName">
+    <th mat-header-cell *matHeaderCellDef> Airport Name </th>
+    <td mat-cell *matCellDef="let destination"> {{ destination.airportName }} </td>
+  </ng-container>
+
+  <!-- Airport URL Column -->
+  <ng-container matColumnDef="airportUrl">
+    <th mat-header-cell *matHeaderCellDef> Airport URL </th>
+    <td mat-cell *matCellDef="let destination">
+      <a [href]="destination.airportUrl" target="_blank">Website</a>
+    </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let destination"> {{ destination.email }} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef class="actions-header"> ... </th>
+    <td mat-cell *matCellDef="let destination" class="actions-cell">
+      <a [routerLink]="['/admin/destination', destination.code, 'edit']"
+         mat-button class="edit-link">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </a>
+    </td>
+  </ng-container>
+
+  <!-- Table Headers & Rows -->
+  <tr mat-header-row *matHeaderRowDef="['imageUrl', 'code', 'name', 'airportName', 'airportUrl', 'email', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['imageUrl', 'code', 'name', 'airportName', 'airportUrl', 'email', 'actions']"></tr>
+</table>

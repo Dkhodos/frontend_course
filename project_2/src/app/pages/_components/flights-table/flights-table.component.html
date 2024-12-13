@@ -30,13 +30,27 @@
     <td mat-cell *matCellDef="let flight"> {{ flight.arrivalDate }} / {{ flight.arrivalTime }} </td>
   </ng-container>
 
-  <!-- Actions Column with Fixed Width -->
+  <!-- Actions Column -->
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef class="actions-header"> ... </th>
     <td mat-cell *matCellDef="let flight" class="actions-cell">
-      <a [routerLink]="['/users/book', flight.flightNumber]" mat-button class="book-now-link">
+
+      <!-- Conditionally render "Book Now" -->
+      <a *ngIf="actions.includes(FlightTableAction.BookNow)"
+         [routerLink]="['/user/book', flight.flightNumber]"
+         mat-button class="book-now-link">
+        <mat-icon>flight_takeoff</mat-icon>
         Book Now
       </a>
+
+      <!-- Conditionally render "Edit" -->
+      <a *ngIf="actions.includes(FlightTableAction.Edit)"
+         [routerLink]="['/admin/edit', flight.flightNumber]"
+         mat-button class="edit-link">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </a>
+
     </td>
   </ng-container>
 
