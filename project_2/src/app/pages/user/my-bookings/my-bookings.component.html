@@ -9,9 +9,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <app-destinations-cards
-        [bookings]="upcomingBookings"
-      ></app-destinations-cards>
+      <app-destinations-cards [bookings]="upcomingBookings" />
     </mat-expansion-panel>
 
     <!-- Previous Bookings Section -->
@@ -23,9 +21,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <app-destinations-cards
-        [bookings]="previousBookings"
-      ></app-destinations-cards>
+      <app-destinations-cards [bookings]="previousBookings" />
     </mat-expansion-panel>
   </mat-accordion>
 </page>
