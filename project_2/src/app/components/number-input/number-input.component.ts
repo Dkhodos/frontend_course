@@ -8,11 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './number-input.component.html',
   styleUrls: ['./number-input.component.scss'],
   standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-  ],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule],
 })
 export class NumberInputComponent {
   @Input() placeholder: string = '';
@@ -21,7 +17,9 @@ export class NumberInputComponent {
   @Input() required: boolean = false;
   @Input() label: string = '';
 
-  @Output() valueChange: EventEmitter<number | null> = new EventEmitter<number | null>();
+  @Output() valueChange: EventEmitter<number | null> = new EventEmitter<
+    number | null
+  >();
 
   onValueChange(): void {
     this.valueChange.emit(this.value);

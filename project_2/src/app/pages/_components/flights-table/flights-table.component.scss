@@ -3,12 +3,14 @@ table {
   margin: 20px 0;
 }
 
-.mat-header-cell, .mat-cell {
+.mat-header-cell,
+.mat-cell {
   padding: 8px 16px;
   text-align: left;
 }
 
-.actions-header, .actions-cell {
+.actions-header,
+.actions-cell {
   width: 180px !important; /* Fix width to 100px */
   text-align: center;
 }

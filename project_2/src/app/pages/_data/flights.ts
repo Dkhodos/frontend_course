@@ -1,4 +1,4 @@
-import {Flight} from '../_models/flight.model';
+import { Flight } from '../_models/flight.model';
 
 export const flights = [
   new Flight(

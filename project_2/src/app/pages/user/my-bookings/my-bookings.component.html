@@ -1,6 +1,5 @@
 <page title="User | My bookings">
   <mat-accordion class="my-bookings-accordion">
-
     <!-- Upcoming Bookings Section -->
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
@@ -10,7 +9,9 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <app-destinations-cards [bookings]="upcomingBookings"></app-destinations-cards>
+      <app-destinations-cards
+        [bookings]="upcomingBookings"
+      ></app-destinations-cards>
     </mat-expansion-panel>
 
     <!-- Previous Bookings Section -->
@@ -22,8 +23,9 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <app-destinations-cards [bookings]="previousBookings"></app-destinations-cards>
+      <app-destinations-cards
+        [bookings]="previousBookings"
+      ></app-destinations-cards>
     </mat-expansion-panel>
-
   </mat-accordion>
 </page>

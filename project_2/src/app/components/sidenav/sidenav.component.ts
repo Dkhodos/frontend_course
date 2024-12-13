@@ -1,11 +1,14 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NAVIGATION_ROUTES, NavItem } from './sidenav.routes';
-import {MatActionList, MatListItem, MatNavList} from '@angular/material/list';
-import {RouterLink} from '@angular/router';
-import {MatIcon} from '@angular/material/icon';
-import {NgForOf, NgIf} from '@angular/common';
-import {MatExpansionPanel, MatExpansionPanelHeader} from '@angular/material/expansion';
-import {OnoLogoLinkComponent} from '../ono-logo-link/ono-air-logo-link.component';
+import { MatActionList, MatListItem, MatNavList } from '@angular/material/list';
+import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { NgForOf, NgIf } from '@angular/common';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+} from '@angular/material/expansion';
+import { OnoLogoLinkComponent } from '../ono-logo-link/ono-air-logo-link.component';
 
 @Component({
   selector: 'ono-flight-sidenav',
