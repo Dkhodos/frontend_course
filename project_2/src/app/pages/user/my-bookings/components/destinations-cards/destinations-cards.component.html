@@ -4,23 +4,23 @@
       <div class="card-content">
         <div class="image-container">
           <img
-            [src]="item.details.destination?.imageUrl"
+            [src]="item.details.destination.imageUrl"
             alt="Destination Image"
           />
         </div>
         <div class="details-grid">
           <p class="details-item">
-            <strong>Origin:</strong> {{ item.details.origin?.name }}
+            <strong>Origin:</strong> {{ item.details.origin.name }}
           </p>
           <p class="details-item">
-            <strong>Boarding:</strong> {{ item.details.flight.boardingDate }}
+            <strong>Boarding:</strong> {{ item.details.flight.boardingDate }} /
             {{ item.details.flight.boardingTime }}
           </p>
           <p class="details-item">
-            <strong>Destination:</strong> {{ item.details.destination?.name }}
+            <strong>Destination:</strong> {{ item.details.destination.name }}
           </p>
           <p class="details-item">
-            <strong>Landing:</strong> {{ item.details.flight.arrivalDate }}
+            <strong>Landing:</strong> {{ item.details.flight.arrivalDate }} /
             {{ item.details.flight.arrivalTime }}
           </p>
           <p class="details-item">
