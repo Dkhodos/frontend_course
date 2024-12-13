@@ -1,28 +1,37 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NAVIGATION_ROUTES, NavItem } from './sidenav.routes';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { RouterLink } from '@angular/router';
-import { NgForOf, NgIf } from '@angular/common';
-import { OnoLogoLinkComponent } from '../ono-logo-link/ono-air-logo-link.component';
+import {MatActionList, MatListItem, MatNavList} from '@angular/material/list';
+import {RouterLink} from '@angular/router';
+import {MatIcon} from '@angular/material/icon';
+import {NgForOf, NgIf} from '@angular/common';
+import {MatExpansionPanel, MatExpansionPanelHeader} from '@angular/material/expansion';
+import {OnoLogoLinkComponent} from '../ono-logo-link/ono-air-logo-link.component';
 
 @Component({
   selector: 'ono-flight-sidenav',
-  standalone: true,
-  imports: [
-    MatListModule,
-    MatIconModule,
-    MatExpansionModule,
-    RouterLink,
-    NgIf,
-    NgForOf,
-    OnoLogoLinkComponent,
-  ],
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
-  encapsulation: ViewEncapsulation.None, // Disable encapsulation
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    MatListItem,
+    RouterLink,
+    MatIcon,
+    NgForOf,
+    NgIf,
+    MatExpansionPanel,
+    MatActionList,
+    MatNavList,
+    OnoLogoLinkComponent,
+    MatExpansionPanelHeader,
+  ],
 })
 export class SidenavComponent {
-  navRoutes: NavItem[] = NAVIGATION_ROUTES;
+  topNavItems: NavItem[] = NAVIGATION_ROUTES.filter(
+    (item) => item.location !== 'bottom'
+  );
+
+  bottomNavItems: NavItem[] = NAVIGATION_ROUTES.filter(
+    (item) => item.location === 'bottom'
+  );
 }

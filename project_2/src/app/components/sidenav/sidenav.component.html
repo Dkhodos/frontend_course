@@ -1,9 +1,11 @@
+<link rel="stylesheet" href="sidenav.component.scss">
 <mat-nav-list>
   <div class="sidenav-logo">
     <ono-logo-link />
   </div>
-  <ng-container *ngFor="let navItem of navRoutes">
-    <!-- Items with children -->
+
+  <!-- Top Navigation Section -->
+  <ng-container *ngFor="let navItem of topNavItems">
     <ng-container
       *ngIf="navItem.children && navItem.children.length > 0; else noChildren"
     >
@@ -30,7 +32,6 @@
       </mat-expansion-panel>
     </ng-container>
 
-    <!-- Items without children -->
     <ng-template #noChildren>
       <a
         mat-list-item
@@ -44,4 +45,20 @@
       </a>
     </ng-template>
   </ng-container>
+
+  <!-- Bottom Navigation Section -->
+  <div class="bottom-nav">
+    <ng-container *ngFor="let navItem of bottomNavItems">
+      <a
+        mat-list-item
+        class="nav-item no-children"
+        [routerLink]="navItem.route"
+      >
+        <mat-icon *ngIf="navItem.icon" class="nav-icon">{{
+          navItem.icon
+        }}</mat-icon>
+        <span>{{ navItem.label }}</span>
+      </a>
+    </ng-container>
+  </div>
 </mat-nav-list>

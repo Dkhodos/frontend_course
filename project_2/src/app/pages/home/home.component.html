@@ -1,1 +1,41 @@
-<p>home works!!!!!!!!!!</p>
+<page title="User | Search a Flight">
+  <mat-accordion class="search-flight-container">
+
+    <!-- Last Minute Flights Panel -->
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">flight_takeoff</mat-icon>
+          <p>Last minute flights</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <!-- Lazy loading the content when expanded -->
+      <ng-template matExpansionPanelContent>
+        <app-last-minute-flights
+          [flights]="flights"
+          [destinations]="destinations"
+          [maxFlights]="4"
+        ></app-last-minute-flights>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <!-- Find a Flight Panel -->
+    <mat-expansion-panel [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">search</mat-icon>
+          <p>Find a flight</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <!-- Lazy loading the content when expanded -->
+      <ng-template matExpansionPanelContent>
+        <app-flights-table
+          [flights]="flights"
+          [destinations]="destinations"
+        ></app-flights-table>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+</page>

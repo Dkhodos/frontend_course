@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { HelpComponent } from './pages/help/help.component';
-import { SearchFlightComponent } from './pages/user/search-flight/search-flight.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/user/search-flight', pathMatch: 'full' },
+  {
+    path: '',
+    component: HomeComponent
+  },
 
   {
     path: 'help',
@@ -18,11 +20,6 @@ export const routes: Routes = [
 
   {
     path: 'user',
-    children: [
-      {
-        path: 'search-flight',
-        component: SearchFlightComponent,
-      },
-    ],
+    children: [],
   },
 ];

@@ -1,0 +1,32 @@
+<div class="last-minute-flights">
+  <mat-card *ngFor="let flight of filteredFlights" class="flight-card">
+    <img
+      mat-card-image
+      [src]="getDestinationImage(flight.destinationCode)"
+      alt="{{ getDestinationName(flight.destinationCode) }}"
+      class="destination-image"
+    />
+    <mat-card-content>
+      <h3>{{ getDestinationName(flight.destinationCode) }}</h3>
+      <p>
+        <strong>Airport:</strong> {{ getAirportName(flight.destinationCode) }}
+      </p>
+      <p><strong>Flight Number:</strong> {{ flight.flightNumber }}</p>
+      <p><strong>Departure Time:</strong> {{ flight.boardingTime }}</p>
+      <p><strong>Seats Available:</strong> {{ flight.seatCount }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a
+        mat-button
+        [href]="getAirportWebsite(flight.destinationCode)"
+        target="_blank"
+        class="last-minute-button info-button"
+      >
+        Learn More
+      </a>
+      <button mat-button color="primary" class="last-minute-button book-button">
+        Book Now
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
