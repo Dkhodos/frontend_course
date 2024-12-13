@@ -1,6 +1,6 @@
-import Booking from '../../../../_models/booking.model';
-import { Destination } from '../../../../_models/destination.model';
-import { Flight } from '../../../../_models/flight.model';
+import Booking from '../../../../../models/booking.model';
+import { Flight } from '../../../../../models/flight.model';
+import { Destination } from '../../../../../models/destination.model';
 
 export interface BookingItem {
   booking: Booking;

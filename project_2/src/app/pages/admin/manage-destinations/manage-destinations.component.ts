@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Destination } from '../../_models/destination.model';
 import { PageComponent } from '../../../components/page/page.component';
 import { DestinationsTableComponent } from '../../_components/destinations-table/destinations-table.component';
-import { DestinationsService } from '../../_services/destinations.service';
+import { Destination } from '../../../models/destination.model';
+import { DestinationsService } from '../../../services/destinations.service';
 
 @Component({
   selector: 'manage-destinations-page',

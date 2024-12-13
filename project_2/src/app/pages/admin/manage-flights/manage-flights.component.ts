@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Flight } from '../../_models/flight.model';
-import { Destination } from '../../_models/destination.model';
 import { PageComponent } from '../../../components/page/page.component';
 import { FlightTableAction } from '../../_components/flights-table/flights-table.component.types';
-import { FlightsService } from '../../_services/flights.service';
-import { DestinationsService } from '../../_services/destinations.service';
 import { FlightsTableComponent } from '../../_components/flights-table/ flights-table.component';
+import { Flight } from '../../../models/flight.model';
+import { Destination } from '../../../models/destination.model';
+import { FlightsService } from '../../../services/flights.service';
+import { DestinationsService } from '../../../services/destinations.service';
 
 @Component({
   selector: 'manage-flights-page',

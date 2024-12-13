@@ -3,7 +3,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { Destination } from '../../_models/destination.model';
+import { Destination } from '../../../models/destination.model';
 
 @Component({
   selector: 'app-destinations-table',

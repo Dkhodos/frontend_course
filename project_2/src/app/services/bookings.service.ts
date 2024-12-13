@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import Booking from '../_models/booking.model';
-import Passenger from '../_models/passenger.model'; // Adjust the path based on your project structure
+import Booking from '../models/booking.model';
+import Passenger from '../models/passenger.model'; // Adjust the path based on your project structure
 
 @Injectable({
   providedIn: 'root',

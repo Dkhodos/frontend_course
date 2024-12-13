@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BookingsService } from '../../../_services/bookings.service';
-import { FlightsService } from '../../../_services/flights.service';
-import { DestinationsService } from '../../../_services/destinations.service';
+import { BookingsService } from '../../../../services/bookings.service';
+import { FlightsService } from '../../../../services/flights.service';
+import { DestinationsService } from '../../../../services/destinations.service';
 import { BookingItem } from '../components/destinations-cards/destinations-cards.component.types';
-import { Flight } from '../../../_models/flight.model';
-import Booking from '../../../_models/booking.model';
-import { Destination } from '../../../_models/destination.model';
+import Booking from '../../../../models/booking.model';
+import { Flight } from '../../../../models/flight.model';
+import { Destination } from '../../../../models/destination.model';
 
 @Injectable({
   providedIn: 'root',

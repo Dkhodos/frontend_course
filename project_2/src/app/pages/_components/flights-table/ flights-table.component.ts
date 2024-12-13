@@ -3,11 +3,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { Flight } from '../../_models/flight.model';
-import { Destination } from '../../_models/destination.model';
 import { FlightTableAction } from './flights-table.component.types';
 import { NgIf } from '@angular/common';
-import { DestinationsService } from '../../_services/destinations.service';
+import { Flight } from '../../../models/flight.model';
+import { Destination } from '../../../models/destination.model';
+import { DestinationsService } from '../../../services/destinations.service';
 
 @Component({
   selector: 'app-flights-table',

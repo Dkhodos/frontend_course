@@ -8,12 +8,12 @@ import { MatIcon } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { PageComponent } from '../../components/page/page.component';
 import { LastMinuteFlightsComponent } from './components/last-minute-flights/last-minute-flights.component';
-import { Flight } from '../_models/flight.model';
-import { Destination } from '../_models/destination.model';
 import { FlightsTableComponent } from '../_components/flights-table/ flights-table.component';
 import { FlightTableAction } from '../_components/flights-table/flights-table.component.types';
-import { FlightsService } from '../_services/flights.service';
-import { DestinationsService } from '../_services/destinations.service';
+import { Flight } from '../../models/flight.model';
+import { Destination } from '../../models/destination.model';
+import { FlightsService } from '../../services/flights.service';
+import { DestinationsService } from '../../services/destinations.service';
 
 @Component({
   selector: 'app-home',
