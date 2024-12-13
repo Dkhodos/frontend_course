@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { NAVIGATION_ROUTES, NavItem } from './sidenav.routes';
 import { MatActionList, MatListItem, MatNavList } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
@@ -9,6 +9,7 @@ import {
   MatExpansionPanelHeader,
 } from '@angular/material/expansion';
 import { OnoLogoLinkComponent } from '../ono-logo-link/ono-air-logo-link.component';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'ono-flight-sidenav',
@@ -30,6 +31,8 @@ import { OnoLogoLinkComponent } from '../ono-logo-link/ono-air-logo-link.compone
   ],
 })
 export class SidenavComponent {
+  @Input() matDrawer!: MatDrawer;
+
   topNavItems: NavItem[] = NAVIGATION_ROUTES.filter(
     (item) => item.location !== 'bottom'
   );
@@ -37,4 +40,8 @@ export class SidenavComponent {
   bottomNavItems: NavItem[] = NAVIGATION_ROUTES.filter(
     (item) => item.location === 'bottom'
   );
+
+  async onLinkClick() {
+    await this.matDrawer.close();
+  }
 }

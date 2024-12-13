@@ -1,10 +1,10 @@
 <mat-drawer-container class="h-full">
-  <mat-drawer #sidenav mode="over" class="w-[260px] z-[999]">
-    <ono-flight-sidenav></ono-flight-sidenav>
+  <mat-drawer #matDrawer mode="over" class="w-[260px] z-[999]">
+    <ono-flight-sidenav [matDrawer]="matDrawer" />
   </mat-drawer>
 
   <mat-drawer-content>
-    <ono-flight-header (onMenuClick)="sidenav.toggle()" />
+    <ono-flight-header (onMenuClick)="matDrawer.toggle()" />
     <router-outlet></router-outlet>
     <ono-flight-footer />
   </mat-drawer-content>
