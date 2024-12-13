@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -10,10 +10,10 @@ import { PageComponent } from '../../components/page/page.component';
 import { LastMinuteFlightsComponent } from './components/last-minute-flights/last-minute-flights.component';
 import { Flight } from '../_models/flight.model';
 import { Destination } from '../_models/destination.model';
-import { flights } from '../_data/flights';
-import { destinations } from '../_data/destinations';
 import { FlightsTableComponent } from '../_components/flights-table/ flights-table.component';
 import { FlightTableAction } from '../_components/flights-table/flights-table.component.types';
+import { FlightsService } from '../_services/flights.service';
+import { DestinationsService } from '../_services/destinations.service';
 
 @Component({
   selector: 'app-home',
@@ -31,8 +31,18 @@ import { FlightTableAction } from '../_components/flights-table/flights-table.co
     FlightsTableComponent,
   ],
 })
-export class HomeComponent {
-  flights: Flight[] = [...flights];
-  destinations: Destination[] = [...destinations];
+export class HomeComponent implements OnInit {
   protected readonly FlightTableAction = FlightTableAction;
+  flights!: Flight[];
+  destinations!: Destination[];
+
+  constructor(
+    private flightsService: FlightsService,
+    private destinationsService: DestinationsService
+  ) {}
+
+  ngOnInit() {
+    this.flights = this.flightsService.getFlights();
+    this.destinations = this.destinationsService.getDestinations();
+  }
 }

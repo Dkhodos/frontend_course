@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Destination } from '../../_models/destination.model';
-import { destinations } from '../../_data/destinations';
 import { PageComponent } from '../../../components/page/page.component';
 import { DestinationsTableComponent } from '../../_components/destinations-table/destinations-table.component';
+import { DestinationsService } from '../../_services/destinations.service';
 
 @Component({
   selector: 'manage-destinations-page',
@@ -11,6 +11,12 @@ import { DestinationsTableComponent } from '../../_components/destinations-table
   standalone: true,
   imports: [PageComponent, DestinationsTableComponent],
 })
-export class ManageDestinationsComponent {
-  destinations: Destination[] = [...destinations];
+export class ManageDestinationsComponent implements OnInit {
+  destinations!: Destination[];
+
+  constructor(private destinationsService: DestinationsService) {}
+
+  ngOnInit(): void {
+    this.destinations = this.destinationsService.getDestinations();
+  }
 }

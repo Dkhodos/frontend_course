@@ -5,45 +5,65 @@
   </p>
 
   <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header>
-        <mat-panel-title>How to Book a Flight</mat-panel-title>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">help_outline</mat-icon>
+          How to Book a Flight
+        </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>
-        Navigate to the "Book a Flight" section. Use filters to select your
-        origin and destination, choose from available flights, and enter
-        passenger details.
-      </p>
+      <ng-template matExpansionPanelContent>
+        <p>
+          Navigate to the "Book a Flight" section. Use filters to select your
+          origin and destination, choose from available flights, and enter
+          passenger details.
+        </p>
+      </ng-template>
     </mat-expansion-panel>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header>
-        <mat-panel-title>Managing Bookings</mat-panel-title>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">bookmarks</mat-icon>
+          Managing Bookings
+        </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>
-        Access "My Bookings" to review your upcoming and past bookings. You can
-        manage your reservations and check flight details.
-      </p>
+      <ng-template matExpansionPanelContent>
+        <p>
+          Access "My Bookings" to review your upcoming and past bookings. You
+          can manage your reservations and check flight details.
+        </p>
+      </ng-template>
     </mat-expansion-panel>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header>
-        <mat-panel-title>Admin Management</mat-panel-title>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">admin_panel_settings</mat-icon>
+          Admin Management
+        </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>
-        Admins can manage flights and destinations via the "Manage Flights" and
-        "Manage Destinations" sections.
-      </p>
+      <ng-template matExpansionPanelContent>
+        <p>
+          Admins can manage flights and destinations via the "Manage Flights"
+          and "Manage Destinations" sections.
+        </p>
+      </ng-template>
     </mat-expansion-panel>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="false">
       <mat-expansion-panel-header>
-        <mat-panel-title>Need Further Assistance?</mat-panel-title>
+        <mat-panel-title>
+          <mat-icon class="ono-panel-icon">contact_support</mat-icon>
+          Need Further Assistance?
+        </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>
-        Contact our support team or refer to the detailed user guide for more
-        assistance.
-      </p>
+      <ng-template matExpansionPanelContent>
+        <p>
+          Contact our support team or refer to the detailed user guide for more
+          assistance.
+        </p>
+      </ng-template>
     </mat-expansion-panel>
   </mat-accordion>
 </page>

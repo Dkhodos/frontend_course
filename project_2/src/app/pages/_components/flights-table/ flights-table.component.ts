@@ -7,6 +7,7 @@ import { Flight } from '../../_models/flight.model';
 import { Destination } from '../../_models/destination.model';
 import { FlightTableAction } from './flights-table.component.types';
 import { NgIf } from '@angular/common';
+import { DestinationsService } from '../../_services/destinations.service';
 
 @Component({
   selector: 'app-flights-table',
@@ -21,17 +22,11 @@ export class FlightsTableComponent {
   @Input() actions: FlightTableAction[] = [];
 
   getOriginName(flight: Flight): string {
-    return (
-      this.destinations.find((dest) => dest.code === flight.originCode)?.name ||
-      'Unknown'
-    );
+    return DestinationsService.getOriginName(this.destinations, flight);
   }
 
   getDestinationName(flight: Flight): string {
-    return (
-      this.destinations.find((dest) => dest.code === flight.destinationCode)
-        ?.name || 'Unknown'
-    );
+    return DestinationsService.getDestinationName(this.destinations, flight);
   }
 
   protected readonly FlightTableAction = FlightTableAction;
