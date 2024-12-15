@@ -37,6 +37,7 @@
         mat-list-item
         class="nav-item no-children"
         [routerLink]="navItem.route"
+        (click)="onLinkClick()"
       >
         <mat-icon *ngIf="navItem.icon" class="nav-icon">{{
           navItem.icon

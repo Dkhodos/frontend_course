@@ -11,6 +11,8 @@ import { NgForOf } from '@angular/common';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
 import { LinkButtonComponent } from '../../../../components/link-button/link-button.component';
+import { FlightsService } from '../../../../services/flights.service';
+import { DestinationsService } from '../../../../services/destinations.service';
 
 @Component({
   selector: 'app-last-minute-flights',
@@ -65,5 +67,9 @@ export class LastMinuteFlightsComponent implements OnChanges {
       (dest) => dest.code === destinationCode
     );
     return destination?.airportUrl || '#';
+  }
+
+  getFlightURL(flightNumber: string) {
+    return FlightsService.getFlightBookPageURL(flightNumber);
   }
 }

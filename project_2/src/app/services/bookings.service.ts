@@ -82,4 +82,8 @@ export class BookingsService {
       (booking) => booking.flightNumber === flightNumber
     );
   }
+
+  static getBookingPageURL(flightNumber: string): string {
+    return `/booking/${flightNumber}`;
+  }
 }

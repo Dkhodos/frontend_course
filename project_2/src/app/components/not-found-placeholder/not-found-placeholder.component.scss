@@ -1,0 +1,26 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  color: #e0e0e0; // Light text for dark mode
+
+  .not-found-image {
+    width: 400px;
+    margin-bottom: 16px;
+  }
+
+  .not-found-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: darkred; // Highlighted purple for titles
+  }
+
+  .not-found-description {
+    font-size: 16px;
+    color: #b3b3b3; // Subtle gray for descriptions
+  }
+}

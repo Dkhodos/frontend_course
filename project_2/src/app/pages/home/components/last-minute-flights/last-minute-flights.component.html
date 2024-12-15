@@ -28,7 +28,7 @@
       </app-link-button>
 
       <app-link-button
-        [routerLink]="['/user/book', flight.flightNumber]"
+        [routerLink]="getFlightURL(flight.flightNumber)"
         target="_blank"
         icon="flight_takeoff"
         className="book-button"

@@ -111,4 +111,16 @@ export class FlightsService {
   getFlights(): Flight[] {
     return this.flights;
   }
+
+  getFlightById(flightNumber: string) {
+    return this.flights.find((f) => f.flightNumber === flightNumber);
+  }
+
+  static getFlightInfoPageURL(flightNumber: string) {
+    return `/flight/info/${flightNumber}`;
+  }
+
+  static getFlightBookPageURL(flightNumber: string) {
+    return `/flight/book/${flightNumber}`;
+  }
 }

@@ -113,4 +113,8 @@ export class DestinationsService {
       'Unknown'
     );
   }
+
+  static getDestinationPageURL(code: string) {
+    return `/destination/${code}`;
+  }
 }

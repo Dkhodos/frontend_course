@@ -10,6 +10,7 @@ import {
 import { DestinationsCardsComponent } from './components/destinations-cards/destinations-cards.component';
 import { BookingItem } from './components/destinations-cards/destinations-cards.component.types';
 import { MyBookingsService } from './services/my-bookings.service';
+import { BookingsService } from '../../../services/bookings.service';
 
 @Component({
   selector: 'app-my-bookings',

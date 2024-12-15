@@ -5,6 +5,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { NgForOf } from '@angular/common';
 import { BookingItem } from './destinations-cards.component.types';
+import { BookingsService } from '../../../../../services/bookings.service';
 
 @Component({
   selector: 'app-destinations-cards',
@@ -15,4 +16,8 @@ import { BookingItem } from './destinations-cards.component.types';
 })
 export class DestinationsCardsComponent {
   @Input() bookings!: BookingItem[];
+
+  getBookingPageURL(flightNumber: string) {
+    return BookingsService.getBookingPageURL(flightNumber);
+  }
 }

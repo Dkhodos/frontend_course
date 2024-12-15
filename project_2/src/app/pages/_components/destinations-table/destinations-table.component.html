@@ -1,6 +1,6 @@
 <ng-template #actionsTemplate let-row>
   <app-link-button
-    [routerLink]="['/admin/edit', row.flightNumber]"
+    [routerLink]="getDestinationURL(row.code)"
     icon="edit"
     className="edit-link"
   >

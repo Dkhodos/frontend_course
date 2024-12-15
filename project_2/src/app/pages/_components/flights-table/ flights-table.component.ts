@@ -13,6 +13,7 @@ import {
   TableGetIdFn,
 } from '../../../components/table/table.component.types';
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
+import { FlightsService } from '../../../services/flights.service';
 
 @Component({
   selector: 'app-flights-table',
@@ -34,8 +35,6 @@ export class FlightsTableComponent {
   @Input() actions: FlightTableAction[] = [];
 
   protected readonly FlightTableAction = FlightTableAction;
-
-  constructor(private sanitizer: DomSanitizer) {}
 
   columns: TableColumn<Flight>[] = [
     {
@@ -77,5 +76,13 @@ export class FlightsTableComponent {
 
   getDestinationName(flight: Flight): string {
     return DestinationsService.getDestinationName(this.destinations, flight);
+  }
+
+  getFlightInfoURL(flightNumber: string) {
+    return FlightsService.getFlightInfoPageURL(flightNumber);
+  }
+
+  getFlightBookURL(flightNumber: string) {
+    return FlightsService.getFlightBookPageURL(flightNumber);
   }
 }

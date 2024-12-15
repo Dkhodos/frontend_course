@@ -15,6 +15,7 @@ import { TableComponent } from '../../../components/table/table.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FlightTableAction } from '../flights-table/flights-table.component.types';
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
+import { DestinationsService } from '../../../services/destinations.service';
 
 @Component({
   selector: 'app-destinations-table',
@@ -56,4 +57,8 @@ export class DestinationsTableComponent {
 
   getId: TableGetIdFn<Destination> = (row) => row.code;
   protected readonly FlightTableAction = FlightTableAction;
+
+  getDestinationURL(code: string) {
+    return DestinationsService.getDestinationPageURL(code);
+  }
 }

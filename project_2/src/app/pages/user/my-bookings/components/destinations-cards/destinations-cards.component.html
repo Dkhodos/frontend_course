@@ -31,7 +31,7 @@
         <button
           mat-icon-button
           class="view-button"
-          [routerLink]="['/booking', item.booking.flightNumber]"
+          [routerLink]="getBookingPageURL(item.booking.flightNumber)"
         >
           <mat-icon>visibility</mat-icon>
           View
