@@ -31,13 +31,7 @@ export class LastMinuteFlightsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['flights'] || changes['maxFlights']) {
-      this.filteredFlights = this.flights
-        .sort(
-          (a, b) =>
-            new Date(b.boardingDate).getTime() -
-            new Date(a.boardingDate).getTime()
-        )
-        .slice(0, this.maxFlights);
+      this.filteredFlights = this.flights.slice(0, this.maxFlights);
     }
   }
 

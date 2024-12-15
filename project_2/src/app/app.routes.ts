@@ -9,6 +9,7 @@ import { FlightInfoPageComponent } from './pages/flight/info/flight-info.compone
 import { DestinationPageComponent } from './pages/destenation/destination.component';
 import { FlightBookComponent } from './pages/flight/book/flight-book.component';
 import { BookingPageComponent } from './pages/booking/booking.component';
+import { General404PageComponent } from './pages/404-page/404.component';
 
 export const routes: Routes = [
   {
@@ -72,4 +73,5 @@ export const routes: Routes = [
     path: 'booking/:flightNumber',
     component: BookingPageComponent,
   },
+  { path: '**', component: General404PageComponent }, // Wildcard route for 404
 ];

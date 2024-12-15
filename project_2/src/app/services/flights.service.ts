@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Flight } from '../models/flight.model';
+import { dateUtils } from '../utils/date-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,9 @@ export class FlightsService {
       'W61283',
       'TLV',
       'KRK',
-      '2024-11-10',
+      dateUtils.getToday(), // Boarding today
       '20:00',
-      '2024-11-11',
+      dateUtils.getUpcomingDate(1), // Arrival tomorrow
       '01:00',
       180
     ),
@@ -20,9 +21,9 @@ export class FlightsService {
       'LX8396',
       'LCA',
       'DXB',
-      '2025-08-10',
+      dateUtils.getUpcomingDate(2), // Boarding in 2 days
       '14:30',
-      '2025-08-10',
+      dateUtils.getUpcomingDate(2),
       '18:00',
       200
     ),
@@ -30,9 +31,9 @@ export class FlightsService {
       'BA345',
       'LHR',
       'DXB',
-      '2024-12-01',
+      dateUtils.getUpcomingDate(5),
       '09:00',
-      '2024-12-01',
+      dateUtils.getUpcomingDate(5),
       '20:00',
       250
     ),
@@ -40,9 +41,9 @@ export class FlightsService {
       'EK123',
       'DXB',
       'SYD',
-      '2025-10-05',
+      dateUtils.getUpcomingDate(7),
       '22:00',
-      '2025-10-06',
+      dateUtils.getUpcomingDate(8),
       '07:30',
       300
     ),
@@ -50,9 +51,9 @@ export class FlightsService {
       'LH456',
       'FRA',
       'CDG',
-      '2024-10-15',
+      dateUtils.getToday(), // Boarding 5 days ago
       '12:15',
-      '2024-10-15',
+      dateUtils.getToday(),
       '14:30',
       150
     ),
@@ -60,9 +61,9 @@ export class FlightsService {
       'QF789',
       'SYD',
       'LAX',
-      '2025-12-10',
+      dateUtils.getUpcomingDate(14),
       '18:00',
-      '2025-12-10',
+      dateUtils.getUpcomingDate(14),
       '13:00',
       350
     ),
@@ -70,9 +71,9 @@ export class FlightsService {
       'NH123',
       'HND',
       'LAX',
-      '2026-01-05',
+      dateUtils.getUpcomingDate(21),
       '11:00',
-      '2026-01-05',
+      dateUtils.getUpcomingDate(21),
       '06:00',
       200
     ),
@@ -80,9 +81,9 @@ export class FlightsService {
       'AA789',
       'JFK',
       'LHR',
-      '2026-02-14',
+      dateUtils.getUpcomingDate(30),
       '19:00',
-      '2026-02-15',
+      dateUtils.getUpcomingDate(31),
       '07:00',
       220
     ),
@@ -90,9 +91,9 @@ export class FlightsService {
       'DL456',
       'ATL',
       'CDG',
-      '2026-03-01',
+      dateUtils.getUpcomingDate(45),
       '22:45',
-      '2026-03-02',
+      dateUtils.getUpcomingDate(46),
       '10:00',
       180
     ),
@@ -100,16 +101,19 @@ export class FlightsService {
       'AF123',
       'CDG',
       'JFK',
-      '2026-04-01',
+      dateUtils.getUpcomingDate(60),
       '15:30',
-      '2026-04-01',
+      dateUtils.getUpcomingDate(60),
       '21:00',
       1
     ),
   ];
 
   getFlights(): Flight[] {
-    return this.flights;
+    return this.flights.sort(
+      (a, b) =>
+        new Date(a.boardingDate).getTime() - new Date(b.boardingDate).getTime()
+    );
   }
 
   getFlightById(flightNumber: string) {
