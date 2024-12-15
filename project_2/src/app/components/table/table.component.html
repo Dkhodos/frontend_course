@@ -1,11 +1,10 @@
 <div class="table-container">
   <mat-form-field *ngIf="searchable" appearance="fill" class="search-field">
-    <mat-label>Search</mat-label>
     <input
       matInput
       [(ngModel)]="searchValue"
       (input)="applyFilter()"
-      placeholder="Search"
+      placeholder="Search..."
     />
   </mat-form-field>
 
