@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   MatAccordion,
-  MatExpansionPanel,
   MatExpansionModule,
+  MatExpansionPanel,
 } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -30,6 +30,7 @@ import { DestinationsService } from '../../services/destinations.service';
     LastMinuteFlightsComponent,
     FlightsTableComponent,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
   protected readonly FlightTableAction = FlightTableAction;

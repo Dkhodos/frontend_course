@@ -19,17 +19,22 @@
       <p><strong>Seats Available:</strong> {{ flight.seatCount }}</p>
     </mat-card-content>
     <mat-card-actions>
-      <a
-        mat-button
+      <app-link-button
         [href]="getAirportWebsite(flight.destinationCode)"
         target="_blank"
-        class="last-minute-button info-button"
+        icon="open_in_new"
       >
         Learn More
-      </a>
-      <button mat-button color="primary" class="last-minute-button book-button">
+      </app-link-button>
+
+      <app-link-button
+        [routerLink]="['/user/book', flight.flightNumber]"
+        target="_blank"
+        icon="flight_takeoff"
+        className="book-button"
+      >
         Book Now
-      </button>
+      </app-link-button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -30,11 +30,13 @@
 
       <!-- Lazy loading the content when expanded -->
       <ng-template matExpansionPanelContent>
-        <app-flights-table
-          [flights]="flights"
-          [destinations]="destinations"
-          [actions]="[FlightTableAction.BookNow]"
-        />
+        <div class="flights-table">
+          <app-flights-table
+            [flights]="flights"
+            [destinations]="destinations"
+            [actions]="[FlightTableAction.BookNow]"
+          />
+        </div>
       </ng-template>
     </mat-expansion-panel>
   </mat-accordion>

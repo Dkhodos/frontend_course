@@ -1,17 +1,24 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAnchor, MatButton } from '@angular/material/button';
 import { NgForOf } from '@angular/common';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
+import { LinkButtonComponent } from '../../../../components/link-button/link-button.component';
 
 @Component({
   selector: 'app-last-minute-flights',
   templateUrl: './last-minute-flights.component.html',
   styleUrls: ['./last-minute-flights.component.scss'],
   standalone: true,
-  imports: [MatCardModule, MatIconModule, MatAnchor, MatButton, NgForOf],
+  imports: [MatCardModule, MatIconModule, NgForOf, LinkButtonComponent],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LastMinuteFlightsComponent implements OnChanges {
   @Input() flights: Flight[] = [];
@@ -29,8 +36,6 @@ export class LastMinuteFlightsComponent implements OnChanges {
             new Date(a.boardingDate).getTime()
         )
         .slice(0, this.maxFlights);
-
-      console.log('maxFlights', this.maxFlights);
     }
   }
 

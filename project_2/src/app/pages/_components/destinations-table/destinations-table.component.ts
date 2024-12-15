@@ -12,15 +12,16 @@ import {
   TableGetIdFn,
 } from '../../../components/table/table.component.types';
 import { TableComponent } from '../../../components/table/table.component';
-import { MatAnchor } from '@angular/material/button';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { FlightTableAction } from '../flights-table/flights-table.component.types';
+import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
 
 @Component({
   selector: 'app-destinations-table',
   templateUrl: './destinations-table.component.html',
   styleUrls: ['./destinations-table.component.scss'],
   standalone: true,
-  imports: [TableComponent, RouterModule, MatIconModule, MatAnchor],
+  imports: [TableComponent, RouterModule, MatIconModule, LinkButtonComponent],
   encapsulation: ViewEncapsulation.None,
 })
 export class DestinationsTableComponent {
@@ -54,4 +55,5 @@ export class DestinationsTableComponent {
   ];
 
   getId: TableGetIdFn<Destination> = (row) => row.code;
+  protected readonly FlightTableAction = FlightTableAction;
 }

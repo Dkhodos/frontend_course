@@ -12,14 +12,20 @@ import {
   TableColumn,
   TableGetIdFn,
 } from '../../../components/table/table.component.types';
-import { MatAnchor } from '@angular/material/button';
+import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
 
 @Component({
   selector: 'app-flights-table',
   templateUrl: './flights-table.component.html',
   styleUrls: ['./flights-table.component.scss'],
   standalone: true,
-  imports: [TableComponent, RouterModule, MatIconModule, NgIf, MatAnchor],
+  imports: [
+    TableComponent,
+    RouterModule,
+    MatIconModule,
+    NgIf,
+    LinkButtonComponent,
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class FlightsTableComponent {

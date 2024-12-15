@@ -1,12 +1,11 @@
 <ng-template #actionsTemplate let-row>
-  <a
-    [routerLink]="['/admin/destination', row.code, 'edit']"
-    mat-button
-    class="edit-link"
+  <app-link-button
+    [routerLink]="['/admin/edit', row.flightNumber]"
+    icon="edit"
+    className="edit-link"
   >
-    <mat-icon>edit</mat-icon>
     Edit
-  </a>
+  </app-link-button>
 </ng-template>
 
 <app-table
