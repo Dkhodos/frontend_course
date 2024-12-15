@@ -1,90 +1,31 @@
-<table mat-table [dataSource]="flights" class="mat-elevation-z8">
-  <!-- Flight Number Column -->
-  <ng-container matColumnDef="flightNumber">
-    <th mat-header-cell *matHeaderCellDef>Flight No.</th>
-    <td mat-cell *matCellDef="let flight">{{ flight.flightNumber }}</td>
-  </ng-container>
+<ng-template #actionsTemplate let-row>
+  <!-- Conditionally render "Book Now" -->
+  <a
+    *ngIf="actions.includes(FlightTableAction.BookNow)"
+    [routerLink]="['/user/book', row.flightNumber]"
+    mat-button
+    class="book-now-link"
+  >
+    <mat-icon>flight_takeoff</mat-icon>
+    Book Now
+  </a>
 
-  <!-- Origin Column -->
-  <ng-container matColumnDef="origin">
-    <th mat-header-cell *matHeaderCellDef>Origin</th>
-    <td mat-cell *matCellDef="let flight">{{ getOriginName(flight) }}</td>
-  </ng-container>
+  <!-- Conditionally render "Edit" -->
+  <a
+    *ngIf="actions.includes(FlightTableAction.Edit)"
+    [routerLink]="['/admin/edit', row.flightNumber]"
+    mat-button
+    class="edit-link"
+  >
+    <mat-icon>edit</mat-icon>
+    Edit
+  </a>
+</ng-template>
 
-  <!-- Destination Column -->
-  <ng-container matColumnDef="destination">
-    <th mat-header-cell *matHeaderCellDef>Destination</th>
-    <td mat-cell *matCellDef="let flight">{{ getDestinationName(flight) }}</td>
-  </ng-container>
-
-  <!-- Departure Time Column -->
-  <ng-container matColumnDef="departureTime">
-    <th mat-header-cell *matHeaderCellDef>Departure</th>
-    <td mat-cell *matCellDef="let flight">
-      {{ flight.boardingDate }} / {{ flight.boardingTime }}
-    </td>
-  </ng-container>
-
-  <!-- Landing Time Column -->
-  <ng-container matColumnDef="landingTime">
-    <th mat-header-cell *matHeaderCellDef>Landing</th>
-    <td mat-cell *matCellDef="let flight">
-      {{ flight.arrivalDate }} / {{ flight.arrivalTime }}
-    </td>
-  </ng-container>
-
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef class="actions-header">...</th>
-    <td mat-cell *matCellDef="let flight" class="actions-cell">
-      <!-- Conditionally render "Book Now" -->
-      <a
-        *ngIf="actions.includes(FlightTableAction.BookNow)"
-        [routerLink]="['/user/book', flight.flightNumber]"
-        mat-button
-        class="book-now-link"
-      >
-        <mat-icon>flight_takeoff</mat-icon>
-        Book Now
-      </a>
-
-      <!-- Conditionally render "Edit" -->
-      <a
-        *ngIf="actions.includes(FlightTableAction.Edit)"
-        [routerLink]="['/admin/edit', flight.flightNumber]"
-        mat-button
-        class="edit-link"
-      >
-        <mat-icon>edit</mat-icon>
-        Edit
-      </a>
-    </td>
-  </ng-container>
-
-  <!-- Table Headers & Rows -->
-  <tr
-    mat-header-row
-    *matHeaderRowDef="[
-      'flightNumber',
-      'origin',
-      'destination',
-      'departureTime',
-      'landingTime',
-      'actions',
-    ]"
-  ></tr>
-  <tr
-    mat-row
-    *matRowDef="
-      let row;
-      columns: [
-        'flightNumber',
-        'origin',
-        'destination',
-        'departureTime',
-        'landingTime',
-        'actions',
-      ]
-    "
-  ></tr>
-</table>
+<app-table
+  [rows]="flights"
+  [columns]="columns"
+  [getId]="getId"
+  [actions]="actionsTemplate"
+  [searchable]="true"
+></app-table>
