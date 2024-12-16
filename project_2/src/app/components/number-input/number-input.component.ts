@@ -11,11 +11,11 @@ import { FormsModule } from '@angular/forms';
   imports: [MatFormFieldModule, MatInputModule, FormsModule],
 })
 export class NumberInputComponent {
-  @Input() placeholder: string = '';
+  @Input() placeholder = '';
   @Input() value: number | null = null;
-  @Input() disabled: boolean = false;
-  @Input() required: boolean = false;
-  @Input() label: string = '';
+  @Input() disabled = false;
+  @Input() required = false;
+  @Input() label = '';
 
   @Output() valueChange: EventEmitter<number | null> = new EventEmitter<
     number | null

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PageComponent } from '../../../components/page/page.component';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Flight } from '../../../models/flight.model';
 import { FlightsService } from '../../../services/flights.service';
 import { MatDivider } from '@angular/material/divider';

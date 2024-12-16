@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
@@ -9,6 +9,4 @@ import { NgOptimizedImage } from '@angular/common';
   imports: [RouterLink, NgOptimizedImage],
   standalone: true,
 })
-export class OnoLogoLinkComponent {
-  @Output() onMenuClick = new EventEmitter<void>();
-}
+export class OnoLogoLinkComponent {}

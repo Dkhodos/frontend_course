@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideLocationMocks } from '@angular/common/testing';
 
 import { HeaderComponent } from './header.component';
 
@@ -9,6 +11,10 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
+      providers: [
+        provideRouter([]), // Replace with actual routes if needed
+        provideLocationMocks(), // Mock location services
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

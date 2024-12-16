@@ -17,5 +17,5 @@ import { OnoLogoLinkComponent } from '../ono-logo-link/ono-air-logo-link.compone
   standalone: true,
 })
 export class HeaderComponent {
-  @Output() onMenuClick = new EventEmitter<void>();
+  @Output() menuClick = new EventEmitter<void>();
 }

@@ -13,9 +13,9 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class DatepickerComponent {
   @Input() value: Date | null = null;
-  @Input() placeholder: string = 'MM/DD/YYYY';
-  @Input() disabled: boolean = false;
-  @Input() label: string = '';
+  @Input() placeholder = 'MM/DD/YYYY';
+  @Input() disabled = false;
+  @Input() label = '';
 
   @Output() valueChange: EventEmitter<Date | null> =
     new EventEmitter<Date | null>();

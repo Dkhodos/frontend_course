@@ -45,7 +45,7 @@ export class TableComponent<RowObject extends object>
   @Input() searchable = false;
   @Input() actions?: TemplateRef<{ $implicit: RowObject }>;
 
-  searchValue: string = '';
+  searchValue = '';
   dataSource = new MatTableDataSource<RowObject>([]);
   displayedColumns: string[] = [];
 

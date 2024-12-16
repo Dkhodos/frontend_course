@@ -7,7 +7,6 @@ import { NgForOf, NgIf } from '@angular/common';
 import { BookingItem } from './destinations-cards.component.types';
 import { UrlService } from '../../../../../services/url.service';
 import { NotFoundPlaceholderComponent } from '../../../../../components/not-found-placeholder/not-found-placeholder.component';
-import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-destinations-cards',

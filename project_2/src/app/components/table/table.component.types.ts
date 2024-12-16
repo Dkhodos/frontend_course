@@ -1,4 +1,3 @@
-import { TemplateRef } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 
 export interface TableColumn<RowObject extends object> {

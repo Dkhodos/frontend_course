@@ -9,6 +9,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class NotFoundPlaceholderComponent {
-  @Input() title: string = 'Not Found';
-  @Input() description: string = 'The requested data could not be found.';
+  @Input() title = 'Not Found';
+  @Input() description = 'The requested data could not be found.';
 }
