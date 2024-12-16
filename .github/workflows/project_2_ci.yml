@@ -5,10 +5,12 @@ on:
     branches: [ main ]
     paths:
       - 'project_2/**'
+      - ".github/workflows/project_2_ci.yml"
   pull_request:
     branches: [ main ]
     paths:
       - 'project_2/**'
+      - ".github/workflows/project_2_ci.yml"
 
 jobs:
   lint:
