@@ -72,4 +72,4 @@ jobs:
 
       - name: Run Tests with Coverage
         working-directory: ./project_2
-        run: yarn test
+        run: yarn test:ci
