@@ -7,18 +7,26 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
 import { LinkButtonComponent } from '../../../../components/link-button/link-button.component';
 import { UrlService } from '../../../../services/url.service';
+import { NotFoundPlaceholderComponent } from '../../../../components/not-found-placeholder/not-found-placeholder.component';
 
 @Component({
   selector: 'app-last-minute-flights',
   templateUrl: './last-minute-flights.component.html',
   styleUrls: ['./last-minute-flights.component.scss'],
   standalone: true,
-  imports: [MatCardModule, MatIconModule, NgForOf, LinkButtonComponent],
+  imports: [
+    MatCardModule,
+    MatIconModule,
+    NgForOf,
+    LinkButtonComponent,
+    NotFoundPlaceholderComponent,
+    NgIf,
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class LastMinuteFlightsComponent implements OnChanges {
@@ -66,5 +74,9 @@ export class LastMinuteFlightsComponent implements OnChanges {
 
   getFlightURL(flightNumber: string) {
     return this.urlService.getFlightBookPageURL(flightNumber);
+  }
+
+  isEmpty() {
+    return this.filteredFlights.length === 0;
   }
 }

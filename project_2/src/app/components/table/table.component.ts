@@ -16,6 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { NotFoundPlaceholderComponent } from '../not-found-placeholder/not-found-placeholder.component';
 
 @Component({
   selector: 'app-table',
@@ -32,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NgClass,
     NgTemplateOutlet,
+    NotFoundPlaceholderComponent,
   ],
 })
 export class TableComponent<RowObject extends object>
@@ -75,6 +77,9 @@ export class TableComponent<RowObject extends object>
     this.dataSource.filter = this.searchValue.trim().toLowerCase();
   }
 
+  isEmpty(): boolean {
+    return this.dataSource.filteredData.length === 0;
+  }
   onSortChange(sortState: Sort): void {
     if (!sortState.active || sortState.direction === '') {
       this.dataSource.data = this.rows.slice();

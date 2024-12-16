@@ -1,4 +1,8 @@
 <div class="booking-container">
+  <ng-container *ngIf="isEmpty()">
+    <ono-not-found-placeholder [title]="'No Booking Found'" />
+  </ng-container>
+
   <ng-container *ngFor="let item of bookings">
     <mat-card class="booking-card">
       <div class="card-content">

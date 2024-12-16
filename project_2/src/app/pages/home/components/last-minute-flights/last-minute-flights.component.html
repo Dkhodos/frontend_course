@@ -1,4 +1,11 @@
 <div class="last-minute-flights">
+  <ng-container *ngIf="isEmpty()">
+    <ono-not-found-placeholder
+      [title]="'No Upcoming Flight Found'"
+      [description]="'Try again later'"
+    />
+  </ng-container>
+
   <mat-card *ngFor="let flight of filteredFlights" class="flight-card">
     <img
       mat-card-image
