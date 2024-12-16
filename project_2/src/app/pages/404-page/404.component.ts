@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NotFoundPlaceholderComponent} from '../../components/not-found-placeholder/not-found-placeholder.component';
+import { NotFoundPlaceholderComponent } from '../../components/not-found-placeholder/not-found-placeholder.component';
 
 @Component({
   selector: 'app-404',

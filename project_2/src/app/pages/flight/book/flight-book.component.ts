@@ -25,7 +25,7 @@ export class FlightBookComponent implements OnInit {
   ngOnInit(): void {
     const flightId = this.route.snapshot.paramMap.get('flightNumber');
     if (flightId) {
-      this.flight = this.flightsService.getFlightById(flightId) || null;
+      this.flight = this.flightsService.get(flightId) || null;
     }
   }
 }

@@ -13,6 +13,12 @@
     flex-direction: column;
     background-color: #1e1e1e;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+    transition: 0.3s all ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
 
     .destination-image {
       height: 150px;

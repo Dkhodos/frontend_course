@@ -32,8 +32,7 @@ export class DestinationPageComponent implements OnInit {
   ngOnInit(): void {
     const destinationCode = this.route.snapshot.paramMap.get('code');
     if (destinationCode) {
-      this.destination =
-        this.destinationsService.getDestinationByCode(destinationCode) || null;
+      this.destination = this.destinationsService.get(destinationCode) || null;
     }
   }
 }

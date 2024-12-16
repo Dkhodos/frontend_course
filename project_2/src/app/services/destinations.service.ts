@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Destination } from '../models/destination.model';
-import { Flight } from '../models/flight.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DestinationsService {
-  private destinations: Destination[] = [
+  private readonly destinations: Destination[] = [
     new Destination(
       'TLV',
       'Tel Aviv',
@@ -89,32 +88,11 @@ export class DestinationsService {
     ),
   ];
 
-  getDestinations(): Destination[] {
-    return this.destinations;
+  list(): Destination[] {
+    return [...this.destinations];
   }
 
-  getDestinationByCode(code: string): Destination | undefined {
+  get(code: string): Destination | undefined {
     return this.destinations.find((dest) => dest.code === code);
-  }
-
-  static getOriginName(destinations: Destination[], flight: Flight): string {
-    return (
-      destinations.find((dest) => dest.code === flight.originCode)?.name ||
-      'Unknown'
-    );
-  }
-
-  static getDestinationName(
-    destinations: Destination[],
-    flight: Flight
-  ): string {
-    return (
-      destinations.find((dest) => dest.code === flight.destinationCode)?.name ||
-      'Unknown'
-    );
-  }
-
-  static getDestinationPageURL(code: string) {
-    return `/destination/${code}`;
   }
 }

@@ -36,8 +36,7 @@ export class BookingPageComponent implements OnInit {
   ngOnInit(): void {
     const flightNumber = this.route.snapshot.paramMap.get('flightNumber');
     if (flightNumber) {
-      this.booking =
-        this.bookingsService.getBookingByFlightNumber(flightNumber) || null;
+      this.booking = this.bookingsService.get(flightNumber) || null;
     }
   }
 }

@@ -6,7 +6,7 @@ import Passenger from '../models/passenger.model'; // Adjust the path based on y
   providedIn: 'root',
 })
 export class BookingsService {
-  private bookings = [
+  private readonly bookings = [
     // Flight W61283 exists with origin TLV and destination KRK
     new Booking('W61283', [
       new Passenger('John Doe', 'A12345678'),
@@ -73,17 +73,13 @@ export class BookingsService {
     ]),
   ];
 
-  getBookings(): Booking[] {
-    return this.bookings;
+  list(): Booking[] {
+    return [...this.bookings];
   }
 
-  getBookingByFlightNumber(flightNumber: string): Booking | undefined {
+  get(flightNumber: string): Booking | undefined {
     return this.bookings.find(
       (booking) => booking.flightNumber === flightNumber
     );
-  }
-
-  static getBookingPageURL(flightNumber: string): string {
-    return `/booking/${flightNumber}`;
   }
 }

@@ -21,9 +21,9 @@ export class MyBookingsService {
     upcomingBookings: BookingItem[];
     previousBookings: BookingItem[];
   } {
-    const bookings = this.bookingsService.getBookings();
-    const flights = this.flightsService.getFlights();
-    const destinations = this.destinationsService.getDestinations();
+    const bookings = this.bookingsService.list();
+    const flights = this.flightsService.list();
+    const destinations = this.destinationsService.list();
 
     // Map each booking to a BookingItem with details if available
     const allBookingItems = bookings

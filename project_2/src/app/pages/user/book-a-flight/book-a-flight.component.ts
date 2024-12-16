@@ -25,7 +25,7 @@ export class BookAFlightComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.flights = this.flightsService.getFlights();
-    this.destinations = this.destinationsService.getDestinations();
+    this.flights = this.flightsService.list();
+    this.destinations = this.destinationsService.list();
   }
 }

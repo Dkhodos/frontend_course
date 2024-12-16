@@ -34,7 +34,7 @@ export class FlightInfoPageComponent implements OnInit {
   ngOnInit(): void {
     const flightId = this.route.snapshot.paramMap.get('id');
     if (flightId) {
-      this.flight = this.flightsService.getFlightById(flightId) || null;
+      this.flight = this.flightsService.get(flightId) || null;
     }
   }
 }

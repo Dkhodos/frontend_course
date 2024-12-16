@@ -6,14 +6,14 @@ import { dateUtils } from '../utils/date-utils';
   providedIn: 'root',
 })
 export class FlightsService {
-  private flights: Flight[] = [
+  private readonly flights: Flight[] = [
     new Flight(
       'W61283',
       'TLV',
       'KRK',
-      dateUtils.getToday(), // Boarding today
+      dateUtils.getUpcomingDate(1),
       '20:00',
-      dateUtils.getUpcomingDate(1), // Arrival tomorrow
+      dateUtils.getUpcomingDate(2),
       '01:00',
       180
     ),
@@ -21,7 +21,7 @@ export class FlightsService {
       'LX8396',
       'LCA',
       'DXB',
-      dateUtils.getUpcomingDate(2), // Boarding in 2 days
+      dateUtils.getUpcomingDate(2),
       '14:30',
       dateUtils.getUpcomingDate(2),
       '18:00',
@@ -51,9 +51,9 @@ export class FlightsService {
       'LH456',
       'FRA',
       'CDG',
-      dateUtils.getToday(), // Boarding 5 days ago
+      dateUtils.getUpcomingDate(1),
       '12:15',
-      dateUtils.getToday(),
+      dateUtils.getUpcomingDate(1),
       '14:30',
       150
     ),
@@ -71,9 +71,9 @@ export class FlightsService {
       'NH123',
       'HND',
       'LAX',
-      dateUtils.getUpcomingDate(21),
+      dateUtils.getUpcomingDate(1),
       '11:00',
-      dateUtils.getUpcomingDate(21),
+      dateUtils.getUpcomingDate(1),
       '06:00',
       200
     ),
@@ -109,22 +109,14 @@ export class FlightsService {
     ),
   ];
 
-  getFlights(): Flight[] {
+  list(): Flight[] {
     return this.flights.sort(
       (a, b) =>
         new Date(a.boardingDate).getTime() - new Date(b.boardingDate).getTime()
     );
   }
 
-  getFlightById(flightNumber: string) {
+  get(flightNumber: string) {
     return this.flights.find((f) => f.flightNumber === flightNumber);
-  }
-
-  static getFlightInfoPageURL(flightNumber: string) {
-    return `/flight/info/${flightNumber}`;
-  }
-
-  static getFlightBookPageURL(flightNumber: string) {
-    return `/flight/book/${flightNumber}`;
   }
 }

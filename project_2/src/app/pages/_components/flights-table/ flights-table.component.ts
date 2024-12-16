@@ -3,8 +3,6 @@ import { RouterModule } from '@angular/router';
 import { FlightTableAction } from './flights-table.component.types';
 import { Flight } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
-import { DestinationsService } from '../../../services/destinations.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from '../../../components/table/table.component';
@@ -13,7 +11,7 @@ import {
   TableGetIdFn,
 } from '../../../components/table/table.component.types';
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
-import { FlightsService } from '../../../services/flights.service';
+import { UrlService } from '../../../services/url.service';
 
 @Component({
   selector: 'app-flights-table',
@@ -33,6 +31,8 @@ export class FlightsTableComponent {
   @Input() flights!: Flight[];
   @Input() destinations!: Destination[];
   @Input() actions: FlightTableAction[] = [];
+
+  constructor(private urlService: UrlService) {}
 
   protected readonly FlightTableAction = FlightTableAction;
 
@@ -71,18 +71,24 @@ export class FlightsTableComponent {
   getId: TableGetIdFn<Flight> = (row) => row.flightNumber;
 
   getOriginName(flight: Flight): string {
-    return DestinationsService.getOriginName(this.destinations, flight);
+    return (
+      this.destinations.find((dest) => dest.code === flight.originCode)?.name ||
+      'Unknown'
+    );
   }
 
   getDestinationName(flight: Flight): string {
-    return DestinationsService.getDestinationName(this.destinations, flight);
+    return (
+      this.destinations.find((dest) => dest.code === flight.destinationCode)
+        ?.name || 'Unknown'
+    );
   }
 
   getFlightInfoURL(flightNumber: string) {
-    return FlightsService.getFlightInfoPageURL(flightNumber);
+    return this.urlService.getFlightInfoPageURL(flightNumber);
   }
 
   getFlightBookURL(flightNumber: string) {
-    return FlightsService.getFlightBookPageURL(flightNumber);
+    return this.urlService.getFlightBookPageURL(flightNumber);
   }
 }

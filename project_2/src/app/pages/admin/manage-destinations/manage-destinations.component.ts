@@ -17,6 +17,6 @@ export class ManageDestinationsComponent implements OnInit {
   constructor(private destinationsService: DestinationsService) {}
 
   ngOnInit(): void {
-    this.destinations = this.destinationsService.getDestinations();
+    this.destinations = this.destinationsService.list();
   }
 }

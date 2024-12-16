@@ -11,8 +11,7 @@ import { NgForOf } from '@angular/common';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
 import { LinkButtonComponent } from '../../../../components/link-button/link-button.component';
-import { FlightsService } from '../../../../services/flights.service';
-import { DestinationsService } from '../../../../services/destinations.service';
+import { UrlService } from '../../../../services/url.service';
 
 @Component({
   selector: 'app-last-minute-flights',
@@ -28,6 +27,8 @@ export class LastMinuteFlightsComponent implements OnChanges {
   @Input() maxFlights = 3;
 
   filteredFlights: Flight[] = [];
+
+  constructor(private urlService: UrlService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['flights'] || changes['maxFlights']) {
@@ -64,6 +65,6 @@ export class LastMinuteFlightsComponent implements OnChanges {
   }
 
   getFlightURL(flightNumber: string) {
-    return FlightsService.getFlightBookPageURL(flightNumber);
+    return this.urlService.getFlightBookPageURL(flightNumber);
   }
 }

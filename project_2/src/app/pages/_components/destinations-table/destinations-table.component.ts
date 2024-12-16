@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  TemplateRef,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Destination } from '../../../models/destination.model';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +10,7 @@ import { TableComponent } from '../../../components/table/table.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FlightTableAction } from '../flights-table/flights-table.component.types';
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
-import { DestinationsService } from '../../../services/destinations.service';
+import { UrlService } from '../../../services/url.service';
 
 @Component({
   selector: 'app-destinations-table',
@@ -28,7 +23,10 @@ import { DestinationsService } from '../../../services/destinations.service';
 export class DestinationsTableComponent {
   @Input() destinations!: Destination[];
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private urlService: UrlService
+  ) {}
 
   columns: TableColumn<Destination>[] = [
     {
@@ -59,6 +57,6 @@ export class DestinationsTableComponent {
   protected readonly FlightTableAction = FlightTableAction;
 
   getDestinationURL(code: string) {
-    return DestinationsService.getDestinationPageURL(code);
+    return this.urlService.getDestinationPageURL(code);
   }
 }

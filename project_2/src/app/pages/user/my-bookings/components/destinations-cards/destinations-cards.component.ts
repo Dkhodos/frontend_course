@@ -5,7 +5,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { NgForOf } from '@angular/common';
 import { BookingItem } from './destinations-cards.component.types';
-import { BookingsService } from '../../../../../services/bookings.service';
+import { UrlService } from '../../../../../services/url.service';
 
 @Component({
   selector: 'app-destinations-cards',
@@ -15,9 +15,11 @@ import { BookingsService } from '../../../../../services/bookings.service';
   imports: [MatIcon, RouterLink, MatIconButton, MatCard, NgForOf],
 })
 export class DestinationsCardsComponent {
+  constructor(private urlService: UrlService) {}
+
   @Input() bookings!: BookingItem[];
 
   getBookingPageURL(flightNumber: string) {
-    return BookingsService.getBookingPageURL(flightNumber);
+    return this.urlService.getBookingPageURL(flightNumber);
   }
 }
