@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FlightTableAction } from './flights-table.component.types';
 import { Flight } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from '../../../components/table/table.component';
 import {
@@ -22,7 +22,7 @@ import { UrlService } from '../../../services/url.service';
     TableComponent,
     RouterModule,
     MatIconModule,
-    NgIf,
+    CommonModule,
     LinkButtonComponent,
   ],
   encapsulation: ViewEncapsulation.None,
@@ -84,11 +84,11 @@ export class FlightsTableComponent {
     );
   }
 
-  getFlightInfoURL(flightNumber: string) {
+  getFlightInfoURL(flightNumber: string): string[] {
     return this.urlService.getFlightInfoPageURL(flightNumber);
   }
 
-  getFlightBookURL(flightNumber: string) {
+  getFlightBookURL(flightNumber: string): string[] {
     return this.urlService.getFlightBookPageURL(flightNumber);
   }
 }

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { NgForOf, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
 import { LinkButtonComponent } from '../../../../components/link-button/link-button.component';
@@ -22,10 +22,9 @@ import { NotFoundPlaceholderComponent } from '../../../../components/not-found-p
   imports: [
     MatCardModule,
     MatIconModule,
-    NgForOf,
     LinkButtonComponent,
     NotFoundPlaceholderComponent,
-    NgIf,
+    CommonModule,
   ],
   encapsulation: ViewEncapsulation.None,
 })

@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NotFoundPlaceholderComponent } from '../../components/not-found-placeholder/not-found-placeholder.component';
 
 @Component({
-  selector: 'app-404',
+  selector: 'app-not-found-page',
   standalone: true,
   imports: [CommonModule, NotFoundPlaceholderComponent],
-  templateUrl: './404.component.html',
-  styleUrls: ['./404.component.scss'],
+  templateUrl: './not-found.component.html',
+  styleUrls: ['./not-found.component.scss'],
 })
-export class General404PageComponent {}
+export class NotFoundPageComponent {}

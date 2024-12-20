@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { PageComponent } from '../../../components/page/page.component';
 import { Flight } from '../../../models/flight.model';
@@ -12,7 +12,7 @@ import { NotFoundPlaceholderComponent } from '../../../components/not-found-plac
   templateUrl: './flight-book.component.html',
   styleUrls: ['./flight-book.component.scss'],
   standalone: true,
-  imports: [MatCardModule, PageComponent, NgIf, NotFoundPlaceholderComponent],
+  imports: [MatCardModule, PageComponent, CommonModule, NotFoundPlaceholderComponent],
 })
 export class FlightBookComponent implements OnInit {
   flight: Flight | null = null;

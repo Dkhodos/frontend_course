@@ -10,7 +10,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { TableColumn, TableGetIdFn } from './table.component.types';
-import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,16 +24,13 @@ import { NotFoundPlaceholderComponent } from '../not-found-placeholder/not-found
   styleUrls: ['./table.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     MatTableModule,
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    NgClass,
-    NgTemplateOutlet,
     NotFoundPlaceholderComponent,
+    CommonModule,
   ],
 })
 export class TableComponent<RowObject extends object>

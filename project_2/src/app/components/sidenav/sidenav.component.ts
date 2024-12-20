@@ -3,13 +3,13 @@ import { NAVIGATION_ROUTES, NavItem } from './sidenav.routes';
 import { MatActionList, MatListItem, MatNavList } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { NgForOf, NgIf } from '@angular/common';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
 } from '@angular/material/expansion';
 import { OnoLogoLinkComponent } from '../ono-logo-link/ono-air-logo-link.component';
 import { MatDrawer } from '@angular/material/sidenav';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ono-flight-sidenav',
@@ -21,13 +21,12 @@ import { MatDrawer } from '@angular/material/sidenav';
     MatListItem,
     RouterLink,
     MatIcon,
-    NgForOf,
-    NgIf,
     MatExpansionPanel,
     MatActionList,
     MatNavList,
     OnoLogoLinkComponent,
     MatExpansionPanelHeader,
+    CommonModule,
   ],
 })
 export class SidenavComponent {

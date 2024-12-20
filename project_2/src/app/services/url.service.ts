@@ -14,27 +14,19 @@ export class UrlService {
 
   constructor(private router: Router) {}
 
-  getBookingPageURL(flightNumber: string): string {
-    return this.router.serializeUrl(
-      this.router.createUrlTree(this.AppRoutes.booking(flightNumber))
-    );
+  getBookingPageURL(flightNumber: string): string[] {
+    return this.AppRoutes.booking(flightNumber)
   }
 
-  getDestinationPageURL(code: string): string {
-    return this.router.serializeUrl(
-      this.router.createUrlTree(this.AppRoutes.destination(code))
-    );
+  getDestinationPageURL(code: string): string[] {
+    return this.AppRoutes.destination(code)
   }
 
-  getFlightInfoPageURL(flightNumber: string): string {
-    return this.router.serializeUrl(
-      this.router.createUrlTree(this.AppRoutes.flightInfo(flightNumber))
-    );
+  getFlightInfoPageURL(flightNumber: string): string[] {
+    return this.AppRoutes.flightInfo(flightNumber)
   }
 
-  getFlightBookPageURL(flightNumber: string): string {
-    return this.router.serializeUrl(
-      this.router.createUrlTree(this.AppRoutes.flightBook(flightNumber))
-    );
+  getFlightBookPageURL(flightNumber: string): string[] {
+    return this.AppRoutes.flightBook(flightNumber)
   }
 }

@@ -5,7 +5,7 @@ import { BookingsService } from '../../services/bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { PageComponent } from '../../components/page/page.component';
-import { NgIf, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatList, MatListItem } from '@angular/material/list';
 import { NotFoundPlaceholderComponent } from '../../components/not-found-placeholder/not-found-placeholder.component';
 
@@ -18,8 +18,7 @@ import { NotFoundPlaceholderComponent } from '../../components/not-found-placeho
     MatCardModule,
     MatDividerModule,
     PageComponent,
-    NgIf,
-    NgFor,
+    CommonModule,
     MatList,
     MatListItem,
     NotFoundPlaceholderComponent,

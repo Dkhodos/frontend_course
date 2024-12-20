@@ -4,7 +4,7 @@ import { DestinationsService } from '../../services/destinations.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { PageComponent } from '../../components/page/page.component';
 import { NotFoundPlaceholderComponent } from '../../components/not-found-placeholder/not-found-placeholder.component';
 
@@ -16,7 +16,7 @@ import { NotFoundPlaceholderComponent } from '../../components/not-found-placeho
   imports: [
     MatCardModule,
     MatDividerModule,
-    NgIf,
+    CommonModule,
     PageComponent,
     NotFoundPlaceholderComponent,
   ],

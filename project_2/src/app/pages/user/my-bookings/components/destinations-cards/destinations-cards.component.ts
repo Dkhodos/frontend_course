@@ -3,7 +3,7 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatIconButton } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
-import { NgForOf, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { BookingItem } from './destinations-cards.component.types';
 import { UrlService } from '../../../../../services/url.service';
 import { NotFoundPlaceholderComponent } from '../../../../../components/not-found-placeholder/not-found-placeholder.component';
@@ -18,9 +18,8 @@ import { NotFoundPlaceholderComponent } from '../../../../../components/not-foun
     RouterLink,
     MatIconButton,
     MatCard,
-    NgForOf,
     NotFoundPlaceholderComponent,
-    NgIf,
+    CommonModule,
   ],
 })
 export class DestinationsCardsComponent {
