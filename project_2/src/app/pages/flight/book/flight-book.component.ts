@@ -12,7 +12,12 @@ import { NotFoundPlaceholderComponent } from '../../../components/not-found-plac
   templateUrl: './flight-book.component.html',
   styleUrls: ['./flight-book.component.scss'],
   standalone: true,
-  imports: [MatCardModule, PageComponent, CommonModule, NotFoundPlaceholderComponent],
+  imports: [
+    MatCardModule,
+    PageComponent,
+    CommonModule,
+    NotFoundPlaceholderComponent,
+  ],
 })
 export class FlightBookComponent implements OnInit {
   flight: Flight | null = null;

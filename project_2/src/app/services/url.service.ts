@@ -15,18 +15,18 @@ export class UrlService {
   constructor(private router: Router) {}
 
   getBookingPageURL(flightNumber: string): string[] {
-    return this.AppRoutes.booking(flightNumber)
+    return this.AppRoutes.booking(flightNumber);
   }
 
   getDestinationPageURL(code: string): string[] {
-    return this.AppRoutes.destination(code)
+    return this.AppRoutes.destination(code);
   }
 
   getFlightInfoPageURL(flightNumber: string): string[] {
-    return this.AppRoutes.flightInfo(flightNumber)
+    return this.AppRoutes.flightInfo(flightNumber);
   }
 
   getFlightBookPageURL(flightNumber: string): string[] {
-    return this.AppRoutes.flightBook(flightNumber)
+    return this.AppRoutes.flightBook(flightNumber);
   }
 }
