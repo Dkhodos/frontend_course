@@ -1,0 +1,114 @@
+:host {
+  display: block;
+  background: #212121; /* Consistent dark background */
+  height: 100%;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Remove default Material paddings and borders */
+.mat-nav-list,
+.mat-list,
+.mat-action-list {
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove border-radius globally for all Material items */
+.mat-expansion-panel,
+.mat-expansion-panel-header,
+.mat-list-item,
+.mat-mdc-list-item {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Main container for navigation items */
+.nav-item-container {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Shared styles for both expandable and non-expandable items */
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px; /* Uniform padding for all items */
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.3s ease;
+  border-radius: 0;
+
+  &:hover {
+    background: #333; /* Unified hover style */
+  }
+
+  .nav-icon {
+    margin-right: 8px;
+    color: #fff;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &.no-children {
+    padding: 0 var(--spacing-24);
+  }
+}
+
+/* Header styles for expandable items */
+.nav-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #fff;
+
+  .nav-icon {
+    margin-right: 8px;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+/* Additional fixes for alignment */
+.mdc-list-item__content,
+.mat-mdc-list-item-unscoped-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.sidenav-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  & .header-link {
+    flex-direction: column;
+    gap: var(--spacing-16) !important;
+  }
+
+  & .rounded-image {
+    width: 100px !important;
+    height: 100px !important;
+  }
+}
+
+.bottom-nav {
+  position: absolute;
+  width: 100%;
+  bottom: 8px;
+}

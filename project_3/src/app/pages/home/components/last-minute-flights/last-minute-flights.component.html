@@ -1,0 +1,47 @@
+<div class="last-minute-flights">
+  <ng-container *ngIf="isEmpty()">
+    <ono-not-found-placeholder
+      [title]="'No Upcoming Flight Found'"
+      [description]="'Try again later'"
+    />
+  </ng-container>
+
+  <mat-card *ngFor="let flight of filteredFlights" class="flight-card">
+    <img
+      mat-card-image
+      [src]="getDestinationImage(flight.destinationCode)"
+      alt="{{ getDestinationName(flight.destinationCode) }}"
+      class="destination-image"
+    />
+    <mat-card-content>
+      <h3>{{ getDestinationName(flight.destinationCode) }}</h3>
+      <p>
+        <strong>Airport:</strong> {{ getAirportName(flight.destinationCode) }}
+      </p>
+      <p><strong>Flight Number:</strong> {{ flight.flightNumber }}</p>
+      <p>
+        <strong>Departure Time:</strong> {{ flight.boardingDate }} /
+        {{ flight.boardingTime }}
+      </p>
+      <p><strong>Seats Available:</strong> {{ flight.seatCount }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <app-link-button
+        [href]="getAirportWebsite(flight.destinationCode)"
+        target="_blank"
+        icon="open_in_new"
+      >
+        Learn More
+      </app-link-button>
+
+      <app-link-button
+        [routerLink]="getFlightURL(flight.flightNumber)"
+        target="_blank"
+        icon="flight_takeoff"
+        className="book-button"
+      >
+        Book Now
+      </app-link-button>
+    </mat-card-actions>
+  </mat-card>
+</div>

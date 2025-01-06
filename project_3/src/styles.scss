@@ -1,0 +1,69 @@
+@use '@angular/material' as mat;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: light dark;
+  @include mat.theme(
+    (
+      color: mat.$azure-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
+
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-primary-container),
+      container-text-color: var(--mat-sys-primary),
+    )
+  );
+}
+
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+:root {
+  /* Colors */
+  --color-background: #e9ebee;
+  --color-white: #ffffff;
+  --color-border: #ccc;
+  --color-text: #000;
+  --color-text-muted: #555;
+  --color-header-border: #eee;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --header-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --footer-box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Spacing in 4px increments */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+
+  /* Font Sizes */
+  --font-size-small: 12px;
+  --font-size-base: 16px;
+  --font-size-large: 20px;
+  --font-size-xlarge: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

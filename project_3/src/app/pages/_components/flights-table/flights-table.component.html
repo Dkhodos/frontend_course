@@ -1,0 +1,27 @@
+<ng-template #actionsTemplate let-row>
+  <app-link-button
+    *ngIf="actions.includes(FlightTableAction.BookNow)"
+    [routerLink]="getFlightBookURL(row.flightNumber)"
+    icon="flight_takeoff"
+    class="book-now-link"
+  >
+    Book Now
+  </app-link-button>
+
+  <app-link-button
+    *ngIf="actions.includes(FlightTableAction.Edit)"
+    [routerLink]="getFlightInfoURL(row.flightNumber)"
+    icon="edit"
+    class="edit-link"
+  >
+    Edit
+  </app-link-button>
+</ng-template>
+
+<app-table
+  [rows]="flights"
+  [columns]="columns"
+  [getId]="getId"
+  [actions]="actionsTemplate"
+  [searchable]="true"
+></app-table>

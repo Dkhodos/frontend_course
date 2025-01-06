@@ -1,0 +1,60 @@
+.last-minute-flights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+
+  .flight-card {
+    width: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+    transition: 0.3s all ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .destination-image {
+      height: 150px;
+      object-fit: cover;
+    }
+
+    mat-card-content {
+      flex: 1;
+      padding: 16px;
+      color: white;
+      text-align: left;
+
+      h3 {
+        margin: 8px 0;
+        font-size: 1.4rem;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: #cfcfcf;
+        margin: 4px 0;
+      }
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      background-color: #282828;
+      border-top: 1px solid #444;
+    }
+  }
+}
+
+.book-button {
+  color: white !important;
+}

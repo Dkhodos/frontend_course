@@ -1,0 +1,26 @@
+/* Main Container */
+.page-container {
+  margin: var(--spacing-24) auto;
+  padding: var(--spacing-16);
+  height: calc(100vh - 112px);
+}
+
+/* Card Styling */
+.page-card {
+  color: #ffffff; /* Light text */
+  padding: var(--spacing-16);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+  border-radius: 12px; /* Slightly rounded corners */
+}
+
+/* Card Title */
+mat-card-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: var(--spacing-16);
+  color: #f3f3f3; /* Slightly brighter text for the title */
+  text-transform: capitalize;
+  border-bottom: 1px solid #2c2c3e; /* Subtle bottom border */
+  padding-bottom: var(--spacing-8);
+  margin-left: var(--spacing-8);
+}

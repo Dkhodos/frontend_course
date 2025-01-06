@@ -1,0 +1,14 @@
+a.link-btn {
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px !important;
+
+  .mdc-button__label {
+    display: flex;
+    align-items: center;
+  }
+
+  mat-icon {
+    margin-right: var(--spacing-8);
+  }
+}

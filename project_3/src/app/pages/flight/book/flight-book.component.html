@@ -1,0 +1,25 @@
+<page title="Book a Flight">
+  <!-- If Flight Exists -->
+  <mat-card *ngIf="flight; else notFound" class="book-flight-card">
+    <div class="flight-details">
+      <div>
+        <strong>Origin:</strong> {{ flight.originCode || 'N/A' }}
+        <span>Boarding:</span>
+        {{ flight.boardingDate || 'N/A' }} {{ flight.boardingTime || 'N/A' }}
+      </div>
+      <div>
+        <strong>Destination:</strong> {{ flight.destinationCode || 'N/A' }}
+        <span>Landing:</span>
+        {{ flight.arrivalDate || 'N/A' }} {{ flight.arrivalTime || 'N/A' }}
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Not Found Fallback -->
+  <ng-template #notFound>
+    <ono-not-found-placeholder
+      title="Flight Not Found"
+      description="We could not find the flight details. Please check the flight ID and try again."
+    ></ono-not-found-placeholder>
+  </ng-template>
+</page>

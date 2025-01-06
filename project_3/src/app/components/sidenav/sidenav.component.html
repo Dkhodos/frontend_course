@@ -1,0 +1,66 @@
+<mat-nav-list>
+  <div class="sidenav-logo">
+    <ono-logo-link />
+  </div>
+
+  <!-- Top Navigation Section -->
+  <ng-container *ngFor="let navItem of topNavItems">
+    <ng-container
+      *ngIf="navItem.children && navItem.children.length > 0; else noChildren"
+    >
+      <mat-expansion-panel class="nav-item-container">
+        <mat-expansion-panel-header class="nav-header">
+          <mat-icon *ngIf="navItem.icon" class="nav-icon">{{
+            navItem.icon
+          }}</mat-icon>
+          <span>{{ navItem.label }}</span>
+        </mat-expansion-panel-header>
+        <mat-action-list>
+          <a
+            mat-list-item
+            class="nav-item"
+            *ngFor="let child of navItem.children"
+            [routerLink]="child.route"
+            (click)="onLinkClick()"
+          >
+            <mat-icon *ngIf="child.icon" class="nav-icon">{{
+              child.icon
+            }}</mat-icon>
+            <span>{{ child.label }}</span>
+          </a>
+        </mat-action-list>
+      </mat-expansion-panel>
+    </ng-container>
+
+    <ng-template #noChildren>
+      <a
+        mat-list-item
+        class="nav-item no-children"
+        [routerLink]="navItem.route"
+        (click)="onLinkClick()"
+      >
+        <mat-icon *ngIf="navItem.icon" class="nav-icon">{{
+          navItem.icon
+        }}</mat-icon>
+        <span>{{ navItem.label }}</span>
+      </a>
+    </ng-template>
+  </ng-container>
+
+  <!-- Bottom Navigation Section -->
+  <div class="bottom-nav">
+    <ng-container *ngFor="let navItem of bottomNavItems">
+      <a
+        mat-list-item
+        class="nav-item no-children"
+        [routerLink]="navItem.route"
+        (click)="onLinkClick()"
+      >
+        <mat-icon *ngIf="navItem.icon" class="nav-icon">{{
+          navItem.icon
+        }}</mat-icon>
+        <span>{{ navItem.label }}</span>
+      </a>
+    </ng-container>
+  </div>
+</mat-nav-list>
