@@ -1,0 +1,22 @@
+<div [formGroup]="parentFormGroup">
+  <mat-form-field appearance="fill" class="form-select">
+    <mat-label class="field-label">{{ label }}</mat-label>
+
+    <mat-select
+      [id]="selectId"
+      [formControlName]="controlKey"
+      [disabled]="disabled"
+      [placeholder]="placeholder"
+      [required]="required"
+      [errorStateMatcher]="effectiveErrorStateMatcher"
+    >
+      <mat-option *ngFor="let option of options" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="hasError">
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+</div>

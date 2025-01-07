@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Destination } from '../models/destination.model';
+import { Option } from '../components/form-select/form-select.component';
 
 @Injectable({
   providedIn: 'root',
@@ -90,6 +91,13 @@ export class DestinationsService {
 
   list(): Destination[] {
     return [...this.destinations];
+  }
+
+  options(): Option[] {
+    return this.list().map((des) => ({
+      label: des.name,
+      value: des.code,
+    }));
   }
 
   get(code: string): Destination | undefined {

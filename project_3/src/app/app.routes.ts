@@ -10,6 +10,7 @@ import { DestinationPageComponent } from './pages/destenation/destination.compon
 import { FlightBookComponent } from './pages/flight/book/flight-book.component';
 import { BookingPageComponent } from './pages/booking/booking.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found.component';
+import {FlightAddPageComponent} from './pages/flight/add/flight-add.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,10 @@ export const routes: Routes = [
   {
     path: 'flight',
     children: [
+      {
+        path: 'add',
+        component: FlightAddPageComponent,
+      },
       {
         path: 'info/:id',
         component: FlightInfoPageComponent,
