@@ -88,6 +88,10 @@ export class FlightsTableComponent {
     return this.urlService.getFlightEditPageURL(flightNumber);
   }
 
+  getFlightAddURL(): string[] {
+    return this.urlService.getFlightAddPageURL();
+  }
+
   getFlightBookURL(flightNumber: string): string[] {
     return this.urlService.getFlightBookPageURL(flightNumber);
   }

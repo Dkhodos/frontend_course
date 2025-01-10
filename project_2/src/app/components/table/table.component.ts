@@ -41,6 +41,7 @@ export class TableComponent<RowObject extends object>
   @Input() getId!: TableGetIdFn<RowObject>;
   @Input() searchable = false;
   @Input() actions?: TemplateRef<{ $implicit: RowObject }>;
+  @Input() topRightSection?: TemplateRef<void>;
 
   searchValue = '';
   dataSource = new MatTableDataSource<RowObject>([]);

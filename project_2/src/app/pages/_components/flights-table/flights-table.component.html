@@ -18,10 +18,17 @@
   </app-link-button>
 </ng-template>
 
+<ng-template #topRightSectionTemplate>
+  <app-link-button [routerLink]="getFlightAddURL()" icon="add" class="add-link">
+    Add
+  </app-link-button>
+</ng-template>
+
 <app-table
   [rows]="flights"
   [columns]="columns"
   [getId]="getId"
   [actions]="actionsTemplate"
   [searchable]="true"
+  [topRightSection]="topRightSectionTemplate"
 ></app-table>

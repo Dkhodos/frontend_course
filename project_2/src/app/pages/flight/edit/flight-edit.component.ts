@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageComponent } from '../../../components/page/page.component';
 import { FlightsService } from '../../../services/flights.service';
 import { FlightEditorComponent } from '../_components/flight-editor/flight-editor.component';
-import {Flight} from '../../../models/flight.model';
-import {ActivatedRoute} from '@angular/router';
-import {NotFoundPlaceholderComponent} from '../../../components/not-found-placeholder/not-found-placeholder.component';
+import { Flight } from '../../../models/flight.model';
+import { ActivatedRoute } from '@angular/router';
+import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
 
 @Component({
   selector: 'ono-flight-add',

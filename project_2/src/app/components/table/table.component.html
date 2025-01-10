@@ -1,12 +1,18 @@
 <div class="table-container">
-  <mat-form-field *ngIf="searchable" appearance="fill" class="search-field">
-    <input
-      matInput
-      [(ngModel)]="searchValue"
-      (input)="applyFilter()"
-      placeholder="Search..."
-    />
-  </mat-form-field>
+  <div class="table-top">
+    <mat-form-field *ngIf="searchable" appearance="fill" class="search-field">
+      <input
+        matInput
+        [(ngModel)]="searchValue"
+        (input)="applyFilter()"
+        placeholder="Search..."
+      />
+    </mat-form-field>
+
+    <div class="top-right-section" *ngIf="topRightSection">
+      <ng-container *ngTemplateOutlet="topRightSection"></ng-container>
+    </div>
+  </div>
 
   <ng-container *ngIf="isEmpty()">
     <ono-not-found-placeholder

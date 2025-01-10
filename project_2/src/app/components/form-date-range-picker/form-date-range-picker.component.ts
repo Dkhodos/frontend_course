@@ -80,7 +80,7 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     return totalErrors.join(', ');
   }
 
-  get hasRangeErrorMessage(){
+  get hasRangeErrorMessage() {
     return this.startHasError() || this.endHasError();
   }
 

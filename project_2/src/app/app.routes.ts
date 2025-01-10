@@ -11,7 +11,7 @@ import { FlightBookComponent } from './pages/flight/book/flight-book.component';
 import { BookingPageComponent } from './pages/booking/booking.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found.component';
 import { FlightAddPageComponent } from './pages/flight/add/flight-add.component';
-import {FlightEditPageComponent} from './pages/flight/edit/flight-edit.component';
+import { FlightEditPageComponent } from './pages/flight/edit/flight-edit.component';
 
 export const routes: Routes = [
   {

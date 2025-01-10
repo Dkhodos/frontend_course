@@ -29,3 +29,9 @@ table {
 button {
   font-weight: bold;
 }
+
+.table-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

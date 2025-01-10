@@ -8,11 +8,7 @@
         formControlName="start"
         [placeholder]="startPlaceholder"
       />
-      <input
-        matEndDate
-        formControlName="end"
-        [placeholder]="endPlaceholder"
-      />
+      <input matEndDate formControlName="end" [placeholder]="endPlaceholder" />
     </mat-date-range-input>
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -25,7 +21,9 @@
     <mat-form-field appearance="fill" class="form-time">
       <mat-label>Start Time</mat-label>
       <input type="time" matInput formControlName="startTime" />
-      <mat-error *ngIf="startTimeHasError">{{ startTimeErrorMessage }}</mat-error>
+      <mat-error *ngIf="startTimeHasError">{{
+        startTimeErrorMessage
+      }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="form-time">
