@@ -10,6 +10,7 @@ export class UrlService {
     destination: (code: string) => ['/destination', code],
     flightInfo: (flightNumber: string) => ['/flight', 'info', flightNumber],
     flightBook: (flightNumber: string) => ['/flight', 'book', flightNumber],
+    flightEdit: (flightNumber: string) => ['/flight', 'edit', flightNumber],
   };
 
   constructor(private router: Router) {}
@@ -24,6 +25,10 @@ export class UrlService {
 
   getFlightInfoPageURL(flightNumber: string): string[] {
     return this.AppRoutes.flightInfo(flightNumber);
+  }
+
+    getFlightEditPageURL(flightNumber: string): string[] {
+    return this.AppRoutes.flightEdit(flightNumber);
   }
 
   getFlightBookPageURL(flightNumber: string): string[] {
