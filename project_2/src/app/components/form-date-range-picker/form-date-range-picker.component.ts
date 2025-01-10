@@ -1,5 +1,17 @@
-import { Component, Input, OnInit, OnDestroy, ViewEncapsulation, inject } from '@angular/core';
-import {ControlContainer, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ViewEncapsulation,
+  inject,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -60,12 +72,25 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  get startHasError(): boolean {
+  get rangeErrorMessage(): string {
+    const startErrors = this.getStartErrorMessage();
+    const endErrors = this.getEndErrorMessage();
+
+    const totalErrors = Array.from(new Set([startErrors, endErrors]));
+
+    return totalErrors.join(', ');
+  }
+
+  get hasRangeErrorMessage(){
+    return this.startHasError() || this.endHasError();
+  }
+
+  private startHasError(): boolean {
     const c = this.rangeGroup.get('start');
     return !!(c && c.invalid && (c.dirty || c.touched));
   }
 
-  get startErrorMessage(): string {
+  private getStartErrorMessage(): string {
     const c = this.rangeGroup.get('start');
     if (!c || !c.errors) return '';
     for (const key in c.errors) {
@@ -77,12 +102,12 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  get endHasError(): boolean {
+  private endHasError(): boolean {
     const c = this.rangeGroup.get('end');
     return !!(c && c.invalid && (c.dirty || c.touched));
   }
 
-  get endErrorMessage(): string {
+  private getEndErrorMessage(): string {
     const c = this.rangeGroup.get('end');
     if (!c || !c.errors) return '';
     for (const key in c.errors) {

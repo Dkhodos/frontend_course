@@ -19,8 +19,7 @@
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
-    <mat-error *ngIf="startHasError">{{ startErrorMessage }}</mat-error>
-    <mat-error *ngIf="endHasError">{{ endErrorMessage }}</mat-error>
+    <mat-error *ngIf="hasRangeErrorMessage">{{ rangeErrorMessage }}</mat-error>
   </mat-form-field>
 
   <!-- Time fields row -->
