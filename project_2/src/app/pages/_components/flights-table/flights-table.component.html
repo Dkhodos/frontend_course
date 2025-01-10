@@ -27,6 +27,16 @@
   >
     Add Flight
   </app-link-button>
+
+  <button
+    mat-button
+    class="edit-button"
+    *ngIf="actions.includes(FlightTableAction.Filter)"
+    (click)="this.filter.emit()"
+  >
+    <mat-icon>filter_list</mat-icon>
+    Filter
+  </button>
 </ng-template>
 
 <app-table

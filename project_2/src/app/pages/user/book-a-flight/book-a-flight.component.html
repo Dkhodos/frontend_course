@@ -2,6 +2,7 @@
   <app-flights-table
     [flights]="flights"
     [destinations]="destinations"
-    [actions]="[FlightTableAction.BookNow]"
+    [actions]="[FlightTableAction.BookNow, FlightTableAction.Filter]"
+    (filter)="onFilter()"
   />
 </page>

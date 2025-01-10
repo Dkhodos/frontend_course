@@ -1,4 +1,10 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FlightTableAction } from './flights-table.component.types';
 import { Flight } from '../../../models/flight.model';
@@ -12,6 +18,7 @@ import {
 } from '../../../components/table/table.component.types';
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
 import { UrlService } from '../../../services/url.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-flights-table',
@@ -24,6 +31,7 @@ import { UrlService } from '../../../services/url.service';
     MatIconModule,
     CommonModule,
     LinkButtonComponent,
+    MatButton,
   ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -31,6 +39,7 @@ export class FlightsTableComponent {
   @Input() flights!: Flight[];
   @Input() destinations!: Destination[];
   @Input() actions: FlightTableAction[] = [];
+  @Output() filter = new EventEmitter<void>();
 
   constructor(private urlService: UrlService) {}
 
