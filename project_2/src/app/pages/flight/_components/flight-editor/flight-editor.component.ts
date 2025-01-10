@@ -12,6 +12,7 @@ import { FormInputComponent } from '../../../../components/form-input/form-input
 import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
 import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
 import { DestinationsService } from '../../../../services/destinations.service';
+import { Flight } from '../../../../models/flight.model';
 
 @Component({
   selector: 'app-flight-editor',
@@ -27,7 +28,7 @@ import { DestinationsService } from '../../../../services/destinations.service';
   styleUrls: ['./flight-editor.component.scss'],
 })
 export class FlightEditorComponent implements OnInit {
-  @Input() initialState: { flightNumber?: string } = {};
+  @Input() initialState: Flight | null = null;
   @Output() saveEvent = new EventEmitter<{
     flightNumber: string;
     origin: string;
@@ -35,6 +36,8 @@ export class FlightEditorComponent implements OnInit {
     boardingArrival: {
       start: string | null;
       end: string | null;
+      startTime: string;
+      endTime: string;
     };
     seats: number;
   }>();
@@ -55,11 +58,13 @@ export class FlightEditorComponent implements OnInit {
         boardingArrival: new FormGroup({
           start: new FormControl('', Validators.required),
           end: new FormControl('', Validators.required),
+          startTime: new FormControl('', Validators.required),
+          endTime: new FormControl('', Validators.required),
         }),
 
         seats: new FormControl(1, [
           Validators.required,
-          Validators.min(1),   // can't be less than 1
+          Validators.min(1), // can't be less than 1
           Validators.max(100), // can't be more than 100
         ]),
       },
@@ -70,8 +75,15 @@ export class FlightEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.initialState.flightNumber) {
-      this.form.patchValue({ flightNumber: this.initialState.flightNumber });
+    console.log(this.initialState);
+
+    if (this.initialState) {
+      this.form.patchValue({
+        flightNumber: this.initialState.flightNumber,
+        origin: this.initialState.originCode,
+        destination: this.initialState.destinationCode,
+        seats: this.initialState.seatCount,
+      });
     }
     this.destinationOptions = this.destinationsService.options();
   }

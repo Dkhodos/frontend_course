@@ -48,7 +48,6 @@ export class FormSelectComponent implements OnInit, OnDestroy {
   @Input({ required: true }) controlKey = '';
   @Input() label = '';
   @Input() id?: string;
-  @Input() disabled = false;
   @Input() required = false;
   @Input() placeholder = '';
   @Input() options: Option[] = [];

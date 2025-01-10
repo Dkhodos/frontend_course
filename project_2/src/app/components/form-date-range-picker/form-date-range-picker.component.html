@@ -7,13 +7,11 @@
         matStartDate
         formControlName="start"
         [placeholder]="startPlaceholder"
-        [disabled]="disabled"
       />
       <input
         matEndDate
         formControlName="end"
         [placeholder]="endPlaceholder"
-        [disabled]="disabled"
       />
     </mat-date-range-input>
     <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
@@ -26,13 +24,13 @@
   <div class="time-row" [formGroup]="rangeGroup">
     <mat-form-field appearance="fill" class="form-time">
       <mat-label>Start Time</mat-label>
-      <input type="time" matInput formControlName="startTime" [disabled]="disabled" />
+      <input type="time" matInput formControlName="startTime" />
       <mat-error *ngIf="startTimeHasError">{{ startTimeErrorMessage }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="form-time">
       <mat-label>End Time</mat-label>
-      <input type="time" matInput formControlName="endTime" [disabled]="disabled" />
+      <input type="time" matInput formControlName="endTime" />
       <mat-error *ngIf="endTimeHasError">{{ endTimeErrorMessage }}</mat-error>
     </mat-form-field>
   </div>

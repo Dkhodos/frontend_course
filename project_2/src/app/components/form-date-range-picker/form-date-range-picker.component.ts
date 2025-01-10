@@ -38,7 +38,6 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
   @Input() label = 'Date Range';
   @Input() startPlaceholder = 'Start Date';
   @Input() endPlaceholder = 'End Date';
-  @Input() disabled = false;
   @Input() required = false;
   @Input() errorMessages?: Record<string, string>;
 

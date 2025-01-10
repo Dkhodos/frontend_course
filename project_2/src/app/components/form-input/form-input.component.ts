@@ -43,7 +43,6 @@ export class FormInputComponent implements OnInit, OnDestroy {
   @Input({ required: true }) controlKey = '';
   @Input() label = '';
   @Input() id?: string;
-  @Input() disabled = false;
   @Input() required = false;
   @Input() placeholder = '';
   @Input() type = 'text';
