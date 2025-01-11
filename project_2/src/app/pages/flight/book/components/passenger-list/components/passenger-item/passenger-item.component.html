@@ -1,0 +1,27 @@
+<div mat-card [formGroup]="group">
+  <header>
+    <h3>Passenger No.{{ index }}</h3>
+    <button mat-icon-button (click)="remove.emit()" class="delete-btn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </header>
+
+  <div class="full-name">
+    <app-form-input
+      [controlKey]="'firstName'"
+      [required]="true"
+      label="First Name"
+    />
+    <app-form-input
+      [controlKey]="'lastName'"
+      [required]="true"
+      label="Last Name"
+    />
+  </div>
+
+  <app-form-input
+    [controlKey]="'passportId'"
+    label="Passport ID"
+    [required]="true"
+  />
+</div>

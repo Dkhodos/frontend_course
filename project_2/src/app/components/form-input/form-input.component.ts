@@ -46,10 +46,7 @@ export class FormInputComponent implements OnInit, OnDestroy {
   @Input() required = false;
   @Input() placeholder = '';
   @Input() type = 'text';
-
-  // Accept custom error messages mapping error keys to messages
   @Input() errorMessages?: Record<string, string>;
-
   @Input() errorStateMatcher?: ErrorStateMatcher;
 
   protected parentContainer = inject(ControlContainer);

@@ -1,7 +1,7 @@
 :host {
   display: block;
   padding: 16px;
-  background-color: #121212; // Dark mode
+  background-color: #121212;
   color: #e0e0e0;
 }
 
@@ -20,12 +20,17 @@
 
   strong {
     font-weight: bold;
-    color: #bb86fc; // Highlight key details
+    color: #bb86fc;
   }
 
   span {
     margin-left: 8px;
     font-weight: normal;
-    color: #03dac6; // Accent color for labels
+    color: #03dac6;
   }
+}
+
+button {
+  border-radius: 4px;
+  margin-top: 8px;
 }
