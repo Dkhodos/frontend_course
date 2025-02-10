@@ -1,0 +1,7 @@
+<div class="loader-root">
+  <div class="loader"></div>
+  <div class="loader-text" *ngIf="title || description">
+    <h3 *ngIf="title">{{ title }}</h3>
+    <p *ngIf="description">{{ description }}</p>
+  </div>
+</div>

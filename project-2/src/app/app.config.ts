@@ -6,6 +6,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {environment} from '../../environment';
+import {getAuth, provideAuth} from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,15 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
     provideFirebaseApp(() =>
-      initializeApp({
-        projectId: 'ono-flight-f23eb',
-        appId: '1:680817298452:web:2655ea8f292dfbb1482b01',
-        storageBucket: 'ono-flight-f23eb.firebasestorage.app',
-        apiKey: 'AIzaSyAs9CgdsdwRIR4GSid9yLSLLudSO7vhq3g',
-        authDomain: 'ono-flight-f23eb.firebaseapp.com',
-        messagingSenderId: '680817298452',
-      })
+      initializeApp(environment.firebase.config)
     ),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
   ],
 };
