@@ -1,19 +1,13 @@
-<!-- Full-Page Loader -->
-<div *ngIf="loading" @fadeAnimation class="full-page-loader">
-  <ono-flight-loader
-    title="Getting things ready for you ✈️"
-    description="Loading flights, preparing passengers... 🛫"
-  />
-</div>
-<!-- Main App Content (Hidden Until Login Completes) -->
-<mat-drawer-container *ngIf="!loading" class="h-full">
-  <mat-drawer #matDrawer mode="over" class="w-[260px] z-[999]">
-    <ono-flight-sidenav [matDrawer]="matDrawer" />
-  </mat-drawer>
+<ono-flight-firebase-auth>
+  <mat-drawer-container class="h-full">
+    <mat-drawer #matDrawer mode="over" class="w-[260px] z-[999]">
+      <ono-flight-sidenav [matDrawer]="matDrawer" />
+    </mat-drawer>
 
-  <mat-drawer-content>
-    <ono-flight-header (menuClick)="matDrawer.toggle()" />
-    <router-outlet></router-outlet>
-    <ono-flight-footer />
-  </mat-drawer-content>
-</mat-drawer-container>
+    <mat-drawer-content>
+      <ono-flight-header (menuClick)="matDrawer.toggle()" />
+      <router-outlet></router-outlet>
+      <ono-flight-footer />
+    </mat-drawer-content>
+  </mat-drawer-container>
+</ono-flight-firebase-auth>

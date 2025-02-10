@@ -1,0 +1,11 @@
+<!-- Full-Page Loader (Fades In & Out) -->
+<div *ngIf="loading" @fadeAnimation class="full-page-loader">
+  <ono-flight-loader
+    title="Getting things ready for you ✈️"
+    description="Loading flights, preparing passengers... 🛫"
+  >
+  </ono-flight-loader>
+</div>
+
+<!-- Render Children After Authentication -->
+<ng-content *ngIf="!loading"></ng-content>
