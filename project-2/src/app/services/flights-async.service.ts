@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   Firestore,
   collection,
-  collectionData,
   doc,
   getDoc,
+  getDocs,
   setDoc,
+  query,
+  orderBy
 } from '@angular/fire/firestore';
-import { Observable, tap } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Flight, FlightFirestoreData } from '../models/flight.model';
 
 @Injectable({
@@ -22,34 +22,33 @@ export class FlightsService {
   /**
    * List all flights sorted by boarding date.
    */
-  list(): Observable<Flight[]> {
+  async list(): Promise<Flight[]> {
     console.log('Fetching flights...'); // ✅ Debugging Log
 
-    return collectionData(
-      collection(this.firestore, FlightsService.COLLECTION_NAME),
-      { idField: 'flightNumber' }
-    ).pipe(
-      tap(() => console.log('Flights data received')), // ✅ Debugging Log
-      map((flights) =>
-        (flights as FlightFirestoreData[]).map(Flight.fromFirestore)
-      )
-    );
+    const flightsRef = collection(this.firestore, FlightsService.COLLECTION_NAME);
+    const flightsQuery = query(flightsRef, orderBy('boardingDate')); // ✅ Sorting by boardingDate
+    const snapshot = await getDocs(flightsQuery);
+
+    const flights = snapshot.docs.map((doc) => Flight.fromFirestore(doc.data() as FlightFirestoreData));
+
+    console.log('✅ Flights data received:', flights); // ✅ Debugging Log
+    return flights;
   }
 
   /**
    * Get a single flight by its flightNumber (ID in Firestore).
    */
   async get(flightNumber: string): Promise<Flight | null> {
-    const flightDoc = doc(
-      this.firestore,
-      FlightsService.COLLECTION_NAME,
-      flightNumber
-    );
+    console.log(`Fetching flight ${flightNumber}...`); // ✅ Debugging Log
+
+    const flightDoc = doc(this.firestore, FlightsService.COLLECTION_NAME, flightNumber);
     const flightSnap = await getDoc(flightDoc);
 
     if (flightSnap.exists()) {
+      console.log(`✅ Flight ${flightNumber} found`); // ✅ Debugging Log
       return Flight.fromFirestore(flightSnap.data() as FlightFirestoreData);
     }
+    console.log(`❌ Flight ${flightNumber} not found`); // ✅ Debugging Log
     return null;
   }
 
@@ -57,11 +56,11 @@ export class FlightsService {
    * Add or update a flight in Firestore using `flightNumber` as the document ID.
    */
   async add(flight: Flight): Promise<void> {
-    const flightDoc = doc(
-      this.firestore,
-      FlightsService.COLLECTION_NAME,
-      flight.flightNumber
-    );
-    await setDoc(flightDoc, flight.toFirestore()); // `setDoc` ensures `flightNumber` is the document ID.
+    console.log(`Adding flight ${flight.flightNumber}...`); // ✅ Debugging Log
+
+    const flightDoc = doc(this.firestore, FlightsService.COLLECTION_NAME, flight.flightNumber);
+    await setDoc(flightDoc, flight.toFirestore());
+
+    console.log(`✅ Flight ${flight.flightNumber} added successfully`); // ✅ Debugging Log
   }
 }

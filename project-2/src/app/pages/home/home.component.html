@@ -12,10 +12,10 @@
       <!-- Lazy loading the content when expanded -->
       <ng-template matExpansionPanelContent>
         <app-last-minute-flights
-          [flights]="flights"
-          [destinations]="destinations"
+          [flights]="flights()"
+          [destinations]="destinations()"
           [maxFlights]="4"
-          [isLoading]="isLoading"
+          [isLoading]="isLoading()"
         />
       </ng-template>
     </mat-expansion-panel>
@@ -33,10 +33,10 @@
       <ng-template matExpansionPanelContent>
         <div class="flights-table">
           <app-flights-table
-            [flights]="flights"
-            [destinations]="destinations"
+            [flights]="flights()"
+            [destinations]="destinations()"
             [actions]="[FlightTableAction.BookNow]"
-            [isLoading]="isLoading"
+            [isLoading]="isLoading()"
           />
         </div>
       </ng-template>

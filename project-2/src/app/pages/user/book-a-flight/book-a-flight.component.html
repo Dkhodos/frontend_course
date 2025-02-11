@@ -1,8 +1,9 @@
-<page title="User | Book A flight">
+<page title="User | Book A Flight">
   <app-flights-table
-    [flights]="flights"
-    [destinations]="destinations"
+    [flights]="flights()"
+    [destinations]="destinations()"
     [actions]="[FlightTableAction.BookNow, FlightTableAction.Filter]"
     (filter)="onFilter()"
+    [isLoading]="isLoading()"
   />
 </page>

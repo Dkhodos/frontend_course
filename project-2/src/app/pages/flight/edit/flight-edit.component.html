@@ -1,13 +1,19 @@
 <page title="Edit a Flight">
-  <ng-container *ngIf="flight; else notFound" class="book-flight-card">
-    <app-flight-editor [initialState]="flight" />
-  </ng-container>
+  <div class="flight-edit-loader" *ngIf="isLoading(); else flight_editor">
+    <ono-flight-loader />
+  </div>
 
-  <!-- Not Found Fallback -->
-  <ng-template #notFound>
-    <ono-not-found-placeholder
-      title="Flight Not Found"
-      description="We could not find the flight details. Please check the flight ID and try again."
-    />
+  <ng-template #flight_editor>
+    <ng-container *ngIf="flight(); else notFound" class="book-flight-card">
+      <app-flight-editor [initialState]="flight()" />
+    </ng-container>
+
+    <!-- Not Found Fallback -->
+    <ng-template #notFound>
+      <ono-not-found-placeholder
+        title="Flight Not Found"
+        description="We could not find the flight details. Please check the flight ID and try again."
+      />
+    </ng-template>
   </ng-template>
 </page>

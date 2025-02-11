@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { PageComponent } from '../../../components/page/page.component';
 import { Flight } from '../../../models/flight.model';
-import { FlightsService } from '../../../services/flights.service';
+import { FlightsService } from '../../../services/flights-async.service';
 import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -14,6 +14,7 @@ import {
 import { PassengerForm } from './components/passenger-list/components/passenger-item/passenger-item.component';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import {LoaderComponent} from '../../../components/loader/loader.component';
 
 @Component({
   selector: 'ono-flight-book',
@@ -29,10 +30,12 @@ import { MatIcon } from '@angular/material/icon';
     PassengerListComponent,
     MatButton,
     MatIcon,
+    LoaderComponent,
   ],
 })
 export class FlightBookComponent implements OnInit {
-  flight: Flight | null = null;
+  flight = signal<Flight | null>(null); // ✅ Using Signals for reactivity
+  isLoading = signal<boolean>(true); // ✅ Loading state
 
   form: FormGroup<FlightBookForm>;
 
@@ -46,10 +49,18 @@ export class FlightBookComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const flightId = this.route.snapshot.paramMap.get('flightNumber');
+
     if (flightId) {
-      this.flight = this.flightsService.get(flightId) || null;
+      try {
+        const fetchedFlight = await this.flightsService.get(flightId);
+        this.flight.set(fetchedFlight);
+      } catch (error) {
+        console.error('❌ Error fetching flight:', error);
+      }
     }
+
+    this.isLoading.set(false);
   }
 }

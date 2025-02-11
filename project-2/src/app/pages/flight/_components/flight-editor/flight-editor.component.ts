@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, signal } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -11,8 +11,9 @@ import { CommonModule } from '@angular/common';
 import { FormInputComponent } from '../../../../components/form-input/form-input.component';
 import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
 import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
-import { DestinationsService } from '../../../../services/destinations.service';
+import { DestinationsService } from '../../../../services/destinations-async.service';
 import { Flight } from '../../../../models/flight.model';
+import { LoaderComponent } from '../../../../components/loader/loader.component';
 
 @Component({
   selector: 'app-flight-editor',
@@ -23,6 +24,7 @@ import { Flight } from '../../../../models/flight.model';
     FormSelectComponent,
     FormDateRangePickerComponent,
     ReactiveFormsModule,
+    LoaderComponent,
   ],
   templateUrl: './flight-editor.component.html',
   styleUrls: ['./flight-editor.component.scss'],
@@ -43,7 +45,8 @@ export class FlightEditorComponent implements OnInit {
   }>();
 
   form: FormGroup;
-  destinationOptions: { value: string; label: string }[] = [];
+  destinationOptions = signal<{ value: string; label: string }[]>([]); // ✅ Using Signals for reactivity
+  isLoading = signal<boolean>(true); // ✅ Loading state
 
   constructor(private destinationsService: DestinationsService) {
     this.form = new FormGroup(
@@ -74,7 +77,7 @@ export class FlightEditorComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     console.log(this.initialState);
 
     if (this.initialState) {
@@ -85,7 +88,19 @@ export class FlightEditorComponent implements OnInit {
         seats: this.initialState.seatCount,
       });
     }
-    this.destinationOptions = this.destinationsService.options();
+
+    try {
+      const fetchedDestinations = await this.destinationsService.list();
+      const options = fetchedDestinations.map((des) => ({
+        label: des.name,
+        value: des.code,
+      }));
+      this.destinationOptions.set(options);
+    } catch (error) {
+      console.error('❌ Error fetching destination options:', error);
+    }
+
+    this.isLoading.set(false);
   }
 
   save() {
@@ -104,7 +119,7 @@ export class FlightEditorComponent implements OnInit {
 
   get filteredDestinationOptions() {
     const originValue = this.form.get('origin')?.value;
-    return this.destinationOptions.filter((opt) => opt.value !== originValue);
+    return this.destinationOptions().filter((opt) => opt.value !== originValue);
   }
 
   private originDestinationValidator(): ValidatorFn {

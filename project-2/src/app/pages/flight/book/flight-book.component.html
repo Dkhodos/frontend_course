@@ -1,31 +1,40 @@
 <page title="Book a Flight">
-  <ng-container *ngIf="flight; else notFound">
-    <mat-card class="book-flight-card">
-      <div class="flight-details">
-        <div>
-          <strong>Origin:</strong> {{ flight.originCode || 'N/A' }}
-          <span>Boarding:</span>
-          {{ flight.boardingDate || 'N/A' }} {{ flight.boardingTime || 'N/A' }}
-        </div>
-        <div>
-          <strong>Destination:</strong> {{ flight.destinationCode || 'N/A' }}
-          <span>Landing:</span>
-          {{ flight.arrivalDate || 'N/A' }} {{ flight.arrivalTime || 'N/A' }}
-        </div>
-      </div>
-    </mat-card>
-    <app-passenger-list [passengers]="form.controls.passengers" />
-    <button mat-flat-button type="submit">
-      <mat-icon>flight_takeoff</mat-icon>
-      Book Now!
-    </button>
-  </ng-container>
+  <div class="book-a-flight-loader" *ngIf="isLoading(); else book_a_flight">
+    <ono-flight-loader />
+  </div>
 
-  <!-- Not Found Fallback -->
-  <ng-template #notFound>
-    <ono-not-found-placeholder
-      title="Flight Not Found"
-      description="We could not find the flight details. Please check the flight ID and try again."
-    ></ono-not-found-placeholder>
+  <ng-template #book_a_flight>
+    <ng-container *ngIf="flight(); else notFound">
+      <mat-card class="book-flight-card">
+        <div class="flight-details">
+          <div>
+            <strong>Origin:</strong> {{ flight()?.originCode || 'N/A' }}
+            <span>Boarding:</span>
+            {{ flight()?.boardingDate || 'N/A' }}
+            {{ flight()?.boardingTime || 'N/A' }}
+          </div>
+          <div>
+            <strong>Destination:</strong>
+            {{ flight()?.destinationCode || 'N/A' }}
+            <span>Landing:</span>
+            {{ flight()?.arrivalDate || 'N/A' }}
+            {{ flight()?.arrivalTime || 'N/A' }}
+          </div>
+        </div>
+      </mat-card>
+      <app-passenger-list [passengers]="form.controls.passengers" />
+      <button mat-flat-button type="submit">
+        <mat-icon>flight_takeoff</mat-icon>
+        Book Now!
+      </button>
+    </ng-container>
+
+    <!-- Not Found Fallback -->
+    <ng-template #notFound>
+      <ono-not-found-placeholder
+        title="Flight Not Found"
+        description="We could not find the flight details. Please check the flight ID and try again."
+      ></ono-not-found-placeholder>
+    </ng-template>
   </ng-template>
 </page>

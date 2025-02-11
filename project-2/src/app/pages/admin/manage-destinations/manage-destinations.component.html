@@ -1,3 +1,9 @@
 <page title="Admin | Manage Destinations">
-  <app-destinations-table [destinations]="destinations" />
+  <div class="destinations-loader" *ngIf="isLoading(); else destinations_content">
+    <ono-flight-loader />
+  </div>
+
+  <ng-template #destinations_content>
+    <app-destinations-table [destinations]="destinations()" />
+  </ng-template>
 </page>

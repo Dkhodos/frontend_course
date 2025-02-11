@@ -1,29 +1,35 @@
-<page title="Flight | {{ flight?.flightNumber ?? 'N / A' }}">
-  <!-- Flight Information Card -->
-  <mat-card *ngIf="flight; else notFound" class="flight-info">
-    <mat-card-title>Flight Details</mat-card-title>
-    <mat-divider></mat-divider>
-    <div class="flight-details">
-      <div><strong>Flight No.:</strong> {{ flight.flightNumber }}</div>
-      <div><strong>Origin:</strong> {{ flight.originCode }}</div>
-      <div><strong>Destination:</strong> {{ flight.destinationCode }}</div>
-      <div>
-        <strong>Boarding Date & Time:</strong>
-        {{ flight.boardingDate }} at {{ flight.boardingTime }}
-      </div>
-      <div>
-        <strong>Arrival Date & Time:</strong>
-        {{ flight.arrivalDate }} at {{ flight.arrivalTime }}
-      </div>
-      <div><strong>Number of Seats:</strong> {{ flight.seatCount }}</div>
-    </div>
-  </mat-card>
+<page title="Flight | {{ flight()?.flightNumber ?? 'N / A' }}">
+  <!-- Loader -->
+  <div class="flight-info-loader" *ngIf="isLoading(); else flight_content">
+    <ono-flight-loader />
+  </div>
 
-  <!-- Not Found Card -->
-  <ng-template #notFound>
-    <ono-not-found-placeholder
-      title="Flight Not Found"
-      description="We could not find the flight details for this flight. Please check the flight number and try again."
-    ></ono-not-found-placeholder>
+  <ng-template #flight_content>
+    <mat-card *ngIf="flight(); else notFound" class="flight-info">
+      <mat-card-title>Flight Details</mat-card-title>
+      <mat-divider></mat-divider>
+      <div class="flight-details">
+        <div><strong>Flight No.:</strong> {{ flight()?.flightNumber }}</div>
+        <div><strong>Origin:</strong> {{ flight()?.originCode }}</div>
+        <div><strong>Destination:</strong> {{ flight()?.destinationCode }}</div>
+        <div>
+          <strong>Boarding Date & Time:</strong>
+          {{ flight()?.boardingDate }} at {{ flight()?.boardingTime }}
+        </div>
+        <div>
+          <strong>Arrival Date & Time:</strong>
+          {{ flight()?.arrivalDate }} at {{ flight()?.arrivalTime }}
+        </div>
+        <div><strong>Number of Seats:</strong> {{ flight()?.seatCount }}</div>
+      </div>
+    </mat-card>
+
+    <!-- Not Found Card -->
+    <ng-template #notFound>
+      <ono-not-found-placeholder
+        title="Flight Not Found"
+        description="We could not find the flight details for this flight. Please check the flight number and try again."
+      ></ono-not-found-placeholder>
+    </ng-template>
   </ng-template>
 </page>

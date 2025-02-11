@@ -1,7 +1,8 @@
 <page title="Admin | Manage Flights">
   <app-flights-table
-    [flights]="flights"
-    [destinations]="destinations"
+    [flights]="flights()"
+    [destinations]="destinations()"
     [actions]="[FlightTableAction.Edit, FlightTableAction.Add]"
+    [isLoading]="isLoading()"
   />
 </page>

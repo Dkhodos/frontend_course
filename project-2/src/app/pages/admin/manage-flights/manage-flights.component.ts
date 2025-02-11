@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PageComponent } from '../../../components/page/page.component';
 import { FlightTableAction } from '../../_components/flights-table/flights-table.component.types';
 import { FlightsTableComponent } from '../../_components/flights-table/flights-table.component';
 import { Flight } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
-import { FlightsService } from '../../../services/flights.service';
-import { DestinationsService } from '../../../services/destinations.service';
+import { FlightsService } from '../../../services/flights-async.service';
+import { DestinationsService } from '../../../services/destinations-async.service';
 
 @Component({
   selector: 'manage-flights-page',
@@ -15,8 +15,9 @@ import { DestinationsService } from '../../../services/destinations.service';
   imports: [PageComponent, FlightsTableComponent],
 })
 export class ManageFlightsComponent implements OnInit {
-  flights!: Flight[];
-  destinations!: Destination[];
+  flights = signal<Flight[]>([]); // ✅ Using Signals for reactivity
+  destinations = signal<Destination[]>([]); // ✅ Using Signals for efficiency
+  isLoading = signal<boolean>(true); // ✅ Signal for loading state
   protected readonly FlightTableAction = FlightTableAction;
 
   constructor(
@@ -24,8 +25,19 @@ export class ManageFlightsComponent implements OnInit {
     private destinationsService: DestinationsService
   ) {}
 
-  ngOnInit(): void {
-    this.flights = this.flightsService.list();
-    this.destinations = this.destinationsService.list();
+  async ngOnInit(): Promise<void> {
+    try {
+      const [fetchedFlights, fetchedDestinations] = await Promise.all([
+        this.flightsService.list(),
+        this.destinationsService.list(),
+      ]);
+
+      this.flights.set(fetchedFlights);
+      this.destinations.set(fetchedDestinations);
+    } catch (error) {
+      console.error('❌ Error fetching flights or destinations:', error);
+    }
+
+    this.isLoading.set(false);
   }
 }
