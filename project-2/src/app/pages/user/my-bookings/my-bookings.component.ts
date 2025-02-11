@@ -9,7 +9,9 @@ import {
 } from '@angular/material/expansion';
 import { DestinationsCardsComponent } from './components/destinations-cards/destinations-cards.component';
 import { BookingItem } from './components/destinations-cards/destinations-cards.component.types';
-import { MyBookingsService } from './services/my-bookings.service';
+import { MyBookingsService } from './services/my-bookings-async.service';
+import { LoaderComponent } from '../../../components/loader/loader.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-bookings',
@@ -25,18 +27,28 @@ import { MyBookingsService } from './services/my-bookings.service';
     MatExpansionPanel,
     MatAccordion,
     DestinationsCardsComponent,
+    LoaderComponent,
+    CommonModule,
   ],
 })
 export class MyBookingsComponent implements OnInit {
   upcomingBookings: BookingItem[] = [];
   previousBookings: BookingItem[] = [];
+  isLoading = true; // 🔄 Add loading state
 
   constructor(private myBookingsService: MyBookingsService) {}
 
-  ngOnInit(): void {
-    const { upcomingBookings, previousBookings } =
-      this.myBookingsService.getFormattedBookings();
-    this.upcomingBookings = upcomingBookings;
-    this.previousBookings = previousBookings;
+  async ngOnInit(): Promise<void> {
+    try {
+      const { upcomingBookings, previousBookings } =
+        await this.myBookingsService.getFormattedBookings();
+
+      this.upcomingBookings = upcomingBookings;
+      this.previousBookings = previousBookings;
+    } catch (error) {
+      console.error('❌ Error loading bookings:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

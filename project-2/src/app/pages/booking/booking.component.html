@@ -1,36 +1,42 @@
 <page title="Booking Information | {{ booking?.flightNumber ?? 'N / A' }}">
-  <!-- If Booking Exists -->
-  <mat-card *ngIf="booking; else notFound" class="booking-card">
-    <mat-card-title class="card-title">Flight Booking Details</mat-card-title>
-    <mat-divider></mat-divider>
+  <div class="booking-loader" *ngIf="isLoading; else bookingContent">
+    <ono-flight-loader />
+  </div>
 
-    <div class="booking-details">
-      <div class="detail-row">
-        <span class="detail-label">Flight Number:</span>
-        <span>{{ booking.flightNumber }}</span>
+  <ng-template #bookingContent>
+    <!-- If Booking Exists -->
+    <mat-card *ngIf="booking; else notFound" class="booking-card">
+      <mat-card-title class="card-title">Flight Booking Details</mat-card-title>
+      <mat-divider></mat-divider>
+
+      <div class="booking-details">
+        <div class="detail-row">
+          <span class="detail-label">Flight Number:</span>
+          <span>{{ booking.flightNumber }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Passenger Count:</span>
+          <span>{{ booking.passengerCount }}</span>
+        </div>
+        <div class="passenger-list">
+          <span class="detail-label">Passengers:</span>
+          <mat-list>
+            <mat-list-item
+              *ngFor="let passenger of booking.passengers"
+              class="passenger-item"
+            >
+              <div class="passenger-info">
+                <span class="passenger-name">{{ passenger.name }}</span>
+                <span class="passport-number"
+                  >(Passport: {{ passenger.passportNumber }})</span
+                >
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </div>
       </div>
-      <div class="detail-row">
-        <span class="detail-label">Passenger Count:</span>
-        <span>{{ booking.passengerCount }}</span>
-      </div>
-      <div class="passenger-list">
-        <span class="detail-label">Passengers:</span>
-        <mat-list>
-          <mat-list-item
-            *ngFor="let passenger of booking.passengers"
-            class="passenger-item"
-          >
-            <div class="passenger-info">
-              <span class="passenger-name">{{ passenger.name }}</span>
-              <span class="passport-number"
-                >(Passport: {{ passenger.passportNumber }})</span
-              >
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </div>
-  </mat-card>
+    </mat-card>
+  </ng-template>
 
   <!-- Not Found Fallback -->
   <ng-template #notFound>
