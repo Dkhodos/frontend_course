@@ -13,6 +13,7 @@ import { Destination } from '../../../../models/destination.model';
 import { LinkButtonComponent } from '../../../../components/link-button/link-button.component';
 import { UrlService } from '../../../../services/url.service';
 import { NotFoundPlaceholderComponent } from '../../../../components/not-found-placeholder/not-found-placeholder.component';
+import { LoaderComponent } from '../../../../components/loader/loader.component';
 
 @Component({
   selector: 'app-last-minute-flights',
@@ -25,6 +26,7 @@ import { NotFoundPlaceholderComponent } from '../../../../components/not-found-p
     LinkButtonComponent,
     NotFoundPlaceholderComponent,
     CommonModule,
+    LoaderComponent,
   ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -32,6 +34,7 @@ export class LastMinuteFlightsComponent implements OnChanges {
   @Input() flights: Flight[] = [];
   @Input() destinations: Destination[] = [];
   @Input() maxFlights = 3;
+  @Input() isLoading = false;
 
   filteredFlights: Flight[] = [];
 

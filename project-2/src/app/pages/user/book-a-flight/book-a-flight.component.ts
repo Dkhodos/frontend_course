@@ -7,7 +7,7 @@ import { Flight } from '../../../models/flight.model';
 import { FlightsService } from '../../../services/flights.service';
 import { DestinationsService } from '../../../services/destinations.service';
 import { BookFilterModalComponent } from './components/book-filter-modal/book-filter-modal.component';
-import { FlightsTableComponent } from '../../_components/flights-table/ flights-table.component';
+import { FlightsTableComponent } from '../../_components/flights-table/flights-table.component';
 
 @Component({
   selector: 'book-a-flight-page',

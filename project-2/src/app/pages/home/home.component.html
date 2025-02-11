@@ -15,6 +15,7 @@
           [flights]="flights"
           [destinations]="destinations"
           [maxFlights]="4"
+          [isLoading]="isLoading"
         />
       </ng-template>
     </mat-expansion-panel>
@@ -35,6 +36,7 @@
             [flights]="flights"
             [destinations]="destinations"
             [actions]="[FlightTableAction.BookNow]"
+            [isLoading]="isLoading"
           />
         </div>
       </ng-template>

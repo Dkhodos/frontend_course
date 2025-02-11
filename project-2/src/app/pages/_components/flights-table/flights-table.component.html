@@ -39,11 +39,17 @@
   </button>
 </ng-template>
 
-<app-table
-  [rows]="flights"
-  [columns]="columns"
-  [getId]="getId"
-  [actions]="actionsTemplate"
-  [searchable]="true"
-  [topRightSection]="topRightSectionTemplate"
-></app-table>
+<div class="flight-table-loader" *ngIf="isLoading; else flight_table">
+  <ono-flight-loader />
+</div>
+
+<ng-template #flight_table>
+  <app-table
+    [rows]="flights"
+    [columns]="columns"
+    [getId]="getId"
+    [actions]="actionsTemplate"
+    [searchable]="true"
+    [topRightSection]="topRightSectionTemplate"
+  ></app-table>
+</ng-template>

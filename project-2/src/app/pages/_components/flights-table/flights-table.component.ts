@@ -19,6 +19,7 @@ import {
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
 import { UrlService } from '../../../services/url.service';
 import { MatButton } from '@angular/material/button';
+import { LoaderComponent } from '../../../components/loader/loader.component';
 
 @Component({
   selector: 'app-flights-table',
@@ -32,6 +33,7 @@ import { MatButton } from '@angular/material/button';
     CommonModule,
     LinkButtonComponent,
     MatButton,
+    LoaderComponent,
   ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -39,6 +41,7 @@ export class FlightsTableComponent {
   @Input() flights!: Flight[];
   @Input() destinations!: Destination[];
   @Input() actions: FlightTableAction[] = [];
+  @Input() isLoading = false;
   @Output() filter = new EventEmitter<void>();
 
   constructor(private urlService: UrlService) {}

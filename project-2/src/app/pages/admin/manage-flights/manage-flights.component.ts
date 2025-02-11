@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageComponent } from '../../../components/page/page.component';
 import { FlightTableAction } from '../../_components/flights-table/flights-table.component.types';
-import { FlightsTableComponent } from '../../_components/flights-table/ flights-table.component';
+import { FlightsTableComponent } from '../../_components/flights-table/flights-table.component';
 import { Flight } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
 import { FlightsService } from '../../../services/flights.service';

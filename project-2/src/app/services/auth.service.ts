@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, UserCredential } from '@angular/fire/auth';
+import {
+  Auth,
+  signInWithEmailAndPassword,
+  UserCredential,
+} from '@angular/fire/auth';
 import { environment } from '../../../environment';
 
 @Injectable({
