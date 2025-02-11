@@ -7,7 +7,7 @@ import {
   getDocs,
   setDoc,
   query,
-  orderBy
+  orderBy,
 } from '@angular/fire/firestore';
 import { Flight, FlightFirestoreData } from '../models/flight.model';
 
@@ -25,11 +25,16 @@ export class FlightsService {
   async list(): Promise<Flight[]> {
     console.log('Fetching flights...'); // ✅ Debugging Log
 
-    const flightsRef = collection(this.firestore, FlightsService.COLLECTION_NAME);
+    const flightsRef = collection(
+      this.firestore,
+      FlightsService.COLLECTION_NAME
+    );
     const flightsQuery = query(flightsRef, orderBy('boardingDate')); // ✅ Sorting by boardingDate
     const snapshot = await getDocs(flightsQuery);
 
-    const flights = snapshot.docs.map((doc) => Flight.fromFirestore(doc.data() as FlightFirestoreData));
+    const flights = snapshot.docs.map((doc) =>
+      Flight.fromFirestore(doc.data() as FlightFirestoreData)
+    );
 
     console.log('✅ Flights data received:', flights); // ✅ Debugging Log
     return flights;
@@ -41,7 +46,11 @@ export class FlightsService {
   async get(flightNumber: string): Promise<Flight | null> {
     console.log(`Fetching flight ${flightNumber}...`); // ✅ Debugging Log
 
-    const flightDoc = doc(this.firestore, FlightsService.COLLECTION_NAME, flightNumber);
+    const flightDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flightNumber
+    );
     const flightSnap = await getDoc(flightDoc);
 
     if (flightSnap.exists()) {
@@ -58,7 +67,11 @@ export class FlightsService {
   async add(flight: Flight): Promise<void> {
     console.log(`Adding flight ${flight.flightNumber}...`); // ✅ Debugging Log
 
-    const flightDoc = doc(this.firestore, FlightsService.COLLECTION_NAME, flight.flightNumber);
+    const flightDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flight.flightNumber
+    );
     await setDoc(flightDoc, flight.toFirestore());
 
     console.log(`✅ Flight ${flight.flightNumber} added successfully`); // ✅ Debugging Log

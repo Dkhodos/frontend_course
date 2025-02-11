@@ -5,7 +5,11 @@ import { FlightsService } from '../../services/flights-async.service';
 import { DestinationsService } from '../../services/destinations-async.service';
 import { Flight } from '../../models/flight.model';
 import { Destination } from '../../models/destination.model';
-import { MatAccordion, MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
+import {
+  MatAccordion,
+  MatExpansionModule,
+  MatExpansionPanel,
+} from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { LastMinuteFlightsComponent } from './components/last-minute-flights/last-minute-flights.component';

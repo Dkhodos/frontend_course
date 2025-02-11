@@ -14,7 +14,7 @@ import {
 import { PassengerForm } from './components/passenger-list/components/passenger-item/passenger-item.component';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import {LoaderComponent} from '../../../components/loader/loader.component';
+import { LoaderComponent } from '../../../components/loader/loader.component';
 
 @Component({
   selector: 'ono-flight-book',

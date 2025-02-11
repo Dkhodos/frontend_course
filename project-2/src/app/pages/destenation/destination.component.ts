@@ -37,7 +37,8 @@ export class DestinationPageComponent implements OnInit {
 
     if (destinationCode) {
       try {
-        const fetchedDestination = await this.destinationsService.get(destinationCode);
+        const fetchedDestination =
+          await this.destinationsService.get(destinationCode);
         this.destination.set(fetchedDestination);
       } catch (error) {
         console.error('❌ Error fetching destination:', error);
