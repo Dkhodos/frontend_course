@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 import { FormInputComponent } from '../../../../components/form-input/form-input.component';
 import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
 import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
-import { DestinationsService } from '../../../../services/destinations-async.service';
+import { DestinationsService } from '../../../../services/destinations.service';
 import { Flight } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 

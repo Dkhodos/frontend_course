@@ -9,7 +9,7 @@ import {
 } from '@angular/material/expansion';
 import { DestinationsCardsComponent } from './components/destinations-cards/destinations-cards.component';
 import { BookingItem } from './components/destinations-cards/destinations-cards.component.types';
-import { MyBookingsService } from './services/my-bookings-async.service';
+import { MyBookingsService } from './services/my-bookings.service';
 import { LoaderComponent } from '../../../components/loader/loader.component';
 import { CommonModule } from '@angular/common';
 

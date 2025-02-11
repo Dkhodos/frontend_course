@@ -1,8 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageComponent } from '../../components/page/page.component';
-import { FlightsService } from '../../services/flights-async.service';
-import { DestinationsService } from '../../services/destinations-async.service';
+import { FlightsService } from '../../services/flights.service';
+import { DestinationsService } from '../../services/destinations.service';
 import { Flight } from '../../models/flight.model';
 import { Destination } from '../../models/destination.model';
 import {

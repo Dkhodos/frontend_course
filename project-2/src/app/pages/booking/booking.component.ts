@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Booking from '../../models/booking.model';
-import { BookingsService } from '../../services/bookings-async.service';
+import { BookingsService } from '../../services/bookings.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { PageComponent } from '../../components/page/page.component';

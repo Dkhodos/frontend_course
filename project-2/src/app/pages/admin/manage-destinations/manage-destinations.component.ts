@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { PageComponent } from '../../../components/page/page.component';
 import { DestinationsTableComponent } from '../../_components/destinations-table/destinations-table.component';
 import { Destination } from '../../../models/destination.model';
-import { DestinationsService } from '../../../services/destinations-async.service';
+import { DestinationsService } from '../../../services/destinations.service';
 import { LoaderComponent } from '../../../components/loader/loader.component';
 import { CommonModule } from '@angular/common';
 

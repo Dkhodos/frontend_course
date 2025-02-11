@@ -4,8 +4,8 @@ import { FlightTableAction } from '../../_components/flights-table/flights-table
 import { FlightsTableComponent } from '../../_components/flights-table/flights-table.component';
 import { Flight } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
-import { FlightsService } from '../../../services/flights-async.service';
-import { DestinationsService } from '../../../services/destinations-async.service';
+import { FlightsService } from '../../../services/flights.service';
+import { DestinationsService } from '../../../services/destinations.service';
 
 @Component({
   selector: 'manage-flights-page',

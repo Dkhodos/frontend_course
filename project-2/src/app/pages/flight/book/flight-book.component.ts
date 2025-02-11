@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { PageComponent } from '../../../components/page/page.component';
 import { Flight } from '../../../models/flight.model';
-import { FlightsService } from '../../../services/flights-async.service';
+import { FlightsService } from '../../../services/flights.service';
 import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {

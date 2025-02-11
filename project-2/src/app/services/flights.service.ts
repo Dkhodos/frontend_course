@@ -1,122 +1,79 @@
 import { Injectable } from '@angular/core';
-import { Flight } from '../models/flight.model';
-import { dateUtils } from '../utils/date-utils';
+import {
+  Firestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  query,
+  orderBy,
+} from '@angular/fire/firestore';
+import { Flight, FlightFirestoreData } from '../models/flight.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlightsService {
-  private readonly flights: Flight[] = [
-    new Flight(
-      'W61283',
-      'TLV',
-      'KRK',
-      dateUtils.getUpcomingDate(1),
-      '20:00',
-      dateUtils.getUpcomingDate(2),
-      '01:00',
-      180
-    ),
-    new Flight(
-      'LX8396',
-      'LCA',
-      'DXB',
-      dateUtils.getUpcomingDate(2),
-      '14:30',
-      dateUtils.getUpcomingDate(2),
-      '18:00',
-      200
-    ),
-    new Flight(
-      'BA345',
-      'LHR',
-      'DXB',
-      dateUtils.getUpcomingDate(5),
-      '09:00',
-      dateUtils.getUpcomingDate(5),
-      '20:00',
-      250
-    ),
-    new Flight(
-      'EK123',
-      'DXB',
-      'SYD',
-      dateUtils.getUpcomingDate(7),
-      '22:00',
-      dateUtils.getUpcomingDate(8),
-      '07:30',
-      300
-    ),
-    new Flight(
-      'LH456',
-      'FRA',
-      'CDG',
-      dateUtils.getUpcomingDate(1),
-      '12:15',
-      dateUtils.getUpcomingDate(1),
-      '14:30',
-      150
-    ),
-    new Flight(
-      'QF789',
-      'SYD',
-      'LAX',
-      dateUtils.getUpcomingDate(14),
-      '18:00',
-      dateUtils.getUpcomingDate(14),
-      '13:00',
-      350
-    ),
-    new Flight(
-      'NH123',
-      'HND',
-      'LAX',
-      dateUtils.getUpcomingDate(1),
-      '11:00',
-      dateUtils.getUpcomingDate(1),
-      '06:00',
-      200
-    ),
-    new Flight(
-      'AA789',
-      'JFK',
-      'LHR',
-      dateUtils.getUpcomingDate(30),
-      '19:00',
-      dateUtils.getUpcomingDate(31),
-      '07:00',
-      220
-    ),
-    new Flight(
-      'DL456',
-      'ATL',
-      'CDG',
-      dateUtils.getUpcomingDate(45),
-      '22:45',
-      dateUtils.getUpcomingDate(46),
-      '10:00',
-      180
-    ),
-    new Flight(
-      'AF123',
-      'CDG',
-      'JFK',
-      dateUtils.getUpcomingDate(60),
-      '15:30',
-      dateUtils.getUpcomingDate(60),
-      '21:00',
-      1
-    ),
-  ];
+  private static readonly COLLECTION_NAME = 'flights';
 
-  list(): Flight[] {
-    return this.flights.sort(
-      (a, b) =>
-        new Date(a.boardingDate).getTime() - new Date(b.boardingDate).getTime()
+  constructor(private firestore: Firestore) {}
+
+  /**
+   * List all flights sorted by boarding date.
+   */
+  async list(): Promise<Flight[]> {
+    console.log('Fetching flights...'); // ✅ Debugging Log
+
+    const flightsRef = collection(
+      this.firestore,
+      FlightsService.COLLECTION_NAME
     );
+    const flightsQuery = query(flightsRef, orderBy('boardingDate')); // ✅ Sorting by boardingDate
+    const snapshot = await getDocs(flightsQuery);
+
+    const flights = snapshot.docs.map((doc) =>
+      Flight.fromFirestore(doc.data() as FlightFirestoreData)
+    );
+
+    console.log('✅ Flights data received:', flights); // ✅ Debugging Log
+    return flights;
   }
 
-  get(flightNumber: string) {
-    return this.flights.find((f) => f.flightNumber === flightNumber);
+  /**
+   * Get a single flight by its flightNumber (ID in Firestore).
+   */
+  async get(flightNumber: string): Promise<Flight | null> {
+    console.log(`Fetching flight ${flightNumber}...`); // ✅ Debugging Log
+
+    const flightDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flightNumber
+    );
+    const flightSnap = await getDoc(flightDoc);
+
+    if (flightSnap.exists()) {
+      console.log(`✅ Flight ${flightNumber} found`); // ✅ Debugging Log
+      return Flight.fromFirestore(flightSnap.data() as FlightFirestoreData);
+    }
+    console.log(`❌ Flight ${flightNumber} not found`); // ✅ Debugging Log
+    return null;
+  }
+
+  /**
+   * Add or update a flight in Firestore using `flightNumber` as the document ID.
+   */
+  async add(flight: Flight): Promise<void> {
+    console.log(`Adding flight ${flight.flightNumber}...`); // ✅ Debugging Log
+
+    const flightDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flight.flightNumber
+    );
+    await setDoc(flightDoc, flight.toFirestore());
+
+    console.log(`✅ Flight ${flight.flightNumber} added successfully`); // ✅ Debugging Log
   }
 }

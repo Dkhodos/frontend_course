@@ -17,54 +17,68 @@ export class MyBookingsService {
     private destinationsService: DestinationsService
   ) {}
 
-  getFormattedBookings(): {
+  async getFormattedBookings(): Promise<{
     upcomingBookings: BookingItem[];
     previousBookings: BookingItem[];
-  } {
-    const bookings = this.bookingsService.list();
-    const flights = this.flightsService.list();
-    const destinations = this.destinationsService.list();
+  }> {
+    try {
+      // Fetch all bookings
+      const bookings = await this.bookingsService.list();
 
-    // Map each booking to a BookingItem with details if available
-    const allBookingItems = bookings
-      .map((booking) => ({
-        booking,
-        details: this.getBookingDetails(booking, flights, destinations),
-      }))
-      .filter((item) => item.details !== null) as BookingItem[];
+      // Fetch associated flight and destination data
+      const flights = await this.flightsService.list();
+      const destinations = await this.destinationsService.list();
 
-    // Separate into upcoming and previous
-    const upcomingBookings = allBookingItems.filter((item) =>
-      this.isUpcoming(item.details!.flight)
-    );
-    const previousBookings = allBookingItems.filter(
-      (item) => !this.isUpcoming(item.details!.flight)
-    );
+      // Map bookings to BookingItem format
+      const allBookingItems = (
+        await Promise.all(
+          bookings.map(async (booking) => {
+            const details = await this.getBookingDetails(
+              booking,
+              flights,
+              destinations
+            );
+            return details ? { booking, details } : null;
+          })
+        )
+      ).filter((item) => item !== null) as BookingItem[];
 
-    return { upcomingBookings, previousBookings };
+      // Separate upcoming and past bookings
+      const upcomingBookings = allBookingItems.filter((item) =>
+        this.isUpcoming(item.details!.flight)
+      );
+      const previousBookings = allBookingItems.filter(
+        (item) => !this.isUpcoming(item.details!.flight)
+      );
+
+      return { upcomingBookings, previousBookings };
+    } catch (error) {
+      console.error('❌ Error fetching bookings:', error);
+      return { upcomingBookings: [], previousBookings: [] };
+    }
   }
 
-  private getBookingDetails(
+  private async getBookingDetails(
     booking: Booking,
     flights: Flight[],
     destinations: Destination[]
-  ): BookingItem['details'] | null {
+  ): Promise<BookingItem['details'] | null> {
+    // Find the corresponding flight
     const flight = flights.find((f) => f.flightNumber === booking.flightNumber);
     if (!flight) return null;
 
+    // Find the origin and destination locations
     const origin = destinations.find((d) => d.code === flight.originCode);
-    if (!origin) return null;
-
     const destination = destinations.find(
       (d) => d.code === flight.destinationCode
     );
-    if (!destination) return null;
+
+    if (!origin || !destination) return null;
 
     return { flight, origin, destination };
   }
 
   private isUpcoming(flight: Flight): boolean {
-    const now = new Date();
-    return new Date(flight.boardingDate) > now;
+    return new Date(flight.boardingDate) > new Date();
   }
 }

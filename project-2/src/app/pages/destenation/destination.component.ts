@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Destination } from '../../models/destination.model';
-import { DestinationsService } from '../../services/destinations-async.service';
+import { DestinationsService } from '../../services/destinations.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';

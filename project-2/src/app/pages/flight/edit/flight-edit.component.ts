@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageComponent } from '../../../components/page/page.component';
-import { FlightsService } from '../../../services/flights-async.service';
+import { FlightsService } from '../../../services/flights.service';
 import { FlightEditorComponent } from '../_components/flight-editor/flight-editor.component';
 import { Flight } from '../../../models/flight.model';
 import { ActivatedRoute } from '@angular/router';
