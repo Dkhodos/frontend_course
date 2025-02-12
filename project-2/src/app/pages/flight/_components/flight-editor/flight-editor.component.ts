@@ -41,7 +41,7 @@ import { ButtonComponent } from '../../../../components/button/button.component'
 export class FlightEditorComponent implements OnInit {
   @Input() initialState: Flight | null = null;
   @Input() isLoading = false;
-  @Output() saveEvent = new EventEmitter<{
+  @Output() onsave = new EventEmitter<{
     flightNumber: string;
     origin: string;
     destination: string;
@@ -113,7 +113,7 @@ export class FlightEditorComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      this.saveEvent.emit({
+      this.onsave.emit({
         flightNumber: this.form.value.flightNumber,
         origin: this.form.value.origin,
         destination: this.form.value.destination,

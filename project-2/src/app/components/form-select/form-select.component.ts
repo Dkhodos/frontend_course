@@ -14,10 +14,6 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  ErrorStateMatcher,
-  ShowOnDirtyErrorStateMatcher,
-} from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 export interface Option {
@@ -51,11 +47,7 @@ export class FormSelectComponent implements OnInit, OnDestroy {
   @Input() required = false;
   @Input() placeholder = '';
   @Input() options: Option[] = [];
-
-  // Accept custom error messages mapping error keys to messages
   @Input() errorMessages?: Record<string, string>;
-
-  @Input() errorStateMatcher?: ErrorStateMatcher;
 
   protected parentContainer = inject(ControlContainer);
 
@@ -69,10 +61,6 @@ export class FormSelectComponent implements OnInit, OnDestroy {
 
   get selectId(): string {
     return this.id ?? `select-${this.controlKey}`;
-  }
-
-  get effectiveErrorStateMatcher(): ErrorStateMatcher {
-    return this.errorStateMatcher ?? new ShowOnDirtyErrorStateMatcher();
   }
 
   get hasError(): boolean {

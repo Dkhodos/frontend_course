@@ -89,7 +89,7 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
 
   private startHasError(): boolean {
     const c = this.rangeGroup.get('start');
-    return !!(c && c.invalid && (c.dirty || c.touched));
+    return Boolean(c && c.invalid && (c.dirty || c.touched));
   }
 
   private getStartErrorMessage(): string {
@@ -106,7 +106,7 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
 
   private endHasError(): boolean {
     const c = this.rangeGroup.get('end');
-    return !!(c && c.invalid && (c.dirty || c.touched));
+    return Boolean(c && c.invalid && (c.dirty || c.touched));
   }
 
   private getEndErrorMessage(): string {
@@ -123,7 +123,7 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
 
   get startTimeHasError(): boolean {
     const c = this.rangeGroup.get('startTime');
-    return !!(c && c.invalid && (c.dirty || c.touched));
+    return Boolean(c && c.invalid && (c.dirty || c.touched));
   }
 
   get startTimeErrorMessage(): string {
@@ -139,7 +139,7 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
 
   get endTimeHasError(): boolean {
     const c = this.rangeGroup.get('endTime');
-    return !!(c && c.invalid && (c.dirty || c.touched));
+    return Boolean(c && c.invalid && (c.dirty || c.touched));
   }
 
   get endTimeErrorMessage(): string {

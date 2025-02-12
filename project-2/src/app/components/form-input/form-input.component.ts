@@ -14,10 +14,6 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  ErrorStateMatcher,
-  ShowOnDirtyErrorStateMatcher,
-} from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -47,7 +43,6 @@ export class FormInputComponent implements OnInit, OnDestroy {
   @Input() placeholder = '';
   @Input() type = 'text';
   @Input() errorMessages?: Record<string, string>;
-  @Input() errorStateMatcher?: ErrorStateMatcher;
 
   protected parentContainer = inject(ControlContainer);
 
@@ -63,17 +58,17 @@ export class FormInputComponent implements OnInit, OnDestroy {
     return this.id ?? `input-${this.controlKey}`;
   }
 
-  get effectiveErrorStateMatcher(): ErrorStateMatcher {
-    return this.errorStateMatcher ?? new ShowOnDirtyErrorStateMatcher();
-  }
-
   get hasError(): boolean {
     const control = this.inputControl;
-    return control && control.invalid && (control.dirty || control.touched);
+
+    return Boolean(
+      control && control.invalid && (control.dirty || control.touched)
+    );
   }
 
   get errorMessage(): string {
     const control = this.inputControl;
+
     if (!control || !control.errors) return '';
 
     for (const errorKey in control.errors) {

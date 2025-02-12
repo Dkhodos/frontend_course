@@ -9,67 +9,76 @@
     </div>
 
     <ng-template #form_content>
-      <app-form-input
-        controlKey="flightNumber"
-        label="Flight Number"
-        placeholder="Enter flight number"
-        [required]="true"
-        [errorMessages]="{
-          required: 'Flight number is required.',
-          pattern: 'Flight number must be 2-6 uppercase letters or numbers.',
-        }"
-      ></app-form-input>
+      <div class="form-item">
+        <app-form-input
+          controlKey="flightNumber"
+          label="Flight Number"
+          placeholder="Enter flight number"
+          [required]="true"
+          [errorMessages]="{
+            required: 'Flight number is required.',
+            pattern: 'Flight number must be 2-6 uppercase letters or numbers.',
+          }"
+        />
+      </div>
 
-      <app-form-select
-        controlKey="origin"
-        label="Origin"
-        [required]="true"
-        [options]="destinationOptions()"
-        [errorMessages]="{
-          required: 'Origin is required.',
-        }"
-      ></app-form-select>
+      <div class="form-item">
+        <app-form-select
+          controlKey="origin"
+          label="Origin"
+          [required]="true"
+          [options]="destinationOptions()"
+          [errorMessages]="{
+            required: 'Origin is required.',
+          }"
+        />
+      </div>
 
-      <app-form-select
-        controlKey="destination"
-        label="Destination"
-        [required]="true"
-        [options]="filteredDestinationOptions"
-        [errorMessages]="{
-          required: 'Destination is required.',
-          sameDestination: 'Origin and Destination cannot be the same.',
-        }"
-      ></app-form-select>
+      <div class="form-item">
+        <app-form-select
+          controlKey="destination"
+          label="Destination"
+          [required]="true"
+          [options]="filteredDestinationOptions"
+          [errorMessages]="{
+            required: 'Destination is required.',
+            sameDestination: 'Origin and Destination cannot be the same.',
+          }"
+        />
+      </div>
 
-      <app-form-date-range-picker
-        controlKey="boardingArrival"
-        label="Boarding & Arrival date"
-        startPlaceholder="Boarding date"
-        endPlaceholder="Arrival date"
-        [required]="true"
-        [errorMessages]="{
-          required: 'This field is required',
-        }"
-      ></app-form-date-range-picker>
+      <div class="form-item">
+        <app-form-date-range-picker
+          controlKey="boardingArrival"
+          label="Boarding & Arrival date"
+          startPlaceholder="Boarding date"
+          endPlaceholder="Arrival date"
+          [required]="true"
+          [errorMessages]="{
+            required: 'This field is required',
+          }"
+        />
+      </div>
 
-      <!-- New seats input -->
-      <app-form-input
-        controlKey="seats"
-        label="No. of seats"
-        placeholder="Enter number of seats"
-        type="number"
-        [required]="true"
-        [errorMessages]="{
-          required: 'Number of seats is required.',
-          min: 'Number of seats cannot be less than 1.',
-          max: 'Number of seats cannot exceed 100.',
-        }"
-        id="flight-seats"
-      ></app-form-input>
+      <div class="form-item">
+        <app-form-input
+          controlKey="seats"
+          label="No. of seats"
+          placeholder="Enter number of seats"
+          type="number"
+          [required]="true"
+          [errorMessages]="{
+            required: 'Number of seats is required.',
+            min: 'Number of seats cannot be less than 1.',
+            max: 'Number of seats cannot exceed 100.',
+          }"
+          id="flight-seats"
+        />
+      </div>
 
-      <app-button type="submit" [isLoading]="isLoading" icon="save"
-        >Save</app-button
-      >
+      <app-button type="submit" [isLoading]="isLoading" icon="save">
+        Save
+      </app-button>
     </ng-template>
   </form>
 
