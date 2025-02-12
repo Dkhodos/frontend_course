@@ -63,11 +63,6 @@ export class FormSelectComponent implements OnInit, OnDestroy {
     return this.id ?? `select-${this.controlKey}`;
   }
 
-  get hasError(): boolean {
-    const control = this.selectControl;
-    return control && control.invalid && (control.dirty || control.touched);
-  }
-
   get errorMessage(): string {
     const control = this.selectControl;
     if (!control || !control.errors) return '';

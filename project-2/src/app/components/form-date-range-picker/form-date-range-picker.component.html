@@ -13,7 +13,7 @@
     <mat-hint>{{ dateFormat }} – {{ dateFormat }}</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
-    <mat-error *ngIf="hasRangeErrorMessage">{{ rangeErrorMessage }}</mat-error>
+    <mat-error>{{ rangeErrorMessage }}</mat-error>
   </mat-form-field>
 
   <!-- Time fields row -->
@@ -21,7 +21,7 @@
     <mat-form-field appearance="fill" class="form-time">
       <mat-label>Start Time</mat-label>
       <input type="time" matInput formControlName="startTime" />
-      <mat-error *ngIf="startTimeHasError">{{
+      <mat-error>{{
         startTimeErrorMessage
       }}</mat-error>
     </mat-form-field>
@@ -29,7 +29,7 @@
     <mat-form-field appearance="fill" class="form-time">
       <mat-label>End Time</mat-label>
       <input type="time" matInput formControlName="endTime" />
-      <mat-error *ngIf="endTimeHasError">{{ endTimeErrorMessage }}</mat-error>
+      <mat-error>{{ endTimeErrorMessage }}</mat-error>
     </mat-form-field>
   </div>
 </div>

@@ -83,15 +83,6 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     return totalErrors.join(', ');
   }
 
-  get hasRangeErrorMessage() {
-    return this.startHasError() || this.endHasError();
-  }
-
-  private startHasError(): boolean {
-    const c = this.rangeGroup.get('start');
-    return Boolean(c && c.invalid && (c.dirty || c.touched));
-  }
-
   private getStartErrorMessage(): string {
     const c = this.rangeGroup.get('start');
     if (!c || !c.errors) return '';
@@ -102,11 +93,6 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
       if (key === 'matStartDateInvalid') return 'Invalid start date';
     }
     return '';
-  }
-
-  private endHasError(): boolean {
-    const c = this.rangeGroup.get('end');
-    return Boolean(c && c.invalid && (c.dirty || c.touched));
   }
 
   private getEndErrorMessage(): string {
@@ -121,11 +107,6 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  get startTimeHasError(): boolean {
-    const c = this.rangeGroup.get('startTime');
-    return Boolean(c && c.invalid && (c.dirty || c.touched));
-  }
-
   get startTimeErrorMessage(): string {
     const c = this.rangeGroup.get('startTime');
     if (!c || !c.errors) return '';
@@ -137,10 +118,6 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  get endTimeHasError(): boolean {
-    const c = this.rangeGroup.get('endTime');
-    return Boolean(c && c.invalid && (c.dirty || c.touched));
-  }
 
   get endTimeErrorMessage(): string {
     const c = this.rangeGroup.get('endTime');

@@ -58,14 +58,6 @@ export class FormInputComponent implements OnInit, OnDestroy {
     return this.id ?? `input-${this.controlKey}`;
   }
 
-  get hasError(): boolean {
-    const control = this.inputControl;
-
-    return Boolean(
-      control && control.invalid && (control.dirty || control.touched)
-    );
-  }
-
   get errorMessage(): string {
     const control = this.inputControl;
 
