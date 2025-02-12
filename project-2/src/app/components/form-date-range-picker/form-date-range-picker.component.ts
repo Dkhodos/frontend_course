@@ -118,7 +118,6 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
     return '';
   }
 
-
   get endTimeErrorMessage(): string {
     const c = this.rangeGroup.get('endTime');
     if (!c || !c.errors) return '';

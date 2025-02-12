@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { LoaderComponent } from '../loader/loader.component';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../../environment';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'ono-flight-firebase-auth',
@@ -25,15 +24,11 @@ import { environment } from '../../../../environment';
 export class FirebaseAuthComponent implements OnInit {
   loading = true;
 
-  constructor(private auth: Auth) {}
+  constructor(private authService: AuthService) {}
 
   async ngOnInit() {
     try {
-      await signInWithEmailAndPassword(
-        this.auth,
-        environment.firebase.admin.email,
-        environment.firebase.admin.password!
-      );
+      await this.authService.login();
       console.log('Login successful');
     } catch (error) {
       console.error('Login failed:', error);

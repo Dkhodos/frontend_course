@@ -23,6 +23,19 @@ import { Flight } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
 
+export interface FlightData {
+  flightNumber: string;
+  origin: string;
+  destination: string;
+  boardingArrival: {
+    start: Date;
+    end: Date;
+    startTime: string;
+    endTime: string;
+  };
+  seats: number;
+}
+
 @Component({
   selector: 'app-flight-editor',
   standalone: true,
@@ -41,18 +54,7 @@ import { ButtonComponent } from '../../../../components/button/button.component'
 export class FlightEditorComponent implements OnInit {
   @Input() initialState: Flight | null = null;
   @Input() isLoading = false;
-  @Output() onsave = new EventEmitter<{
-    flightNumber: string;
-    origin: string;
-    destination: string;
-    boardingArrival: {
-      start: string | null;
-      end: string | null;
-      startTime: string;
-      endTime: string;
-    };
-    seats: number;
-  }>();
+  @Output() onsave = new EventEmitter<FlightData>();
 
   form: FormGroup;
   destinationOptions = signal<{ value: string; label: string }[]>([]);
@@ -113,6 +115,8 @@ export class FlightEditorComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
+      console.log('valid');
+
       this.onsave.emit({
         flightNumber: this.form.value.flightNumber,
         origin: this.form.value.origin,
@@ -121,6 +125,8 @@ export class FlightEditorComponent implements OnInit {
         seats: this.form.value.seats,
       });
     } else {
+      console.log('not valid');
+
       this.form.markAllAsTouched();
     }
   }

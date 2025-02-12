@@ -39,11 +39,10 @@ class DateUtils {
     const [hours, minutes] = timeStr.split(':').map(Number);
     return Timestamp.fromDate(new Date(year, month - 1, day, hours, minutes));
   }
-
   /**
    * Format a Date object to 'dd-mm-yyyy'.
    */
-  private formatDate(date: Date): string {
+  public formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -53,7 +52,7 @@ class DateUtils {
   /**
    * Format a Date object to 'hh:mm'.
    */
-  private formatTime(date: Date): string {
+  public formatTime(date: Date): string {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;

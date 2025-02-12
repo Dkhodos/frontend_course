@@ -26,7 +26,7 @@ export class FlightsService {
       this.firestore,
       FlightsService.COLLECTION_NAME
     );
-    const flightsQuery = query(flightsRef, orderBy('boardingDate'));
+    const flightsQuery = query(flightsRef, orderBy('boardingDate', 'desc'));
     const snapshot = await getDocs(flightsQuery);
 
     const flights = snapshot.docs.map((doc) =>
