@@ -1,0 +1,32 @@
+button {
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-loader {
+  --loader-color: #fff 90%, #0000;
+
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(
+      circle closest-side at left 6px top 50%,
+      var(--loader-color)
+    ),
+    radial-gradient(circle closest-side, var(--loader-color)),
+    radial-gradient(
+      circle closest-side at right 6px top 50%,
+      var(--loader-color)
+    );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  animation: l4 1s infinite alternate;
+}
+
+@keyframes l4 {
+  to {
+    width: 25px;
+    aspect-ratio: 1;
+  }
+}

@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { DATE_FORMATS } from '../../adapter/appDateAdapter';
 
 @Component({
   selector: 'app-form-date-range-picker',
@@ -34,6 +35,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./form-date-range-picker.component.scss'],
 })
 export class FormDateRangePickerComponent implements OnInit, OnDestroy {
+  dateFormat = DATE_FORMATS.parse.dateInput;
+
   @Input({ required: true }) controlKey = '';
   @Input() label = 'Date Range';
   @Input() startPlaceholder = 'Start Date';

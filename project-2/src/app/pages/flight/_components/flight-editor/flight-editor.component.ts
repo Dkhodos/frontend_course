@@ -21,6 +21,7 @@ import { FormDateRangePickerComponent } from '../../../../components/form-date-r
 import { DestinationsService } from '../../../../services/destinations.service';
 import { Flight } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
 
 @Component({
   selector: 'app-flight-editor',
@@ -32,12 +33,14 @@ import { LoaderComponent } from '../../../../components/loader/loader.component'
     FormDateRangePickerComponent,
     ReactiveFormsModule,
     LoaderComponent,
+    ButtonComponent,
   ],
   templateUrl: './flight-editor.component.html',
   styleUrls: ['./flight-editor.component.scss'],
 })
 export class FlightEditorComponent implements OnInit {
   @Input() initialState: Flight | null = null;
+  @Input() isLoading = false;
   @Output() saveEvent = new EventEmitter<{
     flightNumber: string;
     origin: string;
@@ -52,8 +55,8 @@ export class FlightEditorComponent implements OnInit {
   }>();
 
   form: FormGroup;
-  destinationOptions = signal<{ value: string; label: string }[]>([]); // ✅ Using Signals for reactivity
-  isLoading = signal<boolean>(true); // ✅ Loading state
+  destinationOptions = signal<{ value: string; label: string }[]>([]);
+  isLoadingDestinations = signal<boolean>(true);
 
   constructor(private destinationsService: DestinationsService) {
     this.form = new FormGroup(
@@ -72,10 +75,10 @@ export class FlightEditorComponent implements OnInit {
           endTime: new FormControl('', Validators.required),
         }),
 
-        seats: new FormControl(1, [
+        seats: new FormControl(80, [
           Validators.required,
-          Validators.min(1), // can't be less than 1
-          Validators.max(100), // can't be more than 100
+          Validators.min(50),
+          Validators.max(150),
         ]),
       },
       {
@@ -85,8 +88,6 @@ export class FlightEditorComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    console.log(this.initialState);
-
     if (this.initialState) {
       this.form.patchValue({
         flightNumber: this.initialState.flightNumber,
@@ -107,7 +108,7 @@ export class FlightEditorComponent implements OnInit {
       console.error('❌ Error fetching destination options:', error);
     }
 
-    this.isLoading.set(false);
+    this.isLoadingDestinations.set(false);
   }
 
   save() {

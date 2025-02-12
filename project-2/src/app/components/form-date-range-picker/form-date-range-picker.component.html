@@ -10,7 +10,7 @@
       />
       <input matEndDate formControlName="end" [placeholder]="endPlaceholder" />
     </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-hint>{{ dateFormat }} – {{ dateFormat }}</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
     <mat-error *ngIf="hasRangeErrorMessage">{{ rangeErrorMessage }}</mat-error>

@@ -1,0 +1,15 @@
+<button
+  [ngClass]="variant"
+  [type]="type"
+  mat-button
+  [disabled]="disabled || isLoading"
+  (click)="onclick.emit($event)"
+>
+  <mat-icon *ngIf="icon && !isLoading" class="button-icon">{{ icon }}</mat-icon>
+
+  <div *ngIf="isLoading; else button_content" class="button-loader"></div>
+
+  <ng-template #button_content>
+    <span class="button-content"><ng-content></ng-content></span>
+  </ng-template>
+</button>

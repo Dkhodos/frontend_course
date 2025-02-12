@@ -1,7 +1,10 @@
 <div class="editor">
   <form [formGroup]="form" (ngSubmit)="save()">
     <!-- Show Loader When Data is Fetching -->
-    <div class="destination-loader" *ngIf="isLoading(); else form_content">
+    <div
+      class="destination-loader"
+      *ngIf="isLoadingDestinations(); else form_content"
+    >
       <ono-flight-loader />
     </div>
 
@@ -64,7 +67,9 @@
         id="flight-seats"
       ></app-form-input>
 
-      <button type="submit">Save</button>
+      <app-button type="submit" [isLoading]="isLoading" icon="save"
+        >Save</app-button
+      >
     </ng-template>
   </form>
 
