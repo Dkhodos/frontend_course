@@ -8,6 +8,8 @@ import {
 } from '../_components/flight-editor/flight-editor.component';
 import { Flight } from '../../../models/flight.model';
 import { dateUtils } from '../../../utils/date-utils';
+import { ToastService } from '../../../components/toast/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ono-flight-add',
@@ -19,7 +21,11 @@ import { dateUtils } from '../../../utils/date-utils';
 export class FlightAddPageComponent {
   isLoading = signal(false);
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(
+    private flightsService: FlightsService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   async onSave(flightData: FlightData) {
     this.isLoading.set(true);
@@ -30,6 +36,13 @@ export class FlightAddPageComponent {
       );
       if (existingFlight) {
         console.error('exist');
+        this.isLoading.set(false);
+        this.toastService.add({
+          id: 'add-flight-exist',
+          variant: 'error',
+          title: 'Flight was not added!',
+          description: `flight ${flightData.flightNumber} already exist in our system.`,
+        });
         return;
       }
 
@@ -50,11 +63,25 @@ export class FlightAddPageComponent {
       );
 
       await this.flightsService.add(newFlight);
-      console.log('added!');
+
+      this.toastService.add({
+        id: 'add-flight-success',
+        variant: 'success',
+        title: 'Flight added!',
+        description: `flight ${newFlight.flightNumber} added.`,
+      });
+
+      this.isLoading.set(false);
+      await this.router.navigate(['admin', 'manage', 'flights']);
     } catch (e) {
       console.error(e);
-    } finally {
-      this.isLoading.set(false); // Reset loading state
+      this.toastService.add({
+        id: 'add-flight-error',
+        variant: 'error',
+        title: 'Flight was not added!',
+        description: `We uncounted an unexpected error, please try again`,
+      });
+      this.isLoading.set(false);
     }
   }
 }

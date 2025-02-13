@@ -1,0 +1,53 @@
+// toast.component.scss
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  width: 400px;
+  position: relative;
+}
+
+.toast-icon {
+  margin-right: 16px;
+  font-size: 24px;
+}
+
+.toast-content h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.toast-content p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.toast-close {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  cursor: pointer;
+  opacity: .7;
+  transition: .3s all ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}

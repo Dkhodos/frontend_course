@@ -1,0 +1,25 @@
+<!-- toast.component.html -->
+<div class="toast-container">
+  <div
+    *ngFor="let toast of toasts"
+    [@toastAnimation]
+    class="toast"
+    [attr.data-id]="toast.id"
+  >
+    <div
+      class="toast-icon"
+      [style.color]="getIconColor(toast.variant || 'info')"
+    >
+      <mat-icon>
+        {{ getIconName(toast.variant ?? 'info') }}
+      </mat-icon>
+    </div>
+    <div class="toast-content">
+      <h3>{{ toast.title }}</h3>
+      <p *ngIf="toast.description">{{ toast.description }}</p>
+    </div>
+    <div class="toast-close" (click)="removeToast(toast.id)">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+</div>
