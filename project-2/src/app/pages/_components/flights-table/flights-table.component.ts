@@ -20,6 +20,10 @@ import { LinkButtonComponent } from '../../../components/link-button/link-button
 import { UrlService } from '../../../services/url.service';
 import { MatButton } from '@angular/material/button';
 import { LoaderComponent } from '../../../components/loader/loader.component';
+import {
+  MenuComponent,
+  MenuOption,
+} from '../../../components/menu/menu.component';
 
 @Component({
   selector: 'app-flights-table',
@@ -34,6 +38,7 @@ import { LoaderComponent } from '../../../components/loader/loader.component';
     LinkButtonComponent,
     MatButton,
     LoaderComponent,
+    MenuComponent,
   ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -106,5 +111,47 @@ export class FlightsTableComponent {
 
   getFlightBookURL(flightNumber: string): string[] {
     return this.urlService.getFlightBookPageURL(flightNumber);
+  }
+
+  getFlightTableOptions(row: Flight): MenuOption[] {
+    const options: MenuOption[] = [];
+    if (this.actions.includes(FlightTableAction.BookNow)) {
+      options.push({
+        value: FlightTableAction.BookNow,
+        title: 'Book Now',
+        icon: 'flight_takeoff',
+        link: this.getFlightBookURL(row.flightNumber),
+      });
+    }
+
+    if (this.actions.includes(FlightTableAction.Edit)) {
+      options.push({
+        value: FlightTableAction.Edit,
+        title: 'Edit',
+        icon: 'edit',
+        link: this.getFlightInfoURL(row.flightNumber),
+      });
+    }
+
+    if (this.actions.includes(FlightTableAction.View)) {
+      options.push({
+        value: FlightTableAction.View,
+        title: 'View',
+        icon: 'remove_red_eye',
+        link: this.getFlightInfoURL(row.flightNumber),
+      });
+    }
+
+    if (this.actions.includes(FlightTableAction.Delete)) {
+      options.push({
+        value: FlightTableAction.Delete,
+        title: 'Delete',
+        icon: 'delete',
+        section: 'Danger',
+        color: 'darkred',
+      });
+    }
+
+    return options;
   }
 }

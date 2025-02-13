@@ -1,0 +1,44 @@
+<!-- Menu trigger: Icon button with kebab icon -->
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+
+<!-- Menu content -->
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let section of sectionKeys; let i = index">
+    <ng-container *ngFor="let option of groupedOptions[section]">
+      <ng-container *ngIf="option.link; else noLink">
+        <!-- Use mousedown instead of click for routerLink items -->
+        <button
+          mat-menu-item
+          [routerLink]="option.link"
+          (mousedown)="onOptionClick(option)"
+        >
+          <mat-icon
+            *ngIf="option.icon"
+            [ngStyle]="{ color: option.color || 'inherit' }"
+          >
+            {{ option.icon }}
+          </mat-icon>
+          <span [ngStyle]="{ color: option.color || 'inherit' }">{{
+            option.title
+          }}</span>
+        </button>
+      </ng-container>
+      <ng-template #noLink>
+        <button mat-menu-item (click)="onOptionClick(option)">
+          <mat-icon
+            *ngIf="option.icon"
+            [ngStyle]="{ color: option.color || 'inherit' }"
+          >
+            {{ option.icon }}
+          </mat-icon>
+          <span [ngStyle]="{ color: option.color || 'inherit' }">{{
+            option.title
+          }}</span>
+        </button>
+      </ng-template>
+    </ng-container>
+    <mat-divider *ngIf="i < sectionKeys.length - 1"></mat-divider>
+  </ng-container>
+</mat-menu>

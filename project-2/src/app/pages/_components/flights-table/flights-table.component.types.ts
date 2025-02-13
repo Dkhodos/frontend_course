@@ -3,4 +3,6 @@ export enum FlightTableAction {
   Edit = 'edit',
   Add = 'add',
   Filter = 'filter',
+  View = 'view',
+  Delete = 'delete',
 }

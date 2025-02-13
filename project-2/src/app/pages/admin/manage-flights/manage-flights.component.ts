@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { PageComponent } from '../../../components/page/page.component';
 import { FlightTableAction } from '../../_components/flights-table/flights-table.component.types';
 import { FlightsTableComponent } from '../../_components/flights-table/flights-table.component';
@@ -13,6 +13,7 @@ import { DestinationsService } from '../../../services/destinations.service';
   styleUrls: ['./manage-flights.component.scss'],
   standalone: true,
   imports: [PageComponent, FlightsTableComponent],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ManageFlightsComponent implements OnInit {
   flights = signal<Flight[]>([]); // ✅ Using Signals for reactivity

@@ -35,3 +35,23 @@ button {
   justify-content: space-between;
   align-items: center;
 }
+
+.table-root {
+  overflow-y: auto;
+}
+
+table {
+  position: relative;
+  border-collapse: collapse;
+}
+
+table th {
+  position: sticky;
+  top: 0;
+  z-index: 100000;
+}
+
+.table-action-row {
+  text-align: right;
+  z-index: 100000;
+}

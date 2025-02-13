@@ -2,7 +2,12 @@
   <app-flights-table
     [flights]="flights()"
     [destinations]="destinations()"
-    [actions]="[FlightTableAction.Edit, FlightTableAction.Add]"
+    [actions]="[
+      FlightTableAction.Edit,
+      FlightTableAction.Add,
+      FlightTableAction.View,
+      FlightTableAction.Delete,
+    ]"
     [isLoading]="isLoading()"
   />
 </page>

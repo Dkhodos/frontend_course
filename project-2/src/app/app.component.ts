@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CommonModule } from '@angular/common';
 import { FirebaseAuthComponent } from './components/firebase-auth/firebase-auth.component';
-import {ToastComponent} from './components/toast/toast.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @Component({
   selector: 'ono-flight-root',
