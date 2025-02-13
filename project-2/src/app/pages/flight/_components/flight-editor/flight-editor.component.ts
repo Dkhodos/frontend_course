@@ -22,6 +22,7 @@ import { DestinationsService } from '../../../../services/destinations.service';
 import { Flight } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
+import { dateUtils } from '../../../../utils/date-utils';
 
 export interface FlightData {
   flightNumber: string;
@@ -54,6 +55,7 @@ export interface FlightData {
 export class FlightEditorComponent implements OnInit {
   @Input() initialState: Flight | null = null;
   @Input() isLoading = false;
+  @Input() isEdit = false;
   @Output() onsave = new EventEmitter<FlightData>();
 
   form: FormGroup;
@@ -89,16 +91,7 @@ export class FlightEditorComponent implements OnInit {
     );
   }
 
-  async ngOnInit(): Promise<void> {
-    if (this.initialState) {
-      this.form.patchValue({
-        flightNumber: this.initialState.flightNumber,
-        origin: this.initialState.originCode,
-        destination: this.initialState.destinationCode,
-        seats: this.initialState.seatCount,
-      });
-    }
-
+  async handleDestinations() {
     try {
       const fetchedDestinations = await this.destinationsService.list();
       const options = fetchedDestinations.map((des) => ({
@@ -110,7 +103,39 @@ export class FlightEditorComponent implements OnInit {
       console.error('❌ Error fetching destination options:', error);
     }
 
+    if (this.isEdit) {
+      this.form.get('flightNumber')?.disable();
+    }
+
     this.isLoadingDestinations.set(false);
+  }
+
+  async ngOnInit(): Promise<void> {
+    if (this.initialState) {
+      const boardingDate = dateUtils.fromDateStringToDate(
+        this.initialState.boardingDate
+      );
+      const arrivalDate = dateUtils.fromDateStringToDate(
+        this.initialState.arrivalDate
+      );
+
+      console.log(boardingDate, arrivalDate);
+
+      this.form.patchValue({
+        flightNumber: this.initialState.flightNumber,
+        origin: this.initialState.originCode,
+        destination: this.initialState.destinationCode,
+        seats: this.initialState.seatCount,
+        boardingArrival: {
+          start: boardingDate,
+          end: arrivalDate,
+          startTime: this.initialState.boardingTime,
+          endTime: this.initialState.arrivalTime,
+        },
+      });
+    }
+
+    await this.handleDestinations();
   }
 
   save() {

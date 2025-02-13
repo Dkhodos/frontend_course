@@ -5,7 +5,11 @@
 
   <ng-template #flight_editor>
     <ng-container *ngIf="flight(); else notFound" class="book-flight-card">
-      <app-flight-editor [initialState]="flight()" />
+      <app-flight-editor
+        [initialState]="flight()"
+        (onsave)="onSave($event)"
+        [isLoading]="isUpdating()"
+      />
     </ng-container>
 
     <!-- Not Found Fallback -->

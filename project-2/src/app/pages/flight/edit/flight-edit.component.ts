@@ -2,11 +2,16 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageComponent } from '../../../components/page/page.component';
 import { FlightsService } from '../../../services/flights.service';
-import { FlightEditorComponent } from '../_components/flight-editor/flight-editor.component';
+import {
+  FlightData,
+  FlightEditorComponent,
+} from '../_components/flight-editor/flight-editor.component';
 import { Flight } from '../../../models/flight.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
 import { LoaderComponent } from '../../../components/loader/loader.component';
+import { dateUtils } from '../../../utils/date-utils';
+import { ToastService } from '../../../components/toast/toast.service';
 
 @Component({
   selector: 'ono-flight-add',
@@ -22,12 +27,15 @@ import { LoaderComponent } from '../../../components/loader/loader.component';
   ],
 })
 export class FlightEditPageComponent implements OnInit {
-  flight = signal<Flight | null>(null); // ✅ Signal for efficiency
-  isLoading = signal<boolean>(true); // ✅ Signal for loading state
+  flight = signal<Flight | null>(null);
+  isLoading = signal<boolean>(true);
+  isUpdating = signal<boolean>(false);
 
   constructor(
     private route: ActivatedRoute,
-    private flightsService: FlightsService
+    private flightsService: FlightsService,
+    private toastService: ToastService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +54,49 @@ export class FlightEditPageComponent implements OnInit {
       }
     }
 
-    this.isLoading.set(false); // ✅ Stop loading regardless of success/failure
+    this.isLoading.set(false);
+  }
+
+  async onSave(flightData: FlightData) {
+    this.isUpdating.set(true);
+
+    try {
+      const startDateStr = dateUtils.formatDate(
+        flightData.boardingArrival.start
+      );
+      const endDateStr = dateUtils.formatDate(flightData.boardingArrival.end);
+
+      const updatedFlight = new Flight(
+        flightData.flightNumber,
+        flightData.origin,
+        flightData.destination,
+        startDateStr,
+        flightData.boardingArrival.startTime,
+        endDateStr,
+        flightData.boardingArrival.endTime,
+        flightData.seats
+      );
+
+      await this.flightsService.update(updatedFlight);
+
+      this.toastService.add({
+        id: 'add-flight-success',
+        variant: 'success',
+        title: 'Flight updated!',
+        description: `flight ${updatedFlight.flightNumber} updated.`,
+      });
+
+      this.isUpdating.set(false);
+      await this.router.navigate(['admin', 'manage', 'flights']);
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'add-flight-error',
+        variant: 'error',
+        title: 'Flight was not updated!',
+        description: `We uncounted an unexpected error, please try again`,
+      });
+      this.isUpdating.set(false);
+    }
   }
 }

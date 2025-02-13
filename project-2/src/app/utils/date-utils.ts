@@ -2,22 +2,6 @@ import { Timestamp } from '@angular/fire/firestore';
 
 class DateUtils {
   /**
-   * Get a future date in 'dd-mm-yyyy' format.
-   */
-  getUpcomingDate(daysFromNow: number): string {
-    const date = new Date();
-    date.setDate(date.getDate() + daysFromNow);
-    return this.formatDate(date);
-  }
-
-  /**
-   * Get today's date in 'dd-mm-yyyy' format.
-   */
-  getToday(): string {
-    return this.formatDate(new Date());
-  }
-
-  /**
    * Convert Firestore Timestamp to 'dd-mm-yyyy'.
    */
   fromTimestampToDate(timestamp: Timestamp): string {
@@ -56,6 +40,11 @@ class DateUtils {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
+  }
+
+  public fromDateStringToDate(dateString: string) {
+    const [day, month, year] = dateString.split('-');
+    return new Date(Number(year), Number(month), Number(day));
   }
 }
 

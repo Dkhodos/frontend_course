@@ -8,6 +8,7 @@ import {
   setDoc,
   query,
   orderBy,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { Flight, FlightFirestoreData } from '../models/flight.model';
 
@@ -66,5 +67,26 @@ export class FlightsService {
     await setDoc(flightDoc, flight.toFirestore());
 
     console.log(`✅ Flight ${flight.flightNumber} added successfully`);
+  }
+
+  async update(flight: Flight): Promise<void> {
+    console.log(`Updating flight ${flight.flightNumber}...`);
+
+    const flightDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flight.flightNumber
+    );
+
+    try {
+      await updateDoc(flightDoc, { ...flight.toFirestore() });
+      console.log(`✅ Flight ${flight.flightNumber} updated successfully`);
+    } catch (error) {
+      console.error(
+        `❌ Failed to update flight ${flight.flightNumber}:`,
+        error
+      );
+      throw error;
+    }
   }
 }
