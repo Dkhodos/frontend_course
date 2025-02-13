@@ -1,5 +1,8 @@
 <ng-template #actionsTemplate let-row>
-  <app-menu [options]="getFlightTableOptions(row)" />
+  <app-menu
+    [options]="getFlightTableOptions(row)"
+    [header]="getFlightTableOptionsHeader(row)"
+  />
 </ng-template>
 
 <ng-template #topRightSectionTemplate>

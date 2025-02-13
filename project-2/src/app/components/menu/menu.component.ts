@@ -1,17 +1,19 @@
 import {
   Component,
-  Input,
-  Output,
   EventEmitter,
+  Input,
   OnChanges,
+  Output,
   SimpleChanges,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { MatDivider } from '@angular/material/divider';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 export interface MenuOption {
   title: string;
@@ -35,12 +37,14 @@ export interface MenuOption {
     CommonModule,
     MatDivider,
     MatMenuTrigger,
-    RouterLink,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MenuComponent implements OnChanges {
   @Input() options: MenuOption[] = [];
   @Output() optionClicked = new EventEmitter<MenuOption>();
+  @Input() header?: string;
+  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
   groupedOptions: Record<string, MenuOption[]> = {};
 
@@ -73,6 +77,10 @@ export class MenuComponent implements OnChanges {
       this.router.navigate(option.link);
     } else {
       this.optionClicked.emit(option);
+    }
+
+    if (this.menuTrigger) {
+      this.menuTrigger.closeMenu();
     }
   }
 }

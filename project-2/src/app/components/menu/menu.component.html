@@ -4,41 +4,41 @@
 </button>
 
 <!-- Menu content -->
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" class="menu-root">
+  <!-- Loop through grouped sections -->
   <ng-container *ngFor="let section of sectionKeys; let i = index">
-    <ng-container *ngFor="let option of groupedOptions[section]">
-      <ng-container *ngIf="option.link; else noLink">
-        <!-- Use mousedown instead of click for routerLink items -->
-        <button
-          mat-menu-item
-          [routerLink]="option.link"
-          (mousedown)="onOptionClick(option)"
-        >
-          <mat-icon
-            *ngIf="option.icon"
-            [ngStyle]="{ color: option.color || 'inherit' }"
-          >
-            {{ option.icon }}
-          </mat-icon>
-          <span [ngStyle]="{ color: option.color || 'inherit' }">{{
-            option.title
-          }}</span>
-        </button>
+    <!-- Section header if this is not the default section -->
+
+    <div class="menu-section-header">
+      <ng-container *ngIf="section !== 'default'">
+        {{ section }}
       </ng-container>
-      <ng-template #noLink>
-        <button mat-menu-item (click)="onOptionClick(option)">
-          <mat-icon
-            *ngIf="option.icon"
-            [ngStyle]="{ color: option.color || 'inherit' }"
-          >
-            {{ option.icon }}
-          </mat-icon>
-          <span [ngStyle]="{ color: option.color || 'inherit' }">{{
-            option.title
-          }}</span>
-        </button>
-      </ng-template>
+      <ng-container *ngIf="section === 'default' && header">
+        {{ header }}
+      </ng-container>
+    </div>
+
+    <!-- Loop through each option in this section -->
+    <ng-container *ngFor="let option of groupedOptions[section]">
+      <button
+        mat-menu-item
+        (mousedown)="onOptionClick(option)"
+        class="menu-item"
+      >
+        <mat-icon
+          class="menu-item-icon"
+          *ngIf="option.icon"
+          [ngStyle]="{ color: option.color || 'inherit' }"
+        >
+          {{ option.icon }}
+        </mat-icon>
+        <span [ngStyle]="{ color: option.color || 'inherit' }">
+          {{ option.title }}
+        </span>
+      </button>
     </ng-container>
+
+    <!-- Add a divider between sections (except after the last section) -->
     <mat-divider *ngIf="i < sectionKeys.length - 1"></mat-divider>
   </ng-container>
 </mat-menu>

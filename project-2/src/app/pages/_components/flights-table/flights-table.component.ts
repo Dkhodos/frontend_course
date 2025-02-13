@@ -101,8 +101,12 @@ export class FlightsTableComponent {
     );
   }
 
-  getFlightInfoURL(flightNumber: string): string[] {
+  getFlightEditURL(flightNumber: string): string[] {
     return this.urlService.getFlightEditPageURL(flightNumber);
+  }
+
+  getFlightInfoURL(flightNumber: string): string[] {
+    return this.urlService.getFlightInfoPageURL(flightNumber);
   }
 
   getFlightAddURL(): string[] {
@@ -124,15 +128,6 @@ export class FlightsTableComponent {
       });
     }
 
-    if (this.actions.includes(FlightTableAction.Edit)) {
-      options.push({
-        value: FlightTableAction.Edit,
-        title: 'Edit',
-        icon: 'edit',
-        link: this.getFlightInfoURL(row.flightNumber),
-      });
-    }
-
     if (this.actions.includes(FlightTableAction.View)) {
       options.push({
         value: FlightTableAction.View,
@@ -142,16 +137,29 @@ export class FlightsTableComponent {
       });
     }
 
+    if (this.actions.includes(FlightTableAction.Edit)) {
+      options.push({
+        value: FlightTableAction.Edit,
+        title: 'Edit',
+        icon: 'edit',
+        link: this.getFlightEditURL(row.flightNumber),
+      });
+    }
+
     if (this.actions.includes(FlightTableAction.Delete)) {
       options.push({
         value: FlightTableAction.Delete,
         title: 'Delete',
         icon: 'delete',
         section: 'Danger',
-        color: 'darkred',
+        color: '#fa5252',
       });
     }
 
     return options;
+  }
+
+  getFlightTableOptionsHeader(flight: Flight) {
+    return `Flight ${flight.flightNumber}`;
   }
 }
