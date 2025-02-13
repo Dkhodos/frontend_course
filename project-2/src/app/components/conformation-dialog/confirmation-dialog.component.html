@@ -1,0 +1,20 @@
+<div *ngIf="dialog" class="dialog-overlay" @overlayAnimation>
+  <div class="dialog-container" @dialogAnimation>
+    <div
+      class="dialog-icon"
+      [style.color]="DIALOG_COLORS[dialog.variant || 'info']"
+    >
+      <mat-icon class="dialog-icon-root">{{ dialog.icon }}</mat-icon>
+    </div>
+    <h3 class="dialog-title">{{ dialog.title }}</h3>
+    <p *ngIf="dialog.description" class="dialog-description">
+      {{ dialog.description }}
+    </p>
+    <div class="dialog-actions">
+      <button class="dialog-btn confirm-btn" (click)="confirm()">
+        Confirm
+      </button>
+      <button class="dialog-btn cancel-btn" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

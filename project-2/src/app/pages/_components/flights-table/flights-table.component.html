@@ -2,6 +2,7 @@
   <app-menu
     [options]="getFlightTableOptions(row)"
     [header]="getFlightTableOptionsHeader(row)"
+    (optionClicked)="onOptionClicked($event, row)"
   />
 </ng-template>
 

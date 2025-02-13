@@ -7,6 +7,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CommonModule } from '@angular/common';
 import { FirebaseAuthComponent } from './components/firebase-auth/firebase-auth.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { ConfirmationDialogComponent } from './components/conformation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'ono-flight-root',
@@ -19,6 +20,7 @@ import { ToastComponent } from './components/toast/toast.component';
     CommonModule,
     FirebaseAuthComponent,
     ToastComponent,
+    ConfirmationDialogComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

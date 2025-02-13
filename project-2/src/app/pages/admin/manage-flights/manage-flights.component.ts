@@ -6,6 +6,7 @@ import { Flight } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
 import { FlightsService } from '../../../services/flights.service';
 import { DestinationsService } from '../../../services/destinations.service';
+import { ToastService } from '../../../components/toast/toast.service';
 
 @Component({
   selector: 'manage-flights-page',
@@ -23,10 +24,13 @@ export class ManageFlightsComponent implements OnInit {
 
   constructor(
     private flightsService: FlightsService,
-    private destinationsService: DestinationsService
+    private destinationsService: DestinationsService,
+    private toastService: ToastService
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  async fetchData() {
+    this.isLoading.set(true);
+
     try {
       const [fetchedFlights, fetchedDestinations] = await Promise.all([
         this.flightsService.list(),
@@ -40,5 +44,30 @@ export class ManageFlightsComponent implements OnInit {
     }
 
     this.isLoading.set(false);
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.fetchData();
+  }
+
+  async onDeleteFlight(flight: Flight) {
+    try {
+      await this.flightsService.delete(flight.flightNumber);
+      this.toastService.add({
+        id: 'flight-delete-success',
+        title: 'Flight deleted!',
+        description: `Flight ${flight.flightNumber} deleted.`,
+        variant: 'success',
+      });
+      await this.fetchData();
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'flight-delete-success',
+        title: 'Flight was not deleted!',
+        description: `We uncounted an unexpected error, please try again`,
+        variant: 'error',
+      });
+    }
   }
 }

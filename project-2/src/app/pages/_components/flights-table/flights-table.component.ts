@@ -24,6 +24,7 @@ import {
   MenuComponent,
   MenuOption,
 } from '../../../components/menu/menu.component';
+import { ConfirmationDialogService } from '../../../components/conformation-dialog/confirmation-dialog.service';
 
 @Component({
   selector: 'app-flights-table',
@@ -48,8 +49,12 @@ export class FlightsTableComponent {
   @Input() actions: FlightTableAction[] = [];
   @Input() isLoading = false;
   @Output() filter = new EventEmitter<void>();
+  @Output() deleteFlight = new EventEmitter<Flight>();
 
-  constructor(private urlService: UrlService) {}
+  constructor(
+    private urlService: UrlService,
+    private confirmationDialogService: ConfirmationDialogService
+  ) {}
 
   protected readonly FlightTableAction = FlightTableAction;
 
@@ -161,5 +166,16 @@ export class FlightsTableComponent {
 
   getFlightTableOptionsHeader(flight: Flight) {
     return `Flight ${flight.flightNumber}`;
+  }
+
+  onOptionClicked(option: MenuOption, flight: Flight) {
+    if (option.value === FlightTableAction.Delete) {
+      this.confirmationDialogService.show({
+        title: 'Delete Flight?',
+        variant: 'warning',
+        description: `Are you sure you want to delete flight ${flight.flightNumber}?`,
+        onConfirm: () => this.deleteFlight.emit(flight),
+      });
+    }
   }
 }

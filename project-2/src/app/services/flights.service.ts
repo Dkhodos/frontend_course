@@ -9,6 +9,7 @@ import {
   query,
   orderBy,
   updateDoc,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { Flight, FlightFirestoreData } from '../models/flight.model';
 
@@ -86,6 +87,24 @@ export class FlightsService {
         `❌ Failed to update flight ${flight.flightNumber}:`,
         error
       );
+      throw error;
+    }
+  }
+
+  async delete(flightNumber: string) {
+    console.log(`Deleting flight ${flightNumber}...`);
+
+    const flightDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flightNumber
+    );
+
+    try {
+      await deleteDoc(flightDoc);
+      console.log(`✅ Flight ${flightNumber} deleted successfully`);
+    } catch (error) {
+      console.error(`❌ Failed to deleted flight ${flightNumber}:`, error);
       throw error;
     }
   }
