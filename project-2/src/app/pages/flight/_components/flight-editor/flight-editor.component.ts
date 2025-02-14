@@ -119,8 +119,6 @@ export class FlightEditorComponent implements OnInit {
         this.initialState.arrivalDate
       );
 
-      console.log(boardingDate, arrivalDate);
-
       this.form.patchValue({
         flightNumber: this.initialState.flightNumber,
         origin: this.initialState.originCode,
