@@ -141,7 +141,8 @@ export class FlightEditorComponent implements OnInit {
       console.log('valid');
 
       this.onsave.emit({
-        flightNumber: this.form.value.flightNumber,
+        flightNumber:
+          this.form.value.flightNumber ?? this.initialState?.flightNumber,
         origin: this.form.value.origin,
         destination: this.form.value.destination,
         boardingArrival: this.form.value.boardingArrival,
