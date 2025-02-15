@@ -1,0 +1,29 @@
+.editor {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 600px;
+  align-items: center;
+  gap: 16px;
+}
+
+.form-item {
+  margin-bottom: 4px;
+}
+
+.preview {
+  align-self: flex-start;
+}
+
+.preview h3 {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.image-preview {
+  height: 435px;
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+}

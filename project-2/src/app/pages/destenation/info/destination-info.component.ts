@@ -1,18 +1,18 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { Destination } from '../../models/destination.model';
-import { DestinationsService } from '../../services/destinations.service';
+import { Destination } from '../../../models/destination.model';
+import { DestinationsService } from '../../../services/destinations.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { PageComponent } from '../../components/page/page.component';
-import { NotFoundPlaceholderComponent } from '../../components/not-found-placeholder/not-found-placeholder.component';
-import { LoaderComponent } from '../../components/loader/loader.component';
+import { PageComponent } from '../../../components/page/page.component';
+import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
+import { LoaderComponent } from '../../../components/loader/loader.component';
 
 @Component({
   selector: 'ono-destination-page',
-  templateUrl: './destination.component.html',
-  styleUrls: ['./destination.component.scss'],
+  templateUrl: './destination-info.component.html',
+  styleUrls: ['./destination-info.component.scss'],
   standalone: true,
   imports: [
     MatCardModule,
@@ -23,7 +23,7 @@ import { LoaderComponent } from '../../components/loader/loader.component';
     LoaderComponent,
   ],
 })
-export class DestinationPageComponent implements OnInit {
+export class DestinationInfoPageComponent implements OnInit {
   destination = signal<Destination | null>(null); // ✅ Using Signals
   isLoading = signal<boolean>(true); // ✅ Loading state
 

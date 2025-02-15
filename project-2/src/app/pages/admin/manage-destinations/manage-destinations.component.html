@@ -7,6 +7,9 @@
   </div>
 
   <ng-template #destinations_content>
-    <app-destinations-table [destinations]="destinations()" />
+    <app-destinations-table
+      [destinations]="destinations()"
+      (deleteDestination)="deleteDestination($event)"
+    />
   </ng-template>
 </page>

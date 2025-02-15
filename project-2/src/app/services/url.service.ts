@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
 export class UrlService {
   private readonly AppRoutes = {
     booking: (flightNumber: string) => ['/booking', flightNumber],
-    destination: (code: string) => ['/destination', code],
+    destinationInfo: (code: string) => ['/destination', 'info', code],
+    destinationEdit: (code: string) => ['/destination', 'edit', code],
+    destinationAdd: () => ['/destination', 'add'],
     flightInfo: (flightNumber: string) => ['/flight', 'info', flightNumber],
     flightBook: (flightNumber: string) => ['/flight', 'book', flightNumber],
     flightEdit: (flightNumber: string) => ['/flight', 'edit', flightNumber],
@@ -20,8 +22,16 @@ export class UrlService {
     return this.AppRoutes.booking(flightNumber);
   }
 
-  getDestinationPageURL(code: string): string[] {
-    return this.AppRoutes.destination(code);
+  getDestinationInfoPageURL(code: string): string[] {
+    return this.AppRoutes.destinationInfo(code);
+  }
+
+  getDestinationEditPageURL(code: string): string[] {
+    return this.AppRoutes.destinationEdit(code);
+  }
+
+  getDestinationAddPageURL(): string[] {
+    return this.AppRoutes.destinationAdd();
   }
 
   getFlightInfoPageURL(flightNumber: string): string[] {
