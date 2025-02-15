@@ -1,0 +1,94 @@
+<div class="editor">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-item destination-code">
+      <app-form-input
+        controlKey="code"
+        label="Destination Code"
+        placeholder="Enter destenation code"
+        [required]="true"
+        [errorMessages]="{
+          required: 'Destination code is required.',
+          pattern: 'Destination code must be 3 uppercase letters.',
+        }"
+      />
+    </div>
+
+    <div class="form-item">
+      <app-form-input
+        controlKey="name"
+        label="Destination Name"
+        placeholder="Enter destenation name"
+        [required]="true"
+        [errorMessages]="{
+          required: 'Destination name is required.',
+        }"
+      />
+    </div>
+
+    <div class="form-item">
+      <app-form-input
+        controlKey="airportName"
+        label="Airport Name"
+        placeholder="Enter airport name"
+        [required]="true"
+        [errorMessages]="{
+          required: 'Airport name is required.',
+        }"
+      />
+    </div>
+
+    <div class="form-item">
+      <app-form-input
+        controlKey="airportUrl"
+        label="Airport Site URL"
+        placeholder="Enter airport site url"
+        type="url"
+        [required]="true"
+        [errorMessages]="{
+          required: 'Airport URL is required.',
+          pattern: 'Airport URL must be a valid url.',
+        }"
+      />
+    </div>
+
+    <div class="form-item">
+      <app-form-input
+        controlKey="imageUrl"
+        label="Destanation Image URL"
+        placeholder="Enter destenation image url"
+        type="url"
+        [required]="true"
+        [errorMessages]="{
+          required: 'Airport URL is required.',
+          pattern: 'Destination image URL must be a valid url.',
+        }"
+      />
+    </div>
+
+    <div class="form-item">
+      <app-form-input
+        controlKey="email"
+        label="Airport Email"
+        placeholder="Enter Airport email"
+        type="url"
+        [required]="true"
+        [errorMessages]="{
+          required: 'Airport email is required.',
+          pattern: 'Airport email must be a valid email.',
+        }"
+      />
+    </div>
+
+    <app-button type="submit" [isLoading]="isLoading" icon="save">
+      Save
+    </app-button>
+  </form>
+
+  <div class="preview">
+    <h3>Preview</h3>
+    <div
+      class="image-preview"
+      [style.background-image]="previewImageURL()"
+    ></div>
+  </div>
+</div>

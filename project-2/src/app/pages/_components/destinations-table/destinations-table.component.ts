@@ -1,4 +1,10 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Destination } from '../../../models/destination.model';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,24 +14,37 @@ import {
 } from '../../../components/table/table.component.types';
 import { TableComponent } from '../../../components/table/table.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { FlightTableAction } from '../flights-table/flights-table.component.types';
 import { LinkButtonComponent } from '../../../components/link-button/link-button.component';
 import { UrlService } from '../../../services/url.service';
+import {
+  MenuComponent,
+  MenuOption,
+} from '../../../components/menu/menu.component';
+import { ConfirmationDialogService } from '../../../components/conformation-dialog/confirmation-dialog.service';
+import { DestinationTableAction } from './destinations-table.component.types';
 
 @Component({
   selector: 'app-destinations-table',
   templateUrl: './destinations-table.component.html',
   styleUrls: ['./destinations-table.component.scss'],
   standalone: true,
-  imports: [TableComponent, RouterModule, MatIconModule, LinkButtonComponent],
+  imports: [
+    TableComponent,
+    RouterModule,
+    MatIconModule,
+    LinkButtonComponent,
+    MenuComponent,
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class DestinationsTableComponent {
   @Input() destinations!: Destination[];
+  @Output() deleteDestination = new EventEmitter<Destination>();
 
   constructor(
     private sanitizer: DomSanitizer,
-    private urlService: UrlService
+    private urlService: UrlService,
+    private confirmationDialogService: ConfirmationDialogService
   ) {}
 
   columns: TableColumn<Destination>[] = [
@@ -54,9 +73,47 @@ export class DestinationsTableComponent {
   ];
 
   getId: TableGetIdFn<Destination> = (row) => row.code;
-  protected readonly FlightTableAction = FlightTableAction;
 
-  getDestinationURL(code: string) {
-    return this.urlService.getDestinationPageURL(code);
+  getDestinationAddURL() {
+    return this.urlService.getDestinationAddPageURL();
+  }
+
+  getDestinationTableOptions(row: Destination): MenuOption[] {
+    return [
+      {
+        value: DestinationTableAction.View,
+        title: 'View',
+        icon: 'remove_red_eye',
+        link: this.urlService.getDestinationInfoPageURL(row.code),
+      },
+      {
+        value: DestinationTableAction.Edit,
+        title: 'Edit',
+        icon: 'edit',
+        link: this.urlService.getDestinationEditPageURL(row.code),
+      },
+      {
+        value: DestinationTableAction.Delete,
+        title: 'Delete',
+        icon: 'delete',
+        section: 'Danger',
+        color: '#fa5252',
+      },
+    ];
+  }
+
+  getDestinationTableOptionsHeader(destination: Destination) {
+    return `${destination.name} (${destination.code})`;
+  }
+
+  onOptionClicked(option: MenuOption, destination: Destination) {
+    if (option.value === DestinationTableAction.Delete) {
+      this.confirmationDialogService.show({
+        title: 'Delete Destination?',
+        variant: 'warning',
+        description: `Are you sure you want to delete destination ${destination.name} (${destination.code})?`,
+        onConfirm: () => this.deleteDestination.emit(destination),
+      });
+    }
   }
 }

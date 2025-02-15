@@ -22,7 +22,7 @@ import { AuthService } from '../../services/auth.service';
   ],
 })
 export class FirebaseAuthComponent implements OnInit {
-  loading = true;
+  loading = false;
 
   constructor(private authService: AuthService) {}
 

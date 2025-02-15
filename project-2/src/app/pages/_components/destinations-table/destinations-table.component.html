@@ -1,10 +1,18 @@
 <ng-template #actionsTemplate let-row>
+  <app-menu
+    [options]="getDestinationTableOptions(row)"
+    [header]="getDestinationTableOptionsHeader(row)"
+    (optionClicked)="onOptionClicked($event, row)"
+  />
+</ng-template>
+
+<ng-template #topRightSectionTemplate>
   <app-link-button
-    [routerLink]="getDestinationURL(row.code)"
-    icon="edit"
-    className="edit-link"
+    [routerLink]="getDestinationAddURL()"
+    icon="add"
+    class="add-link"
   >
-    Edit
+    Add Destination
   </app-link-button>
 </ng-template>
 
@@ -14,4 +22,5 @@
   [getId]="getId"
   [searchable]="true"
   [actions]="actionsTemplate"
+  [topRightSection]="topRightSectionTemplate"
 ></app-table>

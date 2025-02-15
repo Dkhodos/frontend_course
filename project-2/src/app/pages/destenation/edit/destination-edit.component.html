@@ -1,0 +1,24 @@
+<page title="Edit a Destination">
+  <div class="flight-edit-loader" *ngIf="isLoading(); else destination_editor">
+    <ono-flight-loader />
+  </div>
+
+  <ng-template #destination_editor>
+    <ng-container *ngIf="destination(); else notFound" class="book-flight-card">
+      <app-destination-editor
+        [initialState]="destination()"
+        (onsave)="onSave($event)"
+        [isLoading]="isUpdating()"
+        [isEdit]="true"
+      />
+    </ng-container>
+
+    <!-- Not Found Fallback -->
+    <ng-template #notFound>
+      <ono-not-found-placeholder
+        title="Flight Not Found"
+        description="We could not find the flight details. Please check the flight ID and try again."
+      />
+    </ng-template>
+  </ng-template>
+</page>
