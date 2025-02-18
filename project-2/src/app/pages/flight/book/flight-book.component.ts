@@ -1,20 +1,22 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { PageComponent } from '../../../components/page/page.component';
 import { Flight } from '../../../models/flight.model';
 import { FlightsService } from '../../../services/flights.service';
 import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {
-  FlightBookForm,
-  PassengerListComponent,
-} from './components/passenger-list/passenger-list.component';
-import { PassengerForm } from './components/passenger-list/components/passenger-item/passenger-item.component';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
+import { FormBuilder, FormGroup, AbstractControl, FormArray, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from '../../../components/loader/loader.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { PassengerStepComponent } from './steps/passenger-step/passenger-step.component';
+import { BaggageStepComponent } from './steps/baggage-step/baggage-step.component';
+import { SeatsStepComponent } from './steps/seats-step/seats-step.component';
+import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
+import {FlightBookForm} from './steps/passenger-step/components/passenger-list/passenger-list.component';
+import {
+  PassengerForm
+} from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
+import {FlightInformationComponent} from './components/flight-information/flight-information';
 
 @Component({
   selector: 'ono-flight-book',
@@ -22,20 +24,22 @@ import { LoaderComponent } from '../../../components/loader/loader.component';
   styleUrls: ['./flight-book.component.scss'],
   standalone: true,
   imports: [
-    MatCardModule,
     PageComponent,
     CommonModule,
     NotFoundPlaceholderComponent,
     ReactiveFormsModule,
-    PassengerListComponent,
-    MatButton,
-    MatIcon,
     LoaderComponent,
+    MatStepperModule,
+    PassengerStepComponent,
+    BaggageStepComponent,
+    SeatsStepComponent,
+    SummaryStepComponent,
+    FlightInformationComponent,
   ],
 })
 export class FlightBookComponent implements OnInit {
-  flight = signal<Flight | null>(null); // ✅ Using Signals for reactivity
-  isLoading = signal<boolean>(true); // ✅ Loading state
+  flight = signal<Flight | null>(null);
+  isLoading = signal<boolean>(true);
 
   form: FormGroup<FlightBookForm>;
 
@@ -45,8 +49,18 @@ export class FlightBookComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group<FlightBookForm>({
-      passengers: this.fb.array<FormGroup<PassengerForm>>([]),
+      passengers: this.fb.array<FormGroup<PassengerForm>>(
+        [],
+        this.minPassengersValidator
+      ),
     });
+  }
+
+  minPassengersValidator(control: AbstractControl): ValidationErrors | null {
+    const arr = control as FormArray;
+    return arr.length > 0
+      ? null
+      : { minPassengers: 'At least one passenger is required' };
   }
 
   async ngOnInit(): Promise<void> {
@@ -60,7 +74,6 @@ export class FlightBookComponent implements OnInit {
         console.error('❌ Error fetching flight:', error);
       }
     }
-
     this.isLoading.set(false);
   }
 }

@@ -1,0 +1,14 @@
+<!-- passenger-step.component.html -->
+<div class="step-container">
+  <app-step-description title="Passengers" description="Select passengers" />
+
+  <!-- Re-use the existing passenger list component -->
+  <app-passenger-list [passengers]="passengers"></app-passenger-list>
+
+  <div class="step-actions">
+    <!-- Next button is disabled until the passengers FormArray is valid -->
+    <button mat-button (click)="stepper.next()" [disabled]="passengers.invalid">
+      Next <mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
+</div>
