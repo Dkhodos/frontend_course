@@ -1,0 +1,27 @@
+<div class="flight-details" *ngIf="flight">
+  <div class="flight-details-item">
+    <header>Flight Number</header>
+    <p>{{ flight.flightNumber }}</p>
+  </div>
+
+  <div class="flight-details-item">
+    <header>Origin</header>
+    <p>{{ flight.originCode }}</p>
+  </div>
+
+  <div class="flight-details-item">
+    <header>Destination</header>
+    <p>{{ flight.destinationCode }}</p>
+  </div>
+
+  <div class="flight-details-item">
+    <header>Boarding</header>
+    <p>{{ flight.boardingDate }} {{ flight.boardingTime }}</p>
+  </div>
+
+  <div class="flight-details-item">
+    <header>Arrival</header>
+    <p>{{ flight.arrivalDate }} {{ flight.arrivalTime }}</p>
+  </div>
+</div>
+<mat-divider class="flight-details-divider" />

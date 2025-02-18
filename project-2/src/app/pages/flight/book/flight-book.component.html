@@ -1,32 +1,42 @@
+<!-- flight-book.component.html -->
 <page title="Book a Flight">
   <div class="book-a-flight-loader" *ngIf="isLoading(); else book_a_flight">
-    <ono-flight-loader />
+    <ono-flight-loader></ono-flight-loader>
   </div>
 
   <ng-template #book_a_flight>
     <ng-container *ngIf="flight(); else notFound">
-      <mat-card class="book-flight-card">
-        <div class="flight-details">
-          <div>
-            <strong>Origin:</strong> {{ flight()?.originCode || 'N/A' }}
-            <span>Boarding:</span>
-            {{ flight()?.boardingDate || 'N/A' }}
-            {{ flight()?.boardingTime || 'N/A' }}
-          </div>
-          <div>
-            <strong>Destination:</strong>
-            {{ flight()?.destinationCode || 'N/A' }}
-            <span>Landing:</span>
-            {{ flight()?.arrivalDate || 'N/A' }}
-            {{ flight()?.arrivalTime || 'N/A' }}
-          </div>
-        </div>
-      </mat-card>
-      <app-passenger-list [passengers]="form.controls.passengers" />
-      <button mat-flat-button type="submit">
-        <mat-icon>flight_takeoff</mat-icon>
-        Book Now!
-      </button>
+      <app-flight-information [flight]="flight()!" />
+
+      <mat-horizontal-stepper linear #stepper>
+        <!-- Step 1: Passengers -->
+        <mat-step [stepControl]="form.controls.passengers">
+          <ng-template matStepLabel>Passengers</ng-template>
+          <app-passenger-step
+            [passengers]="form.controls.passengers"
+            [stepper]="stepper"
+          >
+          </app-passenger-step>
+        </mat-step>
+
+        <!-- Step 2: Baggage -->
+        <mat-step>
+          <ng-template matStepLabel>Baggage</ng-template>
+          <app-baggage-step [stepper]="stepper"></app-baggage-step>
+        </mat-step>
+
+        <!-- Step 3: Seats -->
+        <mat-step>
+          <ng-template matStepLabel>Seats</ng-template>
+          <app-seats-step [stepper]="stepper"></app-seats-step>
+        </mat-step>
+
+        <!-- Step 4: Summary -->
+        <mat-step>
+          <ng-template matStepLabel>Summary</ng-template>
+          <app-summary-step [stepper]="stepper"></app-summary-step>
+        </mat-step>
+      </mat-horizontal-stepper>
     </ng-container>
 
     <!-- Not Found Fallback -->

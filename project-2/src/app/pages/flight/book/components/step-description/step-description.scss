@@ -1,0 +1,21 @@
+.step-description {
+  padding: 8px;
+  border-radius: 4px;
+  color: white;
+  text-align: left;
+  width: 100%;
+
+  h2 {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 0 4px;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.step-description-divider {
+  margin: 8px 0 !important;
+}
