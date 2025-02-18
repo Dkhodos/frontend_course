@@ -9,6 +9,8 @@
       [required]="required"
       [type]="type"
     />
+    <span matPrefix *ngIf="adornmentStart"><mat-icon>{{adornmentStart}}</mat-icon></span>
+    <span matSuffix *ngIf="adornmentEnd"><mat-icon>{{adornmentEnd}}</mat-icon></span>
     <mat-error>
       {{ errorMessage }}
     </mat-error>

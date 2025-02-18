@@ -1,28 +1,33 @@
 import {
   Component,
-  Input,
-  Output,
   EventEmitter,
+  Input,
   OnInit,
+  Output,
   signal,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ValidatorFn,
   AbstractControl,
+  FormControl,
+  FormGroup,
   ReactiveFormsModule,
+  ValidatorFn,
+  Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormInputComponent } from '../../../../components/form-input/form-input.component';
-import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
+import {
+  FormSelectComponent,
+  Option,
+} from '../../../../components/form-select/form-select.component';
 import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
 import { DestinationsService } from '../../../../services/destinations.service';
 import { Flight } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { dateUtils } from '../../../../utils/date-utils';
+import {PLANE_OPTIONS_AND_SEATS, PLANE_SEATS_TO_IMAGE} from './flight-editor.conts';
 
 export interface FlightData {
   flightNumber: string;
@@ -51,6 +56,7 @@ export interface FlightData {
   ],
   templateUrl: './flight-editor.component.html',
   styleUrls: ['./flight-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FlightEditorComponent implements OnInit {
   @Input() initialState: Flight | null = null;
@@ -61,6 +67,9 @@ export class FlightEditorComponent implements OnInit {
   form: FormGroup;
   destinationOptions = signal<{ value: string; label: string }[]>([]);
   isLoadingDestinations = signal<boolean>(true);
+
+  planeOptions = PLANE_OPTIONS_AND_SEATS;
+  planeImages = PLANE_SEATS_TO_IMAGE
 
   constructor(private destinationsService: DestinationsService) {
     this.form = new FormGroup(
@@ -79,10 +88,14 @@ export class FlightEditorComponent implements OnInit {
           endTime: new FormControl('', Validators.required),
         }),
 
-        seats: new FormControl(80, [
+        seats: new FormControl(this.planeOptions[0].value, [
           Validators.required,
-          Validators.min(50),
-          Validators.max(150),
+        ]),
+
+        price: new FormControl(100, [
+          Validators.required,
+          Validators.min(10),
+          Validators.max(Number.MAX_SAFE_INTEGER),
         ]),
       },
       {
@@ -146,7 +159,7 @@ export class FlightEditorComponent implements OnInit {
         origin: this.form.value.origin,
         destination: this.form.value.destination,
         boardingArrival: this.form.value.boardingArrival,
-        seats: this.form.value.seats,
+        seats: Number(this.form.value.seats),
       });
     } else {
       console.log('not valid');

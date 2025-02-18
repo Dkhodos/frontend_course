@@ -61,18 +61,32 @@
       </div>
 
       <div class="form-item">
-        <app-form-input
+        <app-form-select
           controlKey="seats"
           label="No. of seats"
-          placeholder="Enter number of seats"
-          type="number"
+          id="flight-seats"
           [required]="true"
+          [options]="planeOptions"
           [errorMessages]="{
             required: 'Number of seats is required.',
-            min: 'Number of seats cannot be less than 1.',
-            max: 'Number of seats cannot exceed 100.',
           }"
-          id="flight-seats"
+        />
+      </div>
+
+      <div class="form-item">
+        <app-form-input
+          controlKey="price"
+          label="Price"
+          placeholder="100$"
+          type="number"
+          adornmentEnd="attach_money"
+          [required]="true"
+          [errorMessages]="{
+            required: 'Price is required.',
+            min: 'Price cannot be less than 1.',
+            max: 'Price cannot exceed MAX_INTEGER.',
+          }"
+          id="flight-price"
         />
       </div>
 
@@ -82,7 +96,7 @@
     </ng-template>
   </form>
 
-  <div>
-    <img src="/assets/bear_detective.png" alt="bear detective" />
+  <div class="plane-image">
+    <img [src]="planeImages[form.get('seats')?.value]" alt="plane image" />
   </div>
 </div>

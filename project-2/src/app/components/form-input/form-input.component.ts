@@ -15,6 +15,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-form-input',
@@ -25,6 +26,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
+    MatIcon,
   ],
   viewProviders: [
     {
@@ -43,6 +45,8 @@ export class FormInputComponent implements OnInit, OnDestroy {
   @Input() placeholder = '';
   @Input() type = 'text';
   @Input() errorMessages?: Record<string, string>;
+  @Input() adornmentStart?: string;
+  @Input() adornmentEnd?: string;
 
   protected parentContainer = inject(ControlContainer);
 
