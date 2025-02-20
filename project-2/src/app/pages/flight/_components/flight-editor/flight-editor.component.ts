@@ -17,17 +17,15 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormInputComponent } from '../../../../components/form-input/form-input.component';
-import {
-  FormSelectComponent,
-  Option,
-} from '../../../../components/form-select/form-select.component';
+import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
 import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
 import { DestinationsService } from '../../../../services/destinations.service';
 import { Flight } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { dateUtils } from '../../../../utils/date-utils';
-import {PLANE_OPTIONS_AND_SEATS, PLANE_SEATS_TO_IMAGE} from './flight-editor.conts';
+import { PlaneType, PlaneTypeToInfo } from './flight-editor.consts';
+import { PlaneInfoComponent } from './component/plane-info.component';
 
 export interface FlightData {
   flightNumber: string;
@@ -39,7 +37,9 @@ export interface FlightData {
     startTime: string;
     endTime: string;
   };
-  seats: number;
+  planeType: PlaneType;
+  price: number;
+  seatCount: number;
 }
 
 @Component({
@@ -53,6 +53,7 @@ export interface FlightData {
     ReactiveFormsModule,
     LoaderComponent,
     ButtonComponent,
+    PlaneInfoComponent,
   ],
   templateUrl: './flight-editor.component.html',
   styleUrls: ['./flight-editor.component.scss'],
@@ -68,8 +69,10 @@ export class FlightEditorComponent implements OnInit {
   destinationOptions = signal<{ value: string; label: string }[]>([]);
   isLoadingDestinations = signal<boolean>(true);
 
-  planeOptions = PLANE_OPTIONS_AND_SEATS;
-  planeImages = PLANE_SEATS_TO_IMAGE
+  planeOptions = Object.entries(PlaneTypeToInfo).map(([value, info]) => ({
+    label: `${info.name} (${info.seatCount} seats)`,
+    value,
+  }));
 
   constructor(private destinationsService: DestinationsService) {
     this.form = new FormGroup(
@@ -88,10 +91,7 @@ export class FlightEditorComponent implements OnInit {
           endTime: new FormControl('', Validators.required),
         }),
 
-        seats: new FormControl(this.planeOptions[0].value, [
-          Validators.required,
-        ]),
-
+        planeType: new FormControl('', [Validators.required]),
         price: new FormControl(100, [
           Validators.required,
           Validators.min(10),
@@ -118,6 +118,7 @@ export class FlightEditorComponent implements OnInit {
 
     if (this.isEdit) {
       this.form.get('flightNumber')?.disable();
+      this.form.get('planeType')?.disable();
     }
 
     this.isLoadingDestinations.set(false);
@@ -134,15 +135,16 @@ export class FlightEditorComponent implements OnInit {
 
       this.form.patchValue({
         flightNumber: this.initialState.flightNumber,
+        planeType: this.initialState.planeType,
         origin: this.initialState.originCode,
         destination: this.initialState.destinationCode,
-        seats: this.initialState.seatCount,
         boardingArrival: {
           start: boardingDate,
           end: arrivalDate,
           startTime: this.initialState.boardingTime,
           endTime: this.initialState.arrivalTime,
         },
+        price: this.initialState.price,
       });
     }
 
@@ -151,7 +153,11 @@ export class FlightEditorComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      console.log('valid');
+      const planeType =
+        this.form.value.planeType ?? this.initialState?.planeType;
+      if (!planeType) return;
+
+      const flightInfo = PlaneTypeToInfo[planeType as PlaneType];
 
       this.onsave.emit({
         flightNumber:
@@ -159,11 +165,11 @@ export class FlightEditorComponent implements OnInit {
         origin: this.form.value.origin,
         destination: this.form.value.destination,
         boardingArrival: this.form.value.boardingArrival,
-        seats: Number(this.form.value.seats),
+        planeType: this.form.value.planeType,
+        price: this.form.value.price,
+        seatCount: flightInfo.seatCount,
       });
     } else {
-      console.log('not valid');
-
       this.form.markAllAsTouched();
     }
   }

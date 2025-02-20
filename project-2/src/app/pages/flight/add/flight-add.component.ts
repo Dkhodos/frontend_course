@@ -53,13 +53,15 @@ export class FlightAddPageComponent {
 
       const newFlight = new Flight(
         flightData.flightNumber,
+        flightData.planeType,
         flightData.origin,
         flightData.destination,
         startDateStr,
         flightData.boardingArrival.startTime,
         endDateStr,
         flightData.boardingArrival.endTime,
-        flightData.seats
+        flightData.price,
+        flightData.seatCount
       );
 
       await this.flightsService.add(newFlight);

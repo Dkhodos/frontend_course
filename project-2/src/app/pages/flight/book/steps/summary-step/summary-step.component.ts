@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
-import {MatIcon} from '@angular/material/icon';
-import {MatButton} from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-summary-step',

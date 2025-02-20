@@ -25,6 +25,7 @@ import {
   MenuOption,
 } from '../../../components/menu/menu.component';
 import { ConfirmationDialogService } from '../../../components/conformation-dialog/confirmation-dialog.service';
+import { PlaneTypeToInfo } from '../../flight/_components/flight-editor/flight-editor.consts';
 
 @Component({
   selector: 'app-flights-table',
@@ -65,16 +66,17 @@ export class FlightsTableComponent {
       sortable: true,
     },
     {
-      key: 'origin',
-      header: 'Origin',
+      key: 'planeType',
+      header: 'Plane',
       sortable: true,
-      renderCell: (row: Flight) => this.getOriginName(row),
+      renderCell: (row: Flight) => PlaneTypeToInfo[row.planeType].name,
     },
     {
-      key: 'destination',
-      header: 'Destination',
-      sortable: true,
-      renderCell: (row: Flight) => this.getDestinationName(row),
+      key: 'route',
+      header: 'Route',
+      sortable: false,
+      renderCell: (row: Flight) =>
+        `${this.getOriginName(row)} → ${this.getDestinationName(row)}`,
     },
     {
       key: 'departureTime',
@@ -87,6 +89,18 @@ export class FlightsTableComponent {
       header: 'Landing',
       sortable: true,
       renderCell: (row: Flight) => `${row.arrivalDate} / ${row.arrivalTime}`,
+    },
+    {
+      key: 'price',
+      header: 'Price',
+      sortable: true,
+      renderCell: (row: Flight) => `${row.price}$`,
+    },
+    {
+      key: 'seats',
+      header: 'Seats Left',
+      sortable: false,
+      renderCell: (row: Flight) => row.flightSeatStatus,
     },
   ];
 

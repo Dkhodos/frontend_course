@@ -19,7 +19,7 @@ class DateUtils {
    * Convert 'dd-mm-yyyy' and 'hh:mm' to Firestore Timestamp.
    */
   toTimestamp(dateStr: string, timeStr: string): Timestamp {
-    const [day, month, year] = dateStr.split('-').map(Number);
+    const [day, month, year] = dateStr.split('/').map(Number);
     const [hours, minutes] = timeStr.split(':').map(Number);
     return Timestamp.fromDate(new Date(year, month - 1, day, hours, minutes));
   }

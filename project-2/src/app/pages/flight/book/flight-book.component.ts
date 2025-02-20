@@ -5,18 +5,23 @@ import { PageComponent } from '../../../components/page/page.component';
 import { Flight } from '../../../models/flight.model';
 import { FlightsService } from '../../../services/flights.service';
 import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
-import { FormBuilder, FormGroup, AbstractControl, FormArray, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  AbstractControl,
+  FormArray,
+  ValidationErrors,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { LoaderComponent } from '../../../components/loader/loader.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { PassengerStepComponent } from './steps/passenger-step/passenger-step.component';
 import { BaggageStepComponent } from './steps/baggage-step/baggage-step.component';
 import { SeatsStepComponent } from './steps/seats-step/seats-step.component';
 import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
-import {FlightBookForm} from './steps/passenger-step/components/passenger-list/passenger-list.component';
-import {
-  PassengerForm
-} from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
-import {FlightInformationComponent} from './components/flight-information/flight-information';
+import { FlightBookForm } from './steps/passenger-step/components/passenger-list/passenger-list.component';
+import { PassengerForm } from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
+import { FlightInformationComponent } from './components/flight-information/flight-information';
 
 @Component({
   selector: 'ono-flight-book',

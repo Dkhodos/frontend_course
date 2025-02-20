@@ -58,6 +58,9 @@ export class FlightEditPageComponent implements OnInit {
   }
 
   async onSave(flightData: FlightData) {
+    const serverFlight = this.flight();
+    if (!serverFlight) return;
+
     this.isUpdating.set(true);
 
     try {
@@ -67,14 +70,17 @@ export class FlightEditPageComponent implements OnInit {
       const endDateStr = dateUtils.formatDate(flightData.boardingArrival.end);
 
       const updatedFlight = new Flight(
-        flightData.flightNumber,
+        serverFlight.flightNumber,
+        serverFlight.planeType,
         flightData.origin,
         flightData.destination,
         startDateStr,
         flightData.boardingArrival.startTime,
         endDateStr,
         flightData.boardingArrival.endTime,
-        flightData.seats
+        flightData.seatCount,
+        flightData.price,
+        this.flight()?.seatsTaken
       );
 
       await this.flightsService.update(updatedFlight);

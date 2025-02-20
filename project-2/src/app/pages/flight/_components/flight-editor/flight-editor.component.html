@@ -24,6 +24,19 @@
 
       <div class="form-item">
         <app-form-select
+          controlKey="planeType"
+          label="Plain Type"
+          id="flight-seats"
+          [required]="true"
+          [options]="planeOptions"
+          [errorMessages]="{
+            required: 'Number of seats is required.',
+          }"
+        />
+      </div>
+
+      <div class="form-item">
+        <app-form-select
           controlKey="origin"
           label="Origin"
           [required]="true"
@@ -61,22 +74,9 @@
       </div>
 
       <div class="form-item">
-        <app-form-select
-          controlKey="seats"
-          label="No. of seats"
-          id="flight-seats"
-          [required]="true"
-          [options]="planeOptions"
-          [errorMessages]="{
-            required: 'Number of seats is required.',
-          }"
-        />
-      </div>
-
-      <div class="form-item">
         <app-form-input
           controlKey="price"
-          label="Price"
+          label="Flight Base Price"
           placeholder="100$"
           type="number"
           adornmentEnd="attach_money"
@@ -96,7 +96,7 @@
     </ng-template>
   </form>
 
-  <div class="plane-image">
-    <img [src]="planeImages[form.get('seats')?.value]" alt="plane image" />
+  <div class="plane-info" *ngIf="!isLoadingDestinations()">
+    <app-plane-info [planeType]="form.get('planeType')?.value" />
   </div>
 </div>

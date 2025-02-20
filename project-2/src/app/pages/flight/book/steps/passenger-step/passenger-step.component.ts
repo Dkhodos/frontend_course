@@ -3,8 +3,8 @@ import { FormArray } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { MatIcon } from '@angular/material/icon';
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
-import {MatButton} from '@angular/material/button';
-import {StepDescriptionComponent} from '../../components/step-description/step-description';
+import { MatButton } from '@angular/material/button';
+import { StepDescriptionComponent } from '../../components/step-description/step-description';
 
 @Component({
   selector: 'app-passenger-step',

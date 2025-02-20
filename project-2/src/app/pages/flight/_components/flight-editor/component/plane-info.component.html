@@ -1,0 +1,14 @@
+<ng-container *ngIf="planeInfo">
+  <div class="plane-info-root">
+    <h2 class="plane-info-title">{{ planeInfo.name }}</h2>
+    <p class="plane-info-description">
+      {{ planeInfo.shortDescription }}
+    </p>
+    <div class="plane-info-metrics">
+      <app-header-info [items]="planeMetrics" />
+    </div>
+    <div class="plane-image">
+      <img [src]="planeInfo.image" alt="plane image" />
+    </div>
+  </div>
+</ng-container>

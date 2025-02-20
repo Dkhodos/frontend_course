@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatDivider} from '@angular/material/divider';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-step-description',
