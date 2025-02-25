@@ -11,11 +11,13 @@
       [controlKey]="'firstName'"
       [required]="true"
       label="First Name"
+      [errorMessages]="{ required: 'First Name is required' }"
     />
     <app-form-input
       [controlKey]="'lastName'"
       [required]="true"
       label="Last Name"
+      [errorMessages]="{ required: 'Last Name is required' }"
     />
   </div>
 
@@ -23,5 +25,9 @@
     [controlKey]="'passportId'"
     label="Passport ID"
     [required]="true"
+    [errorMessages]="{
+      required: 'Passport ID is required',
+      pattern: 'Passport ID must be exactly 8 digits',
+    }"
   />
 </div>

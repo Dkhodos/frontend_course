@@ -1,10 +1,11 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlaneType, PlaneTypeToInfo } from '../flight-editor.consts';
+import { PlaneTypeToInfo } from '../flight-editor.consts';
 import {
   HeaderInfoComponent,
   HeaderInfoItem,
 } from '../../../../../components/header-info/header-info.component';
+import { PlaneType } from '../../../../../models/flight.model';
 
 @Component({
   selector: 'app-plane-info',

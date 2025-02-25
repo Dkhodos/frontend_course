@@ -1,13 +1,6 @@
-export enum PlaneType {
-  Embraer190 = 'embraer-190',
-  AirbusA320 = 'airbus-a320',
-  Boeing737_800 = 'boeing-737-800',
-  AirbusA350_1000 = 'airbus-a350-1000',
-  BoeingDreamliner = 'boeing-787-8-dreamliner',
-}
+import { PlaneType } from '../../../../models/flight.model';
 
 export enum PlaneSize {
-  Small = 'small',
   Medium = 'medium',
   Large = 'large',
 }

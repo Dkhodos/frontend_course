@@ -1,0 +1,29 @@
+.passenger-selection {
+  margin-bottom: 8px;
+
+  h3 {
+    margin-bottom: 8px;
+  }
+
+  header {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .passenger-buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      border-radius: 4px;
+      padding: 8px 12px;
+      border: 1px solid white;
+      cursor: pointer;
+      color: white;
+      &.active {
+        background-color: #357a38;
+        border: 1px solid #357a38;
+      }
+    }
+  }
+}

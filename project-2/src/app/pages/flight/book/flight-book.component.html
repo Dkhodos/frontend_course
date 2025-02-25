@@ -1,4 +1,3 @@
-<!-- flight-book.component.html -->
 <page title="Book a Flight">
   <div class="book-a-flight-loader" *ngIf="isLoading(); else book_a_flight">
     <ono-flight-loader></ono-flight-loader>
@@ -8,35 +7,48 @@
     <ng-container *ngIf="flight(); else notFound">
       <app-flight-information [flight]="flight()!" />
 
-      <mat-horizontal-stepper linear #stepper>
-        <!-- Step 1: Passengers -->
-        <mat-step [stepControl]="form.controls.passengers">
-          <ng-template matStepLabel>Passengers</ng-template>
-          <app-passenger-step
-            [passengers]="form.controls.passengers"
-            [stepper]="stepper"
-          >
-          </app-passenger-step>
-        </mat-step>
+      <!-- Wrap stepper inside a form so ControlContainer is provided -->
+      <form [formGroup]="form">
+        <mat-horizontal-stepper linear #stepper>
+          <!-- Step 1: Passengers -->
+          <mat-step [stepControl]="form.controls.passengers">
+            <ng-template matStepLabel>Passengers</ng-template>
+            <app-passenger-step
+              [passengers]="form.controls.passengers"
+              [stepper]="stepper"
+            />
+          </mat-step>
 
-        <!-- Step 2: Baggage -->
-        <mat-step>
-          <ng-template matStepLabel>Baggage</ng-template>
-          <app-baggage-step [stepper]="stepper"></app-baggage-step>
-        </mat-step>
+          <!-- Step 2: Baggage -->
+          <mat-step>
+            <ng-template matStepLabel>Baggage</ng-template>
+            <app-baggage-step [stepper]="stepper"></app-baggage-step>
+          </mat-step>
 
-        <!-- Step 3: Seats -->
-        <mat-step>
-          <ng-template matStepLabel>Seats</ng-template>
-          <app-seats-step [stepper]="stepper"></app-seats-step>
-        </mat-step>
+          <!-- Step 3: Seats -->
+          <mat-step>
+            <ng-template matStepLabel>Seats</ng-template>
+            <app-seats-step
+              [stepper]="stepper"
+              [flight]="flight()!"
+              [passengers]="passengersState"
+              [seatsControl]="form.controls.seats"
+            />
+          </mat-step>
 
-        <!-- Step 4: Summary -->
-        <mat-step>
-          <ng-template matStepLabel>Summary</ng-template>
-          <app-summary-step [stepper]="stepper"></app-summary-step>
-        </mat-step>
-      </mat-horizontal-stepper>
+          <!-- Step 4: Summary -->
+          <mat-step>
+            <ng-template matStepLabel>Summary</ng-template>
+            <app-summary-step
+              [stepper]="stepper"
+              [flight]="flight()!"
+              [passengers]="passengersState"
+              [seatSummaryItems]="seatSummary"
+              (book)="onBook()"
+            ></app-summary-step>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
     </ng-container>
 
     <!-- Not Found Fallback -->

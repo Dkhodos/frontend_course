@@ -3,9 +3,9 @@ import { BookingsService } from '../../../../services/bookings.service';
 import { FlightsService } from '../../../../services/flights.service';
 import { DestinationsService } from '../../../../services/destinations.service';
 import { BookingItem } from '../components/destinations-cards/destinations-cards.component.types';
-import Booking from '../../../../models/booking.model';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
+import { Booking } from '../../../../models/booking.model';
 
 @Injectable({
   providedIn: 'root',

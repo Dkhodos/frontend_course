@@ -1,4 +1,4 @@
-import Booking from '../../../../../models/booking.model';
+import { Booking } from '../../../../../models/booking.model';
 import { Flight } from '../../../../../models/flight.model';
 import { Destination } from '../../../../../models/destination.model';
 

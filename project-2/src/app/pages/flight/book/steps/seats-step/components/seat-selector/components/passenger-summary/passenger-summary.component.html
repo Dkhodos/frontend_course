@@ -1,0 +1,29 @@
+<div class="summary-panel">
+  <h3>Selection Summary</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Passenger</th>
+        <th>Seat</th>
+        <th>Type</th>
+        <th>Extra Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of summary.items">
+        <td>
+          {{ item.passengerName }}<br /><small>{{ item.passportNumber }}</small>
+        </td>
+        <td>{{ item.seatId }}</td>
+        <td>{{ item.seatType }}</td>
+        <td>{{ item.extraCost | currency: 'USD' : 'symbol' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="total-cost">
+    <strong
+      >Total Extra Cost:
+      {{ summary.totalExtraCost | currency: 'USD' : 'symbol' }}</strong
+    >
+  </div>
+</div>

@@ -1,14 +1,48 @@
-<div class="step-container">
-  <h2>Summary</h2>
-  <p>Review your flight</p>
-  <div>placeholder</div>
+<div class="summary-container">
+  <!-- Passengers Information Section -->
+  <div class="summary-section passengers-info">
+    <div class="section-header">
+      <mat-icon>people</mat-icon>
+      <span>Passengers</span>
+    </div>
+    <div class="section-content">
+      <div class="info-item" *ngFor="let p of passengers">
+        <span class="label">Passenger:</span>
+        <span class="value">
+          {{ p.name }} ({{ p.passportNumber }}) chose to sit at
+          <strong>{{ getSeatSummaryText(p) }}</strong>
+        </span>
+      </div>
+    </div>
+  </div>
 
-  <div class="step-actions">
-    <button mat-button (click)="stepper.previous()">
-      <mat-icon>arrow_left</mat-icon> Back
-    </button>
+  <!-- Price Summary Section -->
+  <div class="summary-section price-info">
+    <div class="section-header">
+      <mat-icon>attach_money</mat-icon>
+      <span>Price Summary</span>
+    </div>
+    <div class="section-content">
+      <div class="info-item">
+        <span class="label">Flight Price:</span>
+        <span class="value">{{ getFlightPrice() | currency:'USD':'symbol' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Total Extra Cost:</span>
+        <span class="value">{{ getTotalExtraCost() | currency:'USD':'symbol' }}</span>
+      </div>
+      <div class="info-item overall">
+        <span class="label">Overall Price:</span>
+        <span class="value">{{ getOverallPrice() | currency:'USD':'symbol' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Button -->
+  <div class="action-buttons">
     <button mat-button color="primary" (click)="onBook()">
-      <mat-icon>flight_takeoff</mat-icon> Book
+      <mat-icon>flight_takeoff</mat-icon>
+      Book
     </button>
   </div>
 </div>

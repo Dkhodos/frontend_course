@@ -1,0 +1,30 @@
+.seat-section {
+  .seat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .seat-label {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .seat-extra {
+      font-size: 0.8rem;
+      color: #ffcc00;
+    }
+  }
+  .mat-grid-tile {
+    &.seat-cell {
+      background: #002884;
+      cursor: pointer;
+    }
+    &.seat-cell.selected {
+      background: #0055b8;
+      border: 2px solid #4caf50;
+    }
+    &.gap-cell {
+      background: transparent;
+      cursor: default;
+    }
+  }
+}

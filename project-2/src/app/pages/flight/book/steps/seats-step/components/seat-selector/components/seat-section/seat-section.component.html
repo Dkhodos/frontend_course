@@ -1,0 +1,26 @@
+<div class="seat-section">
+  <mat-grid-list [cols]="totalGridCols" rowHeight="60px" gutterSize="8px">
+    <mat-grid-tile
+      *ngFor="let cell of flatGrid"
+      (click)="onSeatClick(cell)"
+      [ngClass]="{
+        'seat-cell': !cell.isGap,
+        'gap-cell': cell.isGap,
+        selected: !cell.isGap && isSelected(cell.id!),
+      }"
+    >
+      <ng-container *ngIf="!cell.isGap; else gapTemplate">
+        <div class="seat-content">
+          <span class="seat-label">{{ cell.id }}</span>
+          <span class="seat-extra" *ngIf="!isSelected(cell.id!)">
+            +{{ extraCost }}$
+          </span>
+          <mat-icon *ngIf="isSelected(cell.id!)">check</mat-icon>
+        </div>
+      </ng-container>
+      <ng-template #gapTemplate>
+        <div class="corridor"></div>
+      </ng-template>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

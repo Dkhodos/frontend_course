@@ -1,0 +1,27 @@
+.seat-selector-wrapper {
+  color: #ffffff;
+}
+
+.seat-selector-top {
+}
+
+.seat-selector-divider {
+  margin: 8px 0;
+}
+
+.seat-selector-root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.left-column {
+}
+
+.right-column {
+}
+
+.seat-picker {
+  max-height: calc(100vh - 588px);
+  overflow: auto;
+}

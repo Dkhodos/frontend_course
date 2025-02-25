@@ -1,6 +1,13 @@
 import { Timestamp } from '@angular/fire/firestore';
 import { dateUtils } from '../utils/date-utils';
-import { PlaneType } from '../pages/flight/_components/flight-editor/flight-editor.consts';
+
+export enum PlaneType {
+  Embraer190 = 'embraer-190',
+  AirbusA320 = 'airbus-a320',
+  Boeing737_800 = 'boeing-737-800',
+  AirbusA350_1000 = 'airbus-a350-1000',
+  BoeingDreamliner = 'boeing-787-8-dreamliner',
+}
 
 export interface FlightFirestoreData {
   flightNumber: string;
@@ -11,7 +18,7 @@ export interface FlightFirestoreData {
   planeType: PlaneType;
   seatCount: number;
   price: number;
-  seatsTaken: Record<string, string>;
+  seatsTaken: string[]; // now a list of seat IDs
 }
 
 export class Flight {
@@ -26,11 +33,11 @@ export class Flight {
     public arrivalTime: string, // hh:mm
     public seatCount: number,
     public price: number,
-    public seatsTaken: Record<string, string> = {}
+    public seatsTaken: string[] = []
   ) {}
 
   get flightSeatStatus() {
-    const seatsLeft = this.seatCount - Object.keys(this.seatsTaken).length;
+    const seatsLeft = this.seatCount - this.seatsTaken.length;
     if (seatsLeft === 0) return 'Full!';
     if (seatsLeft < 10) return `Only ${seatsLeft} left!`;
     return `${seatsLeft}/${this.seatCount}`;
@@ -48,7 +55,7 @@ export class Flight {
       dateUtils.fromTimestampToTime(data.arrivalDate),
       data.seatCount,
       data.price,
-      data.seatsTaken
+      data.seatsTaken || []
     );
   }
 

@@ -20,11 +20,11 @@ import { FormInputComponent } from '../../../../components/form-input/form-input
 import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
 import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
 import { DestinationsService } from '../../../../services/destinations.service';
-import { Flight } from '../../../../models/flight.model';
+import { Flight, PlaneType } from '../../../../models/flight.model';
 import { LoaderComponent } from '../../../../components/loader/loader.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { dateUtils } from '../../../../utils/date-utils';
-import { PlaneType, PlaneTypeToInfo } from './flight-editor.consts';
+import { PlaneTypeToInfo } from './flight-editor.consts';
 import { PlaneInfoComponent } from './component/plane-info.component';
 
 export interface FlightData {

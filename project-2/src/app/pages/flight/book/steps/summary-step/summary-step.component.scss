@@ -1,9 +1,47 @@
-.step-container {
+.summary-container {
   padding: 16px;
 }
 
-.step-actions {
-  margin-top: 16px;
+.summary-section {
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  .section-header {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+  .section-content {
+    padding: 12px;
+    .info-item {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 8px;
+      .label {
+        font-weight: bold;
+      }
+      .value {
+        margin-left: 8px;
+      }
+    }
+    .info-item.overall {
+      border-top: 1px solid #ccc;
+      padding-top: 8px;
+      font-size: 1.2rem;
+      color: #4caf50;
+    }
+  }
+}
+
+.action-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  button {
+    margin-top: 16px;
+  }
 }

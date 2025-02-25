@@ -1,0 +1,32 @@
+<div class="seat-selector-wrapper">
+  <div class="seat-selector-top">
+    <app-passenger-selection
+      [passengers]="passengers"
+      [selectedPassengerNumber]="currentPassengerId"
+      (selectPassenger)="selectPassenger($event)"
+    />
+    <mat-divider class="seat-selector-divider" />
+  </div>
+
+  <div class="seat-selector-root">
+    <div class="left-column">
+      <div class="seat-picker">
+        <ng-container *ngFor="let section of sections">
+          <app-seat-section
+            [rows]="section.rows"
+            [cols]="section.cols"
+            [sectionType]="section.type"
+            [extraCost]="section.extraCost"
+            [selectedSeat]="getSelectedSeat()"
+            (seatSelected)="onSeatSectionSelected($event)"
+          />
+          <mat-divider class="seat-selector-divider" />
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <app-passenger-summary [summary]="seatSummaryState" />
+    </div>
+  </div>
+</div>

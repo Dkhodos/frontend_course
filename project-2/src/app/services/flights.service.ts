@@ -10,8 +10,10 @@ import {
   orderBy,
   updateDoc,
   deleteDoc,
+  where,
 } from '@angular/fire/firestore';
 import { Flight, FlightFirestoreData } from '../models/flight.model';
+import { BookingFirestoreData, PassengerData } from '../models/booking.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +37,7 @@ export class FlightsService {
       Flight.fromFirestore(doc.data() as FlightFirestoreData)
     );
 
-    console.log('✅ Flights data received:', flights); // ✅ Debugging Log
+    console.log('✅ Flights data received:', flights);
     return flights;
   }
 
@@ -91,7 +93,7 @@ export class FlightsService {
     }
   }
 
-  async delete(flightNumber: string) {
+  async delete(flightNumber: string): Promise<void> {
     console.log(`Deleting flight ${flightNumber}...`);
 
     const flightDoc = doc(
@@ -104,8 +106,52 @@ export class FlightsService {
       await deleteDoc(flightDoc);
       console.log(`✅ Flight ${flightNumber} deleted successfully`);
     } catch (error) {
-      console.error(`❌ Failed to deleted flight ${flightNumber}:`, error);
+      console.error(`❌ Failed to delete flight ${flightNumber}:`, error);
       throw error;
     }
+  }
+
+  /**
+   * Adjusts the seat reservations for a flight by scanning all bookings.
+   * This method queries the 'bookings' collection for documents related to the flight,
+   * extracts all reserved seats from each booking's passengers, deduplicates them,
+   * and updates the flight document's seatsTaken field.
+   *
+   * Assumes each booking document has a 'flightNumber' field and a 'passengers' array,
+   * where each passenger object contains a 'seat' property.
+   */
+  async adjustSeatReservations(flightNumber: string): Promise<void> {
+    console.log(`Adjusting seat reservations for flight ${flightNumber}...`);
+
+    // Query all bookings for the given flight
+    const bookingsRef = collection(this.firestore, 'bookings');
+    const bookingsQuery = query(
+      bookingsRef,
+      where('flight', '==', doc(this.firestore, `flights/${flightNumber}`))
+    );
+    const snapshot = await getDocs(bookingsQuery);
+
+    // Collect reserved seats from all bookings
+    const reservedSeats: string[] = [];
+
+    snapshot.docs.forEach((docSnap) => {
+      const booking = docSnap.data() as BookingFirestoreData;
+
+      // Correctly access passengers with index signature
+      if (booking['passengers'] && Array.isArray(booking['passengers'])) {
+        booking['passengers'].forEach((passenger: PassengerData) => {
+          reservedSeats.push(passenger.seatNumber);
+        });
+      }
+    });
+
+    // Remove duplicates
+    const uniqueSeats = Array.from(new Set(reservedSeats));
+
+    // Update the flight document with the new seatsTaken list
+    const flightDoc = doc(this.firestore, 'flights', flightNumber);
+    await updateDoc(flightDoc, { seatsTaken: uniqueSeats });
+
+    console.log(`✅ Seat reservations adjusted for flight ${flightNumber}`);
   }
 }

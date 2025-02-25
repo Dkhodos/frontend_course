@@ -1,8 +1,7 @@
-class Passenger {
+export default class Passenger {
   constructor(
     public name: string,
-    public passportNumber: string
+    public passportNumber: string,
+    public seatNumber: string
   ) {}
 }
-
-export default Passenger;

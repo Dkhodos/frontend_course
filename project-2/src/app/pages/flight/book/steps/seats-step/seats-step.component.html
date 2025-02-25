@@ -1,14 +1,20 @@
 <div class="step-container">
-  <h2>Seats</h2>
-  <p>Select seats per passenger</p>
-  <div>placeholder</div>
+  <div class="selector">
+    <app-seat-selector
+      [flight]="flight"
+      [passengers]="passengers"
+      [seatsControl]="seatsControl"
+    />
+  </div>
 
   <div class="step-actions">
     <button mat-button (click)="stepper.previous()">
-      <mat-icon>arrow_left</mat-icon> Back
+      Back
+      <mat-icon>arrow_left</mat-icon>
     </button>
     <button mat-button (click)="stepper.next()">
-      Next <mat-icon>arrow_right</mat-icon>
+      Next
+      <mat-icon>arrow_right</mat-icon>
     </button>
   </div>
 </div>
