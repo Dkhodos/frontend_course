@@ -1,0 +1,22 @@
+<div [formGroup]="parentFormGroup">
+  <mat-form-field appearance="fill" class="form-textarea">
+    <mat-label class="field-label">{{ label }}</mat-label>
+    <textarea
+      matInput
+      [id]="inputId"
+      [formControlName]="controlKey"
+      [placeholder]="placeholder"
+      [required]="required"
+      rows="5"
+    ></textarea>
+    <span matPrefix *ngIf="adornmentStart">
+      <mat-icon>{{ adornmentStart }}</mat-icon>
+    </span>
+    <span matSuffix *ngIf="adornmentEnd">
+      <mat-icon>{{ adornmentEnd }}</mat-icon>
+    </span>
+    <mat-error>
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+</div>
