@@ -99,7 +99,7 @@ export class BookingEditorComponent {
       return new Passenger(
         `${firstName} ${lastName}`,
         passportId,
-        seats?.[passportId].seatId ?? 'auto'
+        seats?.[passportId]?.seatId ?? 'auto-assigned'
       );
     });
   }
