@@ -1,0 +1,26 @@
+<div [formGroup]="parentFormGroup">
+  <mat-form-field appearance="fill" class="form-percentage-selector">
+    <mat-label>{{ label }}</mat-label>
+    <mat-slider
+      [id]="id || 'slider-' + controlKey"
+      formControlName="{{ controlKey }}"
+      min="0"
+      max="100"
+      step="10"
+      thumbLabel
+      tickInterval="10"
+      [required]="required"
+    ></mat-slider>
+  </mat-form-field>
+
+  <!-- Custom error message handling -->
+  <div
+    *ngIf="
+      parentFormGroup.get(controlKey)?.invalid &&
+      parentFormGroup.get(controlKey)?.touched
+    "
+    class="error-message"
+  >
+    {{ errorMessage }}
+  </div>
+</div>

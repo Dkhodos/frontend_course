@@ -1,0 +1,25 @@
+.form-percentage-selector {
+  width: 100%;
+  /* Dark mode color scheme */
+  --slider-track-color: #3f3f3f;
+  --slider-thumb-color: #fff;
+  --slider-active-color: #1f1f1f;
+}
+
+/* Override Angular Material slider styles for dark mode */
+.mat-slider {
+  color: var(--slider-thumb-color);
+}
+
+.mat-slider-track-fill {
+  background-color: var(--slider-track-color) !important;
+}
+
+.mat-slider-thumb {
+  background-color: var(--slider-thumb-color) !important;
+}
+
+/* Optionally adjust the label styles if needed */
+.field-label {
+  color: var(--slider-thumb-color);
+}
