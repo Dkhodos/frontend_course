@@ -45,15 +45,13 @@ export class BookingEditorComponent {
 
   form: FormGroup<FlightBookForm>;
 
-  constructor(
-    private fb: FormBuilder,
-  ) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group<FlightBookForm>({
       passengers: this.fb.array<FormGroup<PassengerForm>>(
         [],
         this.minPassengersValidator
       ),
-      seats: this.fb.nonNullable.control<SeatSummaryItem[]>([]),
+      seats: this.fb.nonNullable.control<Record<string, SeatSummaryItem>>({}),
     });
 
     this.addInitialPassenger();
@@ -89,7 +87,6 @@ export class BookingEditorComponent {
   // Fix: Update getter to read the correct control keys and combine first/last name
   get passengersState(): Passenger[] {
     const passengersArray = this.form.get('passengers') as FormArray;
-    const seatSummary = this.seatSummary; // Fetch selected seats
 
     return passengersArray.controls.map((control) => {
       const passportId = control.get('passportId')?.value;
@@ -97,16 +94,19 @@ export class BookingEditorComponent {
       const lastName = control.get('lastName')?.value;
 
       // Find the seat assigned to this passenger
-      const seat =
-        seatSummary.find((seat) => seat.passportNumber === passportId)
-          ?.seatId || 'auto-assigned';
+      const seats = this.form.get('seats')?.value ?? {};
 
-      return new Passenger(`${firstName} ${lastName}`, passportId, seat);
+      return new Passenger(
+        `${firstName} ${lastName}`,
+        passportId,
+        seats?.[passportId].seatId ?? 'auto'
+      );
     });
   }
 
   get seatSummary(): SeatSummaryItem[] {
-    return this.form.get('seats')?.value || [];
+    const seats = this.form.get('seats')?.value || {};
+    return Object.values(seats);
   }
 
   async onBook(): Promise<void> {

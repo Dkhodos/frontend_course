@@ -4,5 +4,5 @@ import { SeatSummaryItem } from './steps/seats-step/components/seat-selector/sea
 
 export interface FlightBookForm {
   passengers: FormArray<FormGroup<PassengerForm>>;
-  seats: FormControl<SeatSummaryItem[]>;
+  seats: FormControl<Record<string, SeatSummaryItem>>;
 }

@@ -19,5 +19,5 @@ export class SeatsStepComponent {
   @Input() stepper!: MatStepper;
   @Input() flight!: Flight;
   @Input() passengers: Passenger[] = [];
-  @Input() seatsControl!: FormControl<SeatSummaryItem[]>
+  @Input() seatsControl!: FormControl<Record<string, SeatSummaryItem>>
 }

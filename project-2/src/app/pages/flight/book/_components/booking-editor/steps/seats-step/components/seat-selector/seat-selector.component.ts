@@ -40,7 +40,7 @@ import { PlaneTypeToInfo } from '../../../../../../../_components/flight-editor/
 export class SeatSelectorComponent implements OnInit {
   @Input() flight!: Flight;
   @Input() passengers: Passenger[] = [];
-  @Input() seatsControl!: FormControl<SeatSummaryItem[]>;
+  @Input() seatsControl!: FormControl<Record<string, SeatSummaryItem>>;
 
   // Local mapping: passenger id -> SeatSummaryItem.
   seatSummaries: Record<string, SeatSummaryItem> = {};
@@ -71,8 +71,7 @@ export class SeatSelectorComponent implements OnInit {
     )!;
     this.seatSummaries[this.currentPassengerId] =
       this.seatService.computeSeatSummaryItemForPassenger(passenger, seatId);
-    const summaryArray = [...Object.values(this.seatSummaries)];
-    this.seatsControl.setValue(summaryArray);
+    this.seatsControl.setValue({...this.seatSummaries});
   }
 
   getSelectedSeat(): string | null {
