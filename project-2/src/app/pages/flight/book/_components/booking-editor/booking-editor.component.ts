@@ -1,10 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageComponent } from '../../../components/page/page.component';
-import { Flight } from '../../../models/flight.model';
-import { FlightsService } from '../../../services/flights.service';
-import { NotFoundPlaceholderComponent } from '../../../components/not-found-placeholder/not-found-placeholder.component';
+import { Flight } from '../../../../../models/flight.model';
 import {
   FormBuilder,
   FormGroup,
@@ -14,33 +10,26 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { LoaderComponent } from '../../../components/loader/loader.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { PassengerStepComponent } from './steps/passenger-step/passenger-step.component';
 import { BaggageStepComponent } from './steps/baggage-step/baggage-step.component';
 import { SeatsStepComponent } from './steps/seats-step/seats-step.component';
 import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
-import { PassengerForm } from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
 import { FlightInformationComponent } from './components/flight-information/flight-information';
-import Passenger from '../../../models/passenger.model';
-import { FlightBookForm } from './flight-book.component.types';
+import { Booking } from '../../../../../models/booking.model';
+import { FlightBookForm } from './booking-editor.component.types';
+import { PassengerForm } from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
 import { SeatSummaryItem } from './steps/seats-step/components/seat-selector/seat-selector.types';
-import { Booking } from '../../../models/booking.model';
-import { BookingsService } from '../../../services/bookings.service';
-import { ToastService } from '../../../components/toast/toast.service';
-import { UrlService } from '../../../services/url.service';
+import Passenger from '../../../../../models/passenger.model';
 
 @Component({
-  selector: 'ono-flight-book',
-  templateUrl: './flight-book.component.html',
-  styleUrls: ['./flight-book.component.scss'],
+  selector: 'ono-booking-editor',
+  templateUrl: './booking-editor.component.html',
+  styleUrls: ['./booking-editor.component.scss'],
   standalone: true,
   imports: [
-    PageComponent,
     CommonModule,
-    NotFoundPlaceholderComponent,
     ReactiveFormsModule,
-    LoaderComponent,
     MatStepperModule,
     PassengerStepComponent,
     BaggageStepComponent,
@@ -49,20 +38,15 @@ import { UrlService } from '../../../services/url.service';
     FlightInformationComponent,
   ],
 })
-export class FlightBookComponent implements OnInit {
-  flight = signal<Flight | null>(null);
-  isLoading = signal<boolean>(true);
+export class BookingEditorComponent {
+  @Input() flight!: Flight;
+  @Input() initialState: Booking | undefined;
+  @Output() save = new EventEmitter<Booking>();
 
   form: FormGroup<FlightBookForm>;
 
   constructor(
-    private route: ActivatedRoute,
-    private flightsService: FlightsService,
     private fb: FormBuilder,
-    private bookingsService: BookingsService,
-    private toastService: ToastService,
-    private urlService: UrlService,
-    private router: Router
   ) {
     this.form = this.fb.group<FlightBookForm>({
       passengers: this.fb.array<FormGroup<PassengerForm>>(
@@ -102,20 +86,6 @@ export class FlightBookComponent implements OnInit {
       : { minPassengers: 'At least one passenger is required' };
   }
 
-  async ngOnInit(): Promise<void> {
-    const flightId = this.route.snapshot.paramMap.get('flightNumber');
-
-    if (flightId) {
-      try {
-        const fetchedFlight = await this.flightsService.get(flightId);
-        this.flight.set(fetchedFlight);
-      } catch (error) {
-        console.error('❌ Error fetching flight:', error);
-      }
-    }
-    this.isLoading.set(false);
-  }
-
   // Fix: Update getter to read the correct control keys and combine first/last name
   get passengersState(): Passenger[] {
     const passengersArray = this.form.get('passengers') as FormArray;
@@ -140,38 +110,20 @@ export class FlightBookComponent implements OnInit {
   }
 
   async onBook(): Promise<void> {
-    if (!this.flight()) return;
+    if (!this.flight) return;
 
     const totalExtraCost = this.seatSummary.reduce(
       (sum, item) => sum + item.extraCost,
       0
     );
-    const finalPrice = this.flight()!.price + totalExtraCost;
+    const finalPrice = this.flight!.price + totalExtraCost;
 
-    // Create a new Booking with computed final price.
     const booking = new Booking(
-      this.flight()!.flightNumber,
+      this.flight!.flightNumber,
       this.passengersState,
       finalPrice
     );
 
-    try {
-      await this.bookingsService.add(booking);
-      this.toastService.add({
-        id: 'booking-success',
-        title: 'Booking Successful',
-        variant: 'success',
-        description: 'Your booking has been successfully added.',
-      });
-      await this.router.navigate(this.urlService.getMyBookingsURL());
-    } catch (error) {
-      console.error(error);
-      this.toastService.add({
-        id: 'booking-error',
-        title: 'Booking Failed',
-        variant: 'error',
-        description: 'An error occurred while booking the flight.',
-      });
-    }
+    this.save.emit(booking);
   }
 }

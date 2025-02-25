@@ -12,7 +12,12 @@ export class UrlService {
     destinationEdit: (code: string) => ['/destination', 'edit', code],
     destinationAdd: () => ['/destination', 'add'],
     flightInfo: (flightNumber: string) => ['/flight', 'info', flightNumber],
-    flightBook: (flightNumber: string) => ['/flight', 'book', flightNumber],
+    flightBook: (flightNumber: string) => [
+      '/flight',
+      'book',
+      'add',
+      flightNumber,
+    ],
     flightEdit: (flightNumber: string) => ['/flight', 'edit', flightNumber],
     flightAdd: () => ['/flight', 'add'],
   };

@@ -8,8 +8,8 @@ import {
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Flight } from '../../../../../models/flight.model';
-import Passenger from '../../../../../models/passenger.model';
+import { Flight } from '../../../../../../../models/flight.model';
+import Passenger from '../../../../../../../models/passenger.model';
 import { SeatSummaryItem } from '../seats-step/components/seat-selector/seat-selector.types';
 import { MatStepper } from '@angular/material/stepper';
 

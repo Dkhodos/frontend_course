@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import Passenger from '../../../../../../../../../models/passenger.model';
+import Passenger from '../../../../../../../../../../../models/passenger.model';
 
 @Component({
   selector: 'app-passenger-selection',

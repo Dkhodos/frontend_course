@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconButton } from '@angular/material/button';
-import { FormInputComponent } from '../../../../../../../../../components/form-input/form-input.component';
+import { FormInputComponent } from '../../../../../../../../../../../components/form-input/form-input.component';
 
 export interface PassengerForm {
   firstName: FormControl<string | null>;

@@ -7,13 +7,13 @@ import { BookAFlightComponent } from './pages/user/book-a-flight/book-a-flight.c
 import { MyBookingsComponent } from './pages/user/my-bookings/my-bookings.component';
 import { FlightInfoPageComponent } from './pages/flight/info/flight-info.component';
 import { DestinationInfoPageComponent } from './pages/destenation/info/destination-info.component';
-import { FlightBookComponent } from './pages/flight/book/flight-book.component';
 import { BookingPageComponent } from './pages/booking/booking.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found.component';
 import { FlightAddPageComponent } from './pages/flight/add/flight-add.component';
 import { FlightEditPageComponent } from './pages/flight/edit/flight-edit.component';
 import { DestinationAddPageComponent } from './pages/destenation/add/destination-add.component';
 import { DestinationEditPageComponent } from './pages/destenation/edit/destination-edit.component';
+import { AddFlightBookingComponent } from './pages/flight/book/add/add-flight-booking.component';
 
 export const routes: Routes = [
   {
@@ -70,8 +70,13 @@ export const routes: Routes = [
         component: FlightInfoPageComponent,
       },
       {
-        path: 'book/:flightNumber',
-        component: FlightBookComponent,
+        path: 'book',
+        children: [
+          {
+            path: 'add/:flightNumber',
+            component: AddFlightBookingComponent,
+          },
+        ],
       },
     ],
   },

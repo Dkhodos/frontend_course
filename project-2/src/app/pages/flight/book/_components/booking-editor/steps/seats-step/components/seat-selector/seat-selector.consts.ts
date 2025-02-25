@@ -1,6 +1,6 @@
 import { SectionConfig, SeatSectionType } from './seat-selector.types';
-import { PlaneSize } from '../../../../../_components/flight-editor/flight-editor.consts';
-import reverseObject from '../../../../../../../utils/reverseObject';
+import { PlaneSize } from '../../../../../../../_components/flight-editor/flight-editor.consts';
+import reverseObject from '../../../../../../../../../utils/reverseObject';
 
 export const SEAT_TYPE_TO_EXTRA_COST: Record<SeatSectionType, number> = {
   [SeatSectionType.BusinessPlus]: 5000,

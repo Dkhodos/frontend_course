@@ -17,9 +17,9 @@ import {
 } from './seat-selector.types';
 import { SeatSelectorService } from './seat-selector.service';
 import { MatDividerModule } from '@angular/material/divider';
-import { Flight } from '../../../../../../../models/flight.model';
-import Passenger from '../../../../../../../models/passenger.model';
-import { PlaneTypeToInfo } from '../../../../../_components/flight-editor/flight-editor.consts';
+import { Flight } from '../../../../../../../../../models/flight.model';
+import Passenger from '../../../../../../../../../models/passenger.model';
+import { PlaneTypeToInfo } from '../../../../../../../_components/flight-editor/flight-editor.consts';
 
 @Component({
   selector: 'app-seat-selector',

@@ -1,0 +1,19 @@
+<page title="Book a Flight">
+  <div class="book-a-flight-loader" *ngIf="isLoading(); else book_a_flight">
+    <ono-flight-loader></ono-flight-loader>
+  </div>
+
+  <ng-template #book_a_flight>
+    <ng-container *ngIf="flight(); else notFound">
+      <ono-booking-editor [flight]="flight()!" (save)="onBook($event)" />
+    </ng-container>
+
+    <!-- Not Found Fallback -->
+    <ng-template #notFound>
+      <ono-not-found-placeholder
+        title="Flight Not Found"
+        description="We could not find the flight details. Please check the flight ID and try again."
+      ></ono-not-found-placeholder>
+    </ng-template>
+  </ng-template>
+</page>

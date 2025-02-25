@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Flight } from '../../../../../../../models/flight.model';
-import { PlaneTypeToInfo } from '../../../../../_components/flight-editor/flight-editor.consts';
+import { Flight } from '../../../../../../../../../models/flight.model';
+import { PlaneTypeToInfo } from '../../../../../../../_components/flight-editor/flight-editor.consts';
 import {
   SeatSectionType,
   SeatSummaryItem,
@@ -13,7 +13,7 @@ import {
   SEAT_TYPE_TO_EXTRA_COST,
   SEAT_TYPE_TO_SEAT_COUNT_PER_COLUMN,
 } from './seat-selector.consts';
-import Passenger from '../../../../../../../models/passenger.model';
+import Passenger from '../../../../../../../../../models/passenger.model';
 
 @Injectable({
   providedIn: 'root',

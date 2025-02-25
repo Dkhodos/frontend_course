@@ -1,10 +1,10 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Flight } from '../../../../../models/flight.model';
+import { Flight } from '../../../../../../../models/flight.model';
 import {
   HeaderInfoComponent,
   HeaderInfoItem,
-} from '../../../../../components/header-info/header-info.component';
+} from '../../../../../../../components/header-info/header-info.component';
 
 @Component({
   selector: 'app-flight-information',

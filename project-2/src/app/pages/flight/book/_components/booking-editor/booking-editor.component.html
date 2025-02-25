@@ -1,0 +1,46 @@
+<div>
+  <app-flight-information [flight]="flight" />
+
+  <!-- Wrap stepper inside a form so ControlContainer is provided -->
+  <form [formGroup]="form">
+    <mat-horizontal-stepper linear #stepper>
+      <!-- Step 1: Passengers -->
+      <mat-step [stepControl]="form.controls.passengers">
+        <ng-template matStepLabel>Passengers</ng-template>
+        <app-passenger-step
+          [passengers]="form.controls.passengers"
+          [stepper]="stepper"
+        />
+      </mat-step>
+
+      <!-- Step 2: Baggage -->
+      <mat-step>
+        <ng-template matStepLabel>Baggage</ng-template>
+        <app-baggage-step [stepper]="stepper"></app-baggage-step>
+      </mat-step>
+
+      <!-- Step 3: Seats -->
+      <mat-step>
+        <ng-template matStepLabel>Seats</ng-template>
+        <app-seats-step
+          [stepper]="stepper"
+          [flight]="flight"
+          [passengers]="passengersState"
+          [seatsControl]="form.controls.seats"
+        />
+      </mat-step>
+
+      <!-- Step 4: Summary -->
+      <mat-step>
+        <ng-template matStepLabel>Summary</ng-template>
+        <app-summary-step
+          [stepper]="stepper"
+          [flight]="flight"
+          [passengers]="passengersState"
+          [seatSummaryItems]="seatSummary"
+          (book)="onBook()"
+        ></app-summary-step>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+</div>
