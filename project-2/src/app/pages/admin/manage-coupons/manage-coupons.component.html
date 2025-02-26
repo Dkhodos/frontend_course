@@ -1,0 +1,34 @@
+<page title="Admin | Manage Coupons">
+  <ng-template #actionsTemplate let-row>
+    <app-menu
+      [options]="getCouponTableOptions(row)"
+      [header]="'Coupon ' + row.code"
+      (optionClicked)="onOptionClicked($event, row)"
+    ></app-menu>
+  </ng-template>
+
+  <ng-template #topRightSectionTemplate>
+    <app-link-button
+      [routerLink]="getCouponAddPageURL()"
+      icon="add"
+      class="add-link"
+    >
+      Add Coupon
+    </app-link-button>
+  </ng-template>
+
+  <div class="coupon-table-loader" *ngIf="isLoading(); else coupon_table">
+    <ono-flight-loader />
+  </div>
+
+  <ng-template #coupon_table>
+    <app-table
+      [rows]="coupons()"
+      [columns]="columns"
+      [getId]="getId"
+      [actions]="actionsTemplate"
+      [searchable]="true"
+      [topRightSection]="topRightSectionTemplate"
+    />
+  </ng-template>
+</page>

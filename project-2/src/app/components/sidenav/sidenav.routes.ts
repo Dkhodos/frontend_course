@@ -26,6 +26,11 @@ export const NAVIGATION_ROUTES: NavItem[] = [
         route: '/admin/manage/destinations',
         icon: 'map',
       },
+      {
+        label: 'Manage Coupons',
+        route: '/admin/manage/coupons',
+        icon: 'sell',
+      },
     ],
   },
   {

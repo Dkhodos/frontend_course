@@ -20,6 +20,9 @@ export class UrlService {
     ],
     flightEdit: (flightNumber: string) => ['/flight', 'edit', flightNumber],
     flightAdd: () => ['/flight', 'add'],
+    couponAdd: () => ['/coupon', 'add'],
+    couponEdit: (code: string) => ['/coupon', 'edit', code],
+    couponManage: () => ['/admin', 'manage', 'coupons'],
   };
 
   constructor(private router: Router) {}
@@ -58,5 +61,17 @@ export class UrlService {
 
   getMyBookingsURL() {
     return this.AppRoutes.myBookings();
+  }
+
+  getCouponEditPageURL(code: string): string[] {
+    return this.AppRoutes.couponEdit(code);
+  }
+
+  getCouponAddPageURL(): string[] {
+    return this.AppRoutes.couponAdd();
+  }
+
+  getCouponsManageURL(){
+    return this.AppRoutes.couponManage();
   }
 }

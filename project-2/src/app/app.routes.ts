@@ -14,6 +14,9 @@ import { FlightEditPageComponent } from './pages/flight/edit/flight-edit.compone
 import { DestinationAddPageComponent } from './pages/destenation/add/destination-add.component';
 import { DestinationEditPageComponent } from './pages/destenation/edit/destination-edit.component';
 import { AddFlightBookingComponent } from './pages/flight/book/add/add-flight-booking.component';
+import { ManageCouponsComponent } from './pages/admin/manage-coupons/manage-coupons.component';
+import { CouponAddPageComponent } from './pages/coupons/add/coupon-add.component';
+import { CouponEditPageComponent } from './pages/coupons/edit/coupon-edit.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +39,10 @@ export const routes: Routes = [
       {
         path: 'manage/destinations',
         component: ManageDestinationsComponent,
+      },
+      {
+        path: 'manage/coupons',
+        component: ManageCouponsComponent,
       },
     ],
   },
@@ -99,6 +106,20 @@ export const routes: Routes = [
       {
         path: 'edit/:code',
         component: DestinationEditPageComponent,
+      },
+    ],
+  },
+
+  {
+    path: 'coupon',
+    children: [
+      {
+        path: 'add',
+        component: CouponAddPageComponent,
+      },
+      {
+        path: 'edit/:code',
+        component: CouponEditPageComponent,
       },
     ],
   },

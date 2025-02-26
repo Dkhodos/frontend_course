@@ -1,0 +1,29 @@
+<page title="Edit a Coupon">
+  <div class="coupon-edit-loader" *ngIf="isLoading(); else coupon_editor">
+    <ono-flight-loader />
+  </div>
+
+  <ng-template #coupon_editor>
+    <ng-container *ngIf="coupon(); else notFound">
+      <app-coupon-editor
+        [initialState]="{
+          code: coupon()!.code,
+          name: coupon()!.name,
+          description: coupon()!.description,
+          amount: coupon()!.amount,
+        }"
+        (save)="onSave($event)"
+        [isLoading]="isUpdating()"
+        [isEdit]="true"
+      ></app-coupon-editor>
+    </ng-container>
+
+    <!-- Not Found Fallback -->
+    <ng-template #notFound>
+      <ono-not-found-placeholder
+        title="Coupon Not Found"
+        description="We could not find the coupon details. Please check the coupon code and try again."
+      ></ono-not-found-placeholder>
+    </ng-template>
+  </ng-template>
+</page>

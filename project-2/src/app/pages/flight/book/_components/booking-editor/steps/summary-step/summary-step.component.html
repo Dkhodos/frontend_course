@@ -23,17 +23,52 @@
       <span>Price Summary</span>
     </div>
     <div class="section-content">
+      <div class="coupon-selector">
+        <form [formGroup]="form" (ngSubmit)="submitCoupon()">
+          <app-form-input
+            controlKey="couponCode"
+            label="Have a Coupon?"
+            placeholder="Enter coupon..."
+          />
+          <app-button
+            variant="mat-flat-button"
+            [isLoading]="loadingDiscount"
+            type="submit"
+          >
+            Submit
+          </app-button>
+        </form>
+      </div>
       <div class="info-item">
         <span class="label">Flight Price:</span>
-        <span class="value">{{ getFlightPrice() | currency:'USD':'symbol' }}</span>
+        <span class="info-item-divider"></span>
+        <span class="value">{{
+          getFlightPrice() | currency: 'USD' : 'symbol'
+        }}</span>
       </div>
-      <div class="info-item">
-        <span class="label">Total Extra Cost:</span>
-        <span class="value">{{ getTotalExtraCost() | currency:'USD':'symbol' }}</span>
+      <ng-container *ngFor="let seat of getSeatPrices()">
+        <div class="info-item">
+          <span class="label">{{ seat.label }}</span>
+          <span class="info-item-divider"></span>
+          <span class="value">{{
+            seat.value | currency: 'USD' : 'symbol'
+          }}</span>
+        </div>
+      </ng-container>
+      <div class="info-item" *ngIf="getDiscountPrice() > 0">
+        <span class="label discount">Discount ({{ discount * 100 }}%)</span>
+        <span class="info-item-divider"></span>
+        <span class="value discount"
+          >-{{ getDiscountPrice() | currency: 'USD' : 'symbol' }}</span
+        >
       </div>
+
       <div class="info-item overall">
         <span class="label">Overall Price:</span>
-        <span class="value">{{ getOverallPrice() | currency:'USD':'symbol' }}</span>
+        <span class="info-item-divider"></span>
+        <span class="value">{{
+          getOverallPrice() | currency: 'USD' : 'symbol'
+        }}</span>
       </div>
     </div>
   </div>

@@ -38,7 +38,7 @@
           [flight]="flight"
           [passengers]="passengersState"
           [seatSummaryItems]="seatSummary"
-          (book)="onBook()"
+          (book)="onBook($event)"
         ></app-summary-step>
       </mat-step>
     </mat-horizontal-stepper>

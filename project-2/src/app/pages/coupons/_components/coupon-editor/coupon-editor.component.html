@@ -1,0 +1,60 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-item">
+    <app-form-input
+      controlKey="code"
+      label="Coupon Code"
+      placeholder="Enter coupon code"
+      [required]="true"
+      [errorMessages]="{
+        required: 'Coupon code is required.',
+        pattern: 'Coupon code must be 4-8 alphanumeric characters.',
+      }"
+    ></app-form-input>
+  </div>
+
+  <div class="form-item">
+    <app-form-input
+      controlKey="name"
+      label="Coupon Name"
+      placeholder="Enter coupon name"
+      [required]="true"
+      [errorMessages]="{
+        required: 'Coupon name is required.',
+      }"
+    ></app-form-input>
+  </div>
+
+  <div class="form-item">
+    <app-form-textarea
+      controlKey="description"
+      label="Coupon Description"
+      placeholder="Enter coupon description"
+      [required]="true"
+      [errorMessages]="{
+        required: 'Description is required.',
+        maxlength: 'Description cannot exceed 256 characters.',
+      }"
+    ></app-form-textarea>
+  </div>
+
+  <div class="form-item">
+    <app-form-input
+      controlKey="amount"
+      label="Discount Amount (%)"
+      placeholder="60%"
+      type="number"
+      adornmentEnd="sell"
+      [required]="true"
+      [errorMessages]="{
+        required: 'Discount amount is required.',
+        min: 'Discount amount must be greater than 0.',
+      }"
+    />
+  </div>
+
+  <div class="form-item">
+    <app-button type="submit" [isLoading]="isLoading" icon="save">
+      Save Coupon
+    </app-button>
+  </div>
+</form>

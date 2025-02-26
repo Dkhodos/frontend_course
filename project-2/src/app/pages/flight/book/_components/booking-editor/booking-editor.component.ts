@@ -109,14 +109,17 @@ export class BookingEditorComponent {
     return Object.values(seats);
   }
 
-  async onBook(): Promise<void> {
+  async onBook({ discount }: { discount: number }): Promise<void> {
     if (!this.flight) return;
 
     const totalExtraCost = this.seatSummary.reduce(
       (sum, item) => sum + item.extraCost,
       0
     );
-    const finalPrice = this.flight!.price + totalExtraCost;
+    let finalPrice = this.flight!.price + totalExtraCost;
+    if (discount > 0) {
+      finalPrice -= finalPrice * (1 - discount);
+    }
 
     const booking = new Booking(
       this.flight!.flightNumber,
