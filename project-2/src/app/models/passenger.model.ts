@@ -1,7 +1,7 @@
-export enum Luggage {
+export enum Baggage {
   Small = 'small',
-  Medium = 'Medium',
-  Large = 'Large',
+  Medium = 'medium',
+  Large = 'large',
 }
 
 export default class Passenger {
@@ -9,6 +9,6 @@ export default class Passenger {
     public name: string,
     public passportNumber: string,
     public seatNumber: string,
-    public luggages: Luggage[] = []
+    public baggage: Baggage[] = []
   ) {}
 }

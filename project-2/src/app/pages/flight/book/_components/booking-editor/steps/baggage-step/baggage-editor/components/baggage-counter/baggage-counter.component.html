@@ -1,0 +1,37 @@
+<div class="baggage-counter-root">
+  <div class="baggage-image">
+    <div class="baggage-badge">{{ baggageType }}</div>
+    <mat-icon>{{ icon }}</mat-icon>
+  </div>
+  <div>
+    <div class="baggage-counter">
+      <app-form-input
+        label="Count"
+        [controlKey]="controlKey"
+        type="number"
+        [min]="min"
+        [max]="max"
+      />
+    </div>
+    <div class="baggage-description">
+      <div class="item">
+        <strong class="label">Max Dimensions:</strong>
+        <span class="value">{{ dimensions }}</span>
+      </div>
+      <div class="item">
+        <strong class="label">Max Weight:</strong>
+        <span class="value">{{ weight }}</span>
+      </div>
+      <div class="item">
+        <strong class="label">Usage:</strong>
+        <span class="value">{{ usage }}</span>
+      </div>
+      <div class="item">
+        <strong class="label">Price:</strong>
+        <span class="value">
+          {{ price | currency: 'USD' : 'symbol' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

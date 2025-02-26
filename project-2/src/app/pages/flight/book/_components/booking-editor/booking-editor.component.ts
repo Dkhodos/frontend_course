@@ -17,10 +17,13 @@ import { SeatsStepComponent } from './steps/seats-step/seats-step.component';
 import { SummaryStepComponent } from './steps/summary-step/summary-step.component';
 import { FlightInformationComponent } from './components/flight-information/flight-information';
 import { Booking } from '../../../../../models/booking.model';
-import { FlightBookForm } from './booking-editor.component.types';
+import { BaggageForm, FlightBookForm } from './booking-editor.component.types';
 import { PassengerForm } from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
 import { SeatSummaryItem } from './steps/seats-step/components/seat-selector/seat-selector.types';
 import Passenger from '../../../../../models/passenger.model';
+import {
+  SingleBaggageSummary
+} from './steps/baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
 
 @Component({
   selector: 'ono-booking-editor',
@@ -52,12 +55,14 @@ export class BookingEditorComponent {
         this.minPassengersValidator
       ),
       seats: this.fb.nonNullable.control<Record<string, SeatSummaryItem>>({}),
+      baggage: this.fb.nonNullable.control<BaggageForm>(
+        {},
+      ),
     });
 
     this.addInitialPassenger();
   }
 
-  // Adds a default passenger form group to the FormArray
   private addInitialPassenger(): void {
     const passengerGroup = this.fb.group<PassengerForm>({
       firstName: this.fb.control('', {
@@ -95,11 +100,13 @@ export class BookingEditorComponent {
 
       // Find the seat assigned to this passenger
       const seats = this.form.get('seats')?.value ?? {};
+      const baggage = this.form.get('baggage')?.value ?? {};
 
       return new Passenger(
         `${firstName} ${lastName}`,
         passportId,
-        seats?.[passportId]?.seatId ?? 'auto-assigned'
+        seats?.[passportId]?.seatId ?? 'auto-assigned',
+        baggage?.[passportId]?.items ?? []
       );
     });
   }
@@ -107,6 +114,11 @@ export class BookingEditorComponent {
   get seatSummary(): SeatSummaryItem[] {
     const seats = this.form.get('seats')?.value || {};
     return Object.values(seats);
+  }
+
+  get baggageSummary(): SingleBaggageSummary[] {
+    const baggage = this.form.get('baggage')?.value || {};
+    return Object.values(baggage);
   }
 
   async onBook({ discount }: { discount: number }): Promise<void> {

@@ -1,8 +1,13 @@
 <!-- baggage-step.component.html -->
-<div class="step-container">
-  <h2>Baggage</h2>
-  <p>Select baggage per passenger</p>
-  <div>placeholder</div>
+<div class="baggage-container">
+  <div class="baggage-editor">
+    <app-baggage-editor
+      [baggageControl]="baggageControl"
+      [passengers]="passengers"
+      [seatCurrentPassengerId]="seatCurrentPassengerId"
+      (changeCurrentPassengerId)="onChangeCurrentPassengerId($event)"
+    />
+  </div>
 
   <div class="step-actions">
     <button mat-button (click)="stepper.previous()">

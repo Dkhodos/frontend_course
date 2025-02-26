@@ -10,7 +10,7 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PassengerSummaryComponent } from './components/passenger-summary/passenger-summary.component';
-import { PassengerSelectionComponent } from './components/passenger-selection/passenger-selection.component';
+import { PassengerSelectionComponent } from '../../../../components/passenger-selection/passenger-selection.component';
 import { SeatSectionComponent } from './components/seat-section/seat-section.component';
 import {
   SeatSummaryItem,

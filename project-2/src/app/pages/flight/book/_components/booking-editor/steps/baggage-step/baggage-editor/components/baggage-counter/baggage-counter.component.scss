@@ -1,0 +1,50 @@
+.baggage-counter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.baggage-counter-root {
+  display: grid;
+  justify-content: flex-start;
+  grid-template-columns: 160px auto;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.baggage-image {
+  border-radius: 4px;
+  border: 1px solid #eeeeee30;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  mat-icon {
+    font-size: 80px !important;
+    height: 80px !important;
+    width: 80px !important;
+  }
+
+  .baggage-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px;
+    background: #1e3c72;
+    color: white;
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+}
+
+.baggage-description {
+  & .item {
+    & .label {
+      margin-right: 8px;
+    }
+  }
+}

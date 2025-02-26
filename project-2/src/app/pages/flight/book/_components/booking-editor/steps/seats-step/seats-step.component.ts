@@ -29,13 +29,11 @@ export class SeatsStepComponent implements OnInit, OnDestroy {
     if (this.stepper) {
       this.stepperSubscription = this.stepper.selectionChange.subscribe(
         (event) => {
-          console.log("stepperSubscription", event, this.seatCurrentPassengerId, this.passengers.length);
           if (
             event.selectedIndex === 2 &&
             this.seatCurrentPassengerId === null &&
             this.passengers.length > 0
           ) {
-            console.log("here")
             this.seatCurrentPassengerId = this.passengers[0].passportNumber;
           }
         }

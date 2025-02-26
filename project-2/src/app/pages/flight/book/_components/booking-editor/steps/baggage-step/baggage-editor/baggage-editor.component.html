@@ -1,0 +1,38 @@
+<div class="baggage-editor">
+  <app-passenger-selection
+    [passengers]="passengers"
+    [selectedPassengerNumber]="seatCurrentPassengerId"
+    (selectPassenger)="selectPassenger($event)"
+  />
+
+  <div class="baggage-selection">
+    <mat-accordion class="baggage-left">
+      <mat-expansion-panel
+        *ngFor="let baggage of baggageTypes; let i = index"
+        [expanded]="i === 0"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>{{ baggageDescriptions[baggage].icon }}</mat-icon>
+            {{ baggage | titlecase }} Baggage
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form [formGroup]="form">
+          <app-baggage-counter
+            [controlKey]="baggageControlKeys[baggage]"
+            [baggageType]="baggage"
+            [dimensions]="baggageDescriptions[baggage].dimensions"
+            [weight]="baggageDescriptions[baggage].weight"
+            [usage]="baggageDescriptions[baggage].usage"
+            [price]="baggageDescriptions[baggage].price"
+            [icon]="baggageDescriptions[baggage].icon"
+          />
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="baggage-right">
+      <app-baggage-summary [summary]="baggageSummary" />
+    </div>
+  </div>
+</div>

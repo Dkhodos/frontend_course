@@ -1,0 +1,26 @@
+<div class="summary-panel">
+  <h3>Baggage Summary</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Passenger</th>
+        <th>Baggage</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of summary">
+        <td>
+          {{ item.passengerName }}<br /><small>{{ item.passportNumber }}</small>
+        </td>
+        <td>{{ item.itemsExplain }}</td>
+        <td>{{ item.price | currency: 'USD' : 'symbol' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="total-cost">
+    <strong
+      >Total Baggage Cost: {{ totalCost | currency: 'USD' : 'symbol' }}</strong
+    >
+  </div>
+</div>

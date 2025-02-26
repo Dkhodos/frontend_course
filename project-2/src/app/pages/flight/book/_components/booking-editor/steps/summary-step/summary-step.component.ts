@@ -18,6 +18,7 @@ import { FormInputComponent } from '../../../../../../../components/form-input/f
 import { ButtonComponent } from '../../../../../../../components/button/button.component';
 import { CouponsService } from '../../../../../../../services/coupons.service';
 import { ToastService } from '../../../../../../../components/toast/toast.service';
+import { SingleBaggageSummary } from '../baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
 
 @Component({
   selector: 'app-summary-step',
@@ -41,6 +42,7 @@ export class SummaryStepComponent {
   @Input() flight!: Flight;
   @Input() passengers: Passenger[] = [];
   @Input() seatSummaryItems!: SeatSummaryItem[];
+  @Input() baggageSummary!: SingleBaggageSummary[];
   @Output() book = new EventEmitter<{ discount: number }>();
 
   form: FormGroup;
@@ -60,6 +62,10 @@ export class SummaryStepComponent {
     return this.seatSummaryItems.reduce((sum, item) => sum + item.extraCost, 0);
   }
 
+  getTotalBaggageCost() {
+    return this.baggageSummary.reduce((sum, item) => sum + item.price, 0);
+  }
+
   getFlightPrice(): number {
     return this.flight.price;
   }
@@ -67,19 +73,25 @@ export class SummaryStepComponent {
   getDiscountPrice() {
     if (!this.discount) return 0;
 
-    const finalPrice =
-      Number(this.getFlightPrice()) + Number(this.getTotalSeatCost());
+    const finalPrice = this.getFinalPrice();
 
     return finalPrice * this.discount;
   }
 
   getOverallPrice(): number {
-    let finalPrice =
-      Number(this.getFlightPrice()) + Number(this.getTotalSeatCost());
+    let finalPrice = this.getFinalPrice();
     if (this.discount) {
       finalPrice -= this.getDiscountPrice();
     }
     return finalPrice;
+  }
+
+  getFinalPrice() {
+    return (
+      Number(this.getFlightPrice()) +
+      Number(this.getTotalSeatCost()) +
+      Number(this.getTotalBaggageCost())
+    );
   }
 
   getSeatSummaryText(passenger: Passenger): string {
@@ -89,10 +101,26 @@ export class SummaryStepComponent {
     return item && item.seatId ? item.seatId : 'auto assigned';
   }
 
+  getBaggageSummaryText(passenger: Passenger): string {
+    const item = this.baggageSummary.find(
+      (b) => b.passportNumber === passenger.passportNumber
+    );
+    return item && item.items.length > 0
+      ? `selected ${item.itemsExplain}`
+      : 'no baggage';
+  }
+
   getSeatPrices() {
     return this.seatSummaryItems.map((seat) => ({
       label: `Seat (${seat.seatType})`,
       value: seat.extraCost,
+    }));
+  }
+
+  getBaggagePrices() {
+    return this.baggageSummary.map((b) => ({
+      label: b.itemsExplain,
+      value: b.price,
     }));
   }
 

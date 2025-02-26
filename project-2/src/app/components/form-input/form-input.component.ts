@@ -47,6 +47,8 @@ export class FormInputComponent implements OnInit, OnDestroy {
   @Input() errorMessages?: Record<string, string>;
   @Input() adornmentStart?: string;
   @Input() adornmentEnd?: string;
+  @Input() min?: number;
+  @Input() max?: number;
 
   protected parentContainer = inject(ControlContainer);
 

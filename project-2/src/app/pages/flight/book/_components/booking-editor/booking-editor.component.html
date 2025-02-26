@@ -16,7 +16,11 @@
       <!-- Step 2: Baggage -->
       <mat-step>
         <ng-template matStepLabel>Baggage</ng-template>
-        <app-baggage-step [stepper]="stepper"></app-baggage-step>
+        <app-baggage-step
+          [stepper]="stepper"
+          [passengers]="passengersState"
+          [baggageControl]="form.controls.baggage"
+        ></app-baggage-step>
       </mat-step>
 
       <!-- Step 3: Seats -->
@@ -38,6 +42,7 @@
           [flight]="flight"
           [passengers]="passengersState"
           [seatSummaryItems]="seatSummary"
+          [baggageSummary]="baggageSummary"
           (book)="onBook($event)"
         ></app-summary-step>
       </mat-step>

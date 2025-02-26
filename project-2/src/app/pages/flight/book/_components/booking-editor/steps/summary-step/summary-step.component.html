@@ -10,7 +10,8 @@
         <span class="label">Passenger:</span>
         <span class="value">
           {{ p.name }} ({{ p.passportNumber }}) chose to sit at
-          <strong>{{ getSeatSummaryText(p) }}</strong>
+          <strong>{{ getSeatSummaryText(p) }}</strong> and has
+          <strong>{{ getBaggageSummaryText(p) }}</strong>
         </span>
       </div>
     </div>
@@ -52,6 +53,15 @@
           <span class="info-item-divider"></span>
           <span class="value">{{
             seat.value | currency: 'USD' : 'symbol'
+          }}</span>
+        </div>
+      </ng-container>
+      <ng-container *ngFor="let baggage of getBaggagePrices()">
+        <div class="info-item">
+          <span class="label">{{ baggage.label }}</span>
+          <span class="info-item-divider"></span>
+          <span class="value">{{
+            baggage.value | currency: 'USD' : 'symbol'
           }}</span>
         </div>
       </ng-container>

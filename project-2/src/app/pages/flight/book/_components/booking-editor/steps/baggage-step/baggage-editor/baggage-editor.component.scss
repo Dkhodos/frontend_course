@@ -1,0 +1,9 @@
+.baggage-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: flex-start;
+
+  & mat-icon {
+    margin-right: 8px;
+  }
+}
