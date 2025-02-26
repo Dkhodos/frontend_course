@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -41,10 +43,10 @@ export class SeatSelectorComponent implements OnInit {
   @Input() flight!: Flight;
   @Input() passengers: Passenger[] = [];
   @Input() seatsControl!: FormControl<Record<string, SeatSummaryItem>>;
+  @Input() seatCurrentPassengerId: string | null = null;
+  @Output() changeCurrentPassengerId = new EventEmitter<string>();
 
-  // Local mapping: passenger id -> SeatSummaryItem.
   seatSummaries: Record<string, SeatSummaryItem> = {};
-  currentPassengerId: string | null = null;
   sections: SectionConfig[] = [];
   isMedium = true;
 
@@ -59,30 +61,36 @@ export class SeatSelectorComponent implements OnInit {
   }
 
   selectPassenger(passengerId: string): void {
-    this.currentPassengerId = passengerId;
+    this.changeCurrentPassengerId.emit(passengerId);
   }
 
   onSeatSectionSelected(seatId: string): void {
-    if (!this.currentPassengerId) {
+    if (!this.seatCurrentPassengerId) {
       return;
     }
     const passenger = this.passengers.find(
-      (p) => p.passportNumber === this.currentPassengerId
+      (p) => p.passportNumber === this.seatCurrentPassengerId
     )!;
-    this.seatSummaries[this.currentPassengerId] =
+    this.seatSummaries[this.seatCurrentPassengerId] =
       this.seatService.computeSeatSummaryItemForPassenger(passenger, seatId);
-    this.seatsControl.setValue({...this.seatSummaries});
+    this.seatsControl.setValue({ ...this.seatSummaries });
   }
 
   getSelectedSeat(): string | null {
-    if (!this.currentPassengerId) {
+    if (!this.seatCurrentPassengerId) {
       return null;
     }
-    const item = this.seatSummaries[this.currentPassengerId];
+    const item = this.seatSummaries[this.seatCurrentPassengerId];
     return item ? item.seatId : null;
   }
 
   get seatSummaryState(): SeatSummaryState {
     return this.seatService.getSeatSummary(this.seatSummaries, this.passengers);
+  }
+
+  get occupiedSeats() {
+    return Object.values(this.seatSummaries)
+      .filter((p) => p.passportNumber !== this.seatCurrentPassengerId)
+      .map((p) => p.seatId);
   }
 }

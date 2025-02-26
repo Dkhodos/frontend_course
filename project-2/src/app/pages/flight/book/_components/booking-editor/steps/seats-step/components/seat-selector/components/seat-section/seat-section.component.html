@@ -6,16 +6,23 @@
       [ngClass]="{
         'seat-cell': !cell.isGap,
         'gap-cell': cell.isGap,
-        selected: !cell.isGap && isSelected(cell.id!),
+        occupied: !cell.isGap && cell.occupied,
+        selected: !cell.isGap && !cell.occupied && isSelected(cell.id!),
       }"
     >
       <ng-container *ngIf="!cell.isGap; else gapTemplate">
         <div class="seat-content">
           <span class="seat-label">{{ cell.id }}</span>
-          <span class="seat-extra" *ngIf="!isSelected(cell.id!)">
-            +{{ extraCost }}$
-          </span>
-          <mat-icon *ngIf="isSelected(cell.id!)">check</mat-icon>
+          <ng-container *ngIf="cell.occupied; else availableSeat">
+            <!-- Show a not-allowed icon when occupied -->
+            <mat-icon>block</mat-icon>
+          </ng-container>
+          <ng-template #availableSeat>
+            <span class="seat-extra" *ngIf="!isSelected(cell.id!)">
+              +{{ extraCost }}$
+            </span>
+            <mat-icon *ngIf="isSelected(cell.id!)">check</mat-icon>
+          </ng-template>
         </div>
       </ng-container>
       <ng-template #gapTemplate>

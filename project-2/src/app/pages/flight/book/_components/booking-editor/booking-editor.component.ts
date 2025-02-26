@@ -118,7 +118,7 @@ export class BookingEditorComponent {
     );
     let finalPrice = this.flight!.price + totalExtraCost;
     if (discount > 0) {
-      finalPrice -= finalPrice * (1 - discount);
+      finalPrice -= finalPrice * discount;
     }
 
     const booking = new Booking(

@@ -70,7 +70,7 @@ export class SummaryStepComponent {
     const finalPrice =
       Number(this.getFlightPrice()) + Number(this.getTotalSeatCost());
 
-    return finalPrice * (1 - this.discount);
+    return finalPrice * this.discount;
   }
 
   getOverallPrice(): number {
