@@ -13,9 +13,10 @@ import {
 export class SeatSelectorService {
   getSectionConfigs(flight: Flight): SectionConfig[] {
     const planeInfo = PlaneTypeToInfo[flight.planeType];
+    const totalSeats = planeInfo.seatCount;
     const sections = PLANE_SIZE_TO_SECTIONS_CONFIG[planeInfo.size];
     const fixedSeats = this.computeFixedSeats(sections);
-    const remaining = this.computeRemainingSeats(flight.seatCount, fixedSeats);
+    const remaining = this.computeRemainingSeats(totalSeats, fixedSeats);
     return sections.map((section) =>
       this.updateSectionRows(section, remaining)
     );

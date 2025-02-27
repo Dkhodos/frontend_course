@@ -54,6 +54,7 @@ export class SeatSectionComponent {
   }
 
   // Generate the 2D grid, marking occupied seats.
+  // seat-section.component.ts
   get grid(): SeatCell[][] {
     const grid: SeatCell[][] = [];
     const seatsPerRow = this.effectiveSeatsPerColumn * this.cols;
