@@ -21,5 +21,5 @@ import { trigger, style, animate, transition } from '@angular/animations';
   ],
 })
 export class PageComponent {
-  @Input() title = ''; // Page title input
+  @Input() pageTitle = ''; // Page title input
 }

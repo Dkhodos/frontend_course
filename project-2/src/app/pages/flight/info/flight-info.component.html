@@ -1,4 +1,4 @@
-<page title="Flight | {{ flight()?.flightNumber ?? 'N / A' }}">
+<page pageTitle="Flight | {{ flight()?.flightNumber ?? 'N / A' }}">
   <!-- Loader -->
   <div class="flight-info-loader" *ngIf="isLoading(); else flight_content">
     <ono-flight-loader />

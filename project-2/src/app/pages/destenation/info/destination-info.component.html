@@ -1,4 +1,4 @@
-<page title="Flight | {{ destination()?.code ?? 'N / A' }}">
+<page pageTitle="Flight | {{ destination()?.code ?? 'N / A' }}">
   <div class="destination-loader" *ngIf="isLoading(); else destination_content">
     <ono-flight-loader />
   </div>

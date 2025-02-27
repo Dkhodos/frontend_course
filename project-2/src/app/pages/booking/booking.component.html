@@ -1,4 +1,4 @@
-<page title="Booking Information | {{ booking?.flightNumber ?? 'N / A' }}">
+<page pageTitle="Booking Information | {{ booking?.flightNumber ?? 'N / A' }}">
   <div class="booking-loader" *ngIf="isLoading; else bookingContent">
     <ono-flight-loader />
   </div>
