@@ -10,7 +10,7 @@ export interface BaggageDescription {
 
 export interface SingleBaggageSummary {
   items: Baggage[];
-  itemsExplain: string
+  itemsExplain: string;
   price: number;
   passengerName: string;
   passportNumber: string;

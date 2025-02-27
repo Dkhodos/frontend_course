@@ -33,7 +33,10 @@ export class Booking {
     return this.passengers.length;
   }
 
-  static fromFirestore(data: BookingFirestoreData, flightNumber: string): Booking {
+  static fromFirestore(
+    data: BookingFirestoreData,
+    flightNumber: string
+  ): Booking {
     const passengers = data.passengers.map(
       (p) => new Passenger(p.name, p.passportNumber, p.seatNumber)
     );

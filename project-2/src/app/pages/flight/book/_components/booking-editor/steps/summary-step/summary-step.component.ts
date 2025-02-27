@@ -19,6 +19,8 @@ import { ButtonComponent } from '../../../../../../../components/button/button.c
 import { CouponsService } from '../../../../../../../services/coupons.service';
 import { ToastService } from '../../../../../../../components/toast/toast.service';
 import { SingleBaggageSummary } from '../baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
+import { SummaryStepService } from './summary-step.service';
+import { CouponType } from '../../../../../../../models/coupon.model';
 
 @Component({
   selector: 'app-summary-step',
@@ -43,57 +45,52 @@ export class SummaryStepComponent {
   @Input() passengers: Passenger[] = [];
   @Input() seatSummaryItems!: SeatSummaryItem[];
   @Input() baggageSummary!: SingleBaggageSummary[];
-  @Output() book = new EventEmitter<{ discount: number }>();
+  @Output() book = new EventEmitter<{
+    discount: number;
+    discountType: CouponType;
+  }>();
 
   form: FormGroup;
   discount = 0;
+  discountType: CouponType = CouponType.Percentage;
   loadingDiscount = false;
 
   constructor(
     private couponService: CouponsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private summaryStepService: SummaryStepService
   ) {
     this.form = new FormGroup({
       couponCode: new FormControl(''),
     });
   }
 
-  getTotalSeatCost(): number {
-    return this.seatSummaryItems.reduce((sum, item) => sum + item.extraCost, 0);
-  }
-
-  getTotalBaggageCost() {
-    return this.baggageSummary.reduce((sum, item) => sum + item.price, 0);
-  }
-
-  getFlightPrice(): number {
-    return this.flight.price;
-  }
-
-  getDiscountPrice() {
-    if (!this.discount) return 0;
-
-    const finalPrice = this.getFinalPrice();
-
-    return finalPrice * this.discount;
-  }
-
-  getOverallPrice(): number {
-    let finalPrice = this.getFinalPrice();
-    if (this.discount) {
-      finalPrice -= this.getDiscountPrice();
-    }
-    return finalPrice;
-  }
-
-  getFinalPrice() {
-    return (
-      Number(this.getFlightPrice()) +
-      Number(this.getTotalSeatCost()) +
-      Number(this.getTotalBaggageCost())
+  // --- New Getters using PriceCalculationService ---
+  get finalPrice(): number {
+    return this.summaryStepService.getFinalPrice(
+      this.flight,
+      this.seatSummaryItems,
+      this.baggageSummary
     );
   }
 
+  get discountPrice(): number {
+    return this.summaryStepService.getDiscountPrice(
+      this.finalPrice,
+      this.discount,
+      this.discountType
+    );
+  }
+
+  get overallPrice(): number {
+    return this.summaryStepService.getOverallPrice(
+      this.finalPrice,
+      this.discount,
+      this.discountType
+    );
+  }
+
+  // --- Other methods remain largely unchanged ---
   getSeatSummaryText(passenger: Passenger): string {
     const item = this.seatSummaryItems.find(
       (s) => s.passportNumber === passenger.passportNumber
@@ -111,26 +108,37 @@ export class SummaryStepComponent {
   }
 
   getSeatPrices() {
-    return this.seatSummaryItems.map((seat) => ({
-      label: `Seat (${seat.seatType})`,
-      value: seat.extraCost,
-    }));
+    return this.seatSummaryItems
+      .map((seat) => ({
+        label: `Seat (${seat.seatType})`,
+        value: seat.extraCost,
+      }))
+      .filter((s) => s.value);
   }
 
   getBaggagePrices() {
-    return this.baggageSummary.map((b) => ({
-      label: b.itemsExplain,
-      value: b.price,
-    }));
+    return this.baggageSummary
+      .map((b) => ({
+        label: b.itemsExplain,
+        value: b.price,
+      }))
+      .filter((b) => b.value);
   }
 
   onBook(): void {
-    this.book.emit({ discount: this.discount });
+    this.book.emit({
+      discount: this.discount,
+      discountType: this.discountType,
+    });
+  }
+
+  get discountLabelSymbol() {
+    if (this.discountType === CouponType.Percentage) return '%';
+    return '$';
   }
 
   async submitCoupon() {
     const couponCode = this.form.get('couponCode')?.value;
-    console.log('couponCode', couponCode);
     if (!couponCode) return;
 
     this.loadingDiscount = true;
@@ -138,7 +146,19 @@ export class SummaryStepComponent {
     try {
       const coupon = await this.couponService.get(couponCode);
       if (coupon) {
+        const validationError = coupon.isValid();
+        if (validationError) {
+          this.toastService.add({
+            id: 'add-coupon-booking-validation-warning',
+            variant: 'warning',
+            title: 'Coupon is invalid!!',
+            description: validationError,
+          });
+          return;
+        }
+
         this.discount = coupon.amount;
+        this.discountType = coupon.type;
         this.toastService.add({
           id: 'add-coupon-booking-success',
           variant: 'success',

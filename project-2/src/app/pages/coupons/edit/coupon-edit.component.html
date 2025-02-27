@@ -6,12 +6,7 @@
   <ng-template #coupon_editor>
     <ng-container *ngIf="coupon(); else notFound">
       <app-coupon-editor
-        [initialState]="{
-          code: coupon()!.code,
-          name: coupon()!.name,
-          description: coupon()!.description,
-          amount: coupon()!.amount,
-        }"
+        [initialState]="initialState"
         (save)="onSave($event)"
         [isLoading]="isUpdating()"
         [isEdit]="true"

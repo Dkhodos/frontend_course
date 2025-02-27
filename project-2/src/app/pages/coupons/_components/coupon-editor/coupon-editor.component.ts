@@ -15,14 +15,22 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormInputComponent } from '../../../../components/form-input/form-input.component';
 import { FormTextareaComponent } from '../../../../components/form-textarea/form-textarea.component';
+import { FormSelectComponent } from '../../../../components/form-select/form-select.component';
 import { ButtonComponent } from '../../../../components/button/button.component';
-import {percentage} from '@angular/fire/storage';
+import { CouponType } from '../../../../models/coupon.model';
+import { FormDateRangePickerComponent } from '../../../../components/form-date-range-picker/form-date-range-picker.component';
 
 export interface CouponData {
   code: string;
   name: string;
   description: string;
-  amount: number; // normalized between 0 and 1
+  amount: number; // if Percentage, normalized (0-1); if Fixed, as entered
+  uses: number;
+  startDate: Date;
+  startTime: string;
+  endDate: Date;
+  endTime: string;
+  type: CouponType;
 }
 
 @Component({
@@ -33,7 +41,9 @@ export interface CouponData {
     ReactiveFormsModule,
     FormInputComponent,
     FormTextareaComponent,
+    FormSelectComponent,
     ButtonComponent,
+    FormDateRangePickerComponent,
   ],
   templateUrl: './coupon-editor.component.html',
   styleUrls: ['./coupon-editor.component.scss'],
@@ -47,33 +57,54 @@ export class CouponEditorComponent implements OnInit {
 
   form: FormGroup;
 
+  // Options for the coupon type select
+  public couponTypeOptions = [
+    { value: CouponType.Percentage, label: 'Percentage' },
+    { value: CouponType.Amount, label: 'Fixed Amount' },
+  ];
+
   constructor() {
     this.form = new FormGroup({
-      // Coupon code: 4-8 alphanumeric characters
       code: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[A-Za-z0-9]{4,8}$/),
       ]),
-      // Coupon name: required
-      name: new FormControl('', [Validators.required]),
-      // Description: required, max length 256
-      description: new FormControl('', [
+      name: new FormControl('', [
         Validators.required,
-        Validators.maxLength(256),
+        Validators.maxLength(50),
       ]),
-      // Discount amount: using the slider component, value between 0-100; 0 not allowed
-      amount: new FormControl(1, [Validators.required, Validators.min(1)]),
+      description: new FormControl('', [Validators.maxLength(256)]),
+      amount: new FormControl(15, [Validators.required, Validators.min(1)]),
+      uses: new FormControl(100, [Validators.required, Validators.min(1)]),
+      dateRange: new FormGroup({
+        start: new FormControl(null, [Validators.required]),
+        startTime: new FormControl('', [Validators.required]),
+        end: new FormControl(null, [Validators.required]),
+        endTime: new FormControl('', [Validators.required]),
+      }),
+      type: new FormControl(CouponType.Percentage, [Validators.required]),
     });
   }
 
   ngOnInit(): void {
     if (this.initialState) {
-      // Assume that initialState.amount is a decimal (0-1) so convert to percentage (0-100)
+      const amountValue =
+        this.initialState.type === CouponType.Percentage
+          ? this.initialState.amount * 100
+          : this.initialState.amount;
       this.form.patchValue({
         code: this.initialState.code,
         name: this.initialState.name,
         description: this.initialState.description,
-        amount: this.initialState.amount * 100,
+        amount: amountValue,
+        uses: this.initialState.uses,
+        dateRange: {
+          start: this.initialState.startDate,
+          startTime: this.initialState.startTime,
+          end: this.initialState.endDate,
+          endTime: this.initialState.endTime,
+        },
+        type: this.initialState.type,
       });
       if (this.isEdit) {
         this.form.get('code')?.disable();
@@ -83,14 +114,23 @@ export class CouponEditorComponent implements OnInit {
 
   submit(): void {
     if (this.form.valid) {
-      // Get form values; if control was disabled, use getRawValue() to include it.
+      // Use getRawValue() so that disabled controls (like code in edit mode) are included
       const formValue = this.form.getRawValue();
-      // Convert the discount amount from percentage to decimal
       const couponData: CouponData = {
         code: formValue.code,
         name: formValue.name,
         description: formValue.description,
-        amount: formValue.amount / 100,
+        // For Percentage type, convert from percentage to decimal; otherwise, leave as entered
+        amount:
+          formValue.type === CouponType.Percentage
+            ? formValue.amount / 100
+            : formValue.amount,
+        uses: formValue.uses,
+        startDate: formValue.dateRange.start,
+        startTime: formValue.dateRange.startTime,
+        endDate: formValue.dateRange.end,
+        endTime: formValue.dateRange.endTime,
+        type: formValue.type,
       };
       this.save.emit(couponData);
     } else {
@@ -98,5 +138,17 @@ export class CouponEditorComponent implements OnInit {
     }
   }
 
-  protected readonly percentage = percentage;
+  get amountLabel() {
+    if (this.form.get('type')?.value === CouponType.Percentage) {
+      return 'Discount Amount (%)';
+    }
+    return 'Discount Amount ($)';
+  }
+
+  get amountMax() {
+    if (this.form.get('type')?.value === CouponType.Percentage) {
+      return 100;
+    }
+    return 10_000;
+  }
 }

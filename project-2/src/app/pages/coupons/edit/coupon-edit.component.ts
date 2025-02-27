@@ -13,6 +13,7 @@ import { Coupon } from '../../../models/coupon.model';
 import { CouponsService } from '../../../services/coupons.service';
 import { ToastService } from '../../../components/toast/toast.service';
 import { UrlService } from '../../../services/url.service';
+import { dateUtils } from '../../../utils/date-utils';
 
 @Component({
   selector: 'app-coupon-edit',
@@ -64,11 +65,20 @@ export class CouponEditPageComponent implements OnInit {
     this.isUpdating.set(true);
     try {
       // Build updated coupon instance; code remains unchanged.
+      const startDateStr = dateUtils.formatDate(couponData.startDate);
+      const endDateStr = dateUtils.formatDate(couponData.endDate);
+
       const updatedCoupon = new Coupon(
         serverCoupon.code,
         couponData.name,
         couponData.description,
-        couponData.amount
+        couponData.amount,
+        couponData.uses,
+        startDateStr,
+        couponData.startTime,
+        endDateStr,
+        couponData.endTime,
+        couponData.type
       );
       await this.couponsService.update(updatedCoupon);
 
@@ -91,5 +101,27 @@ export class CouponEditPageComponent implements OnInit {
       });
       this.isUpdating.set(false);
     }
+  }
+
+  get initialState(): CouponData | null {
+    if (!this.coupon()) return null;
+
+    const startDate = dateUtils.fromDateStringToDate(this.coupon()!.startDate);
+    const endDate = dateUtils.fromDateStringToDate(this.coupon()!.endDate);
+    const startTime = dateUtils.formatTime(startDate);
+    const endTime = dateUtils.formatTime(endDate);
+
+    return {
+      code: this.coupon()!.code,
+      name: this.coupon!.name,
+      description: this.coupon()!.description,
+      amount: this.coupon()!.amount,
+      type: this.coupon()!.type,
+      uses: this.coupon()!.uses,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+    };
   }
 }

@@ -1,5 +1,17 @@
-import { Component, Input, inject, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  Input,
+  inject,
+  OnInit,
+  OnDestroy,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
@@ -8,13 +20,20 @@ import { CommonModule } from '@angular/common';
   selector: 'app-form-percentage-selector',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatSliderModule, CommonModule],
-  viewProviders: [{
-    provide: ControlContainer,
-    useFactory: () => inject(ControlContainer, { skipSelf: true })
-  }],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSliderModule,
+    CommonModule,
+  ],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: () => inject(ControlContainer, { skipSelf: true }),
+    },
+  ],
   templateUrl: './form-percentage-selector.component.html',
-  styleUrls: ['./form-percentage-selector.component.scss']
+  styleUrls: ['./form-percentage-selector.component.scss'],
 })
 export class FormPercentageSelectorComponent implements OnInit, OnDestroy {
   @Input({ required: true }) controlKey = '';

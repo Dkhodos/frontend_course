@@ -11,7 +11,7 @@ import { Booking } from '../../../../models/booking.model';
 import { BookingsService } from '../../../../services/bookings.service';
 import { ToastService } from '../../../../components/toast/toast.service';
 import { UrlService } from '../../../../services/url.service';
-import {BookingEditorComponent} from '../_components/booking-editor/booking-editor.component';
+import { BookingEditorComponent } from '../_components/booking-editor/booking-editor.component';
 
 @Component({
   selector: 'ono-flight-book',

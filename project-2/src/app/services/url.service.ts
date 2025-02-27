@@ -71,7 +71,7 @@ export class UrlService {
     return this.AppRoutes.couponAdd();
   }
 
-  getCouponsManageURL(){
+  getCouponsManageURL() {
     return this.AppRoutes.couponManage();
   }
 }

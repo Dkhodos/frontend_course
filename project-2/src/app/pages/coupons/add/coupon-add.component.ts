@@ -10,7 +10,8 @@ import { PageComponent } from '../../../components/page/page.component';
 import { CouponsService } from '../../../services/coupons.service';
 import { ToastService } from '../../../components/toast/toast.service';
 import { Coupon } from '../../../models/coupon.model';
-import {UrlService} from '../../../services/url.service';
+import { UrlService } from '../../../services/url.service';
+import { dateUtils } from '../../../utils/date-utils';
 
 @Component({
   selector: 'app-coupon-add',
@@ -30,7 +31,7 @@ export class CouponAddPageComponent {
     private couponsService: CouponsService,
     private toastService: ToastService,
     private router: Router,
-    private urlService: UrlService,
+    private urlService: UrlService
   ) {}
 
   async onSave(couponData: CouponData): Promise<void> {
@@ -49,12 +50,20 @@ export class CouponAddPageComponent {
         return;
       }
 
-      // Create new Coupon instance (amount is already normalized between 0 and 1)
+      const startDateStr = dateUtils.formatDate(couponData.startDate);
+      const endDateStr = dateUtils.formatDate(couponData.endDate);
+
       const newCoupon = new Coupon(
         couponData.code,
         couponData.name,
         couponData.description,
-        couponData.amount
+        couponData.amount,
+        couponData.uses,
+        startDateStr,
+        couponData.startTime,
+        endDateStr,
+        couponData.endTime,
+        couponData.type
       );
       await this.couponsService.add(newCoupon);
 

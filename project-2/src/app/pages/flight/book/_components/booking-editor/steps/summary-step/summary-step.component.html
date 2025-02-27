@@ -30,7 +30,7 @@
             controlKey="couponCode"
             label="Have a Coupon?"
             placeholder="Enter coupon..."
-          />
+          ></app-form-input>
           <app-button
             variant="mat-flat-button"
             [isLoading]="loadingDiscount"
@@ -44,7 +44,7 @@
         <span class="label">Flight Price:</span>
         <span class="info-item-divider"></span>
         <span class="value">{{
-          getFlightPrice() | currency: 'USD' : 'symbol'
+          flight.price | currency: 'USD' : 'symbol'
         }}</span>
       </div>
       <ng-container *ngFor="let seat of getSeatPrices()">
@@ -65,19 +65,21 @@
           }}</span>
         </div>
       </ng-container>
-      <div class="info-item" *ngIf="getDiscountPrice() > 0">
-        <span class="label discount">Discount ({{ discount * 100 }}%)</span>
-        <span class="info-item-divider"></span>
-        <span class="value discount"
-          >-{{ getDiscountPrice() | currency: 'USD' : 'symbol' }}</span
+      <div class="info-item" *ngIf="discountPrice > 0">
+        <span class="label discount"
+          >Discount ({{ discount }}{{ discountLabelSymbol }})</span
         >
+        <span class="info-item-divider"></span>
+        <span class="value discount">
+          -{{ discountPrice | currency: 'USD' : 'symbol' }}
+        </span>
       </div>
 
       <div class="info-item overall">
         <span class="label">Overall Price:</span>
         <span class="info-item-divider"></span>
         <span class="value">{{
-          getOverallPrice() | currency: 'USD' : 'symbol'
+          overallPrice | currency: 'USD' : 'symbol'
         }}</span>
       </div>
     </div>

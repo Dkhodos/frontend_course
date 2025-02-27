@@ -1,5 +1,17 @@
-import { Component, Input, inject, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  Input,
+  inject,
+  OnInit,
+  OnDestroy,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
@@ -9,13 +21,21 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'app-form-textarea',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatIcon],
-  viewProviders: [{
-    provide: ControlContainer,
-    useFactory: () => inject(ControlContainer, { skipSelf: true })
-  }],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+    MatIcon,
+  ],
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: () => inject(ControlContainer, { skipSelf: true }),
+    },
+  ],
   templateUrl: './form-textarea.component.html',
-  styleUrls: ['./form-textarea.component.scss']
+  styleUrls: ['./form-textarea.component.scss'],
 })
 export class FormTextareaComponent implements OnInit, OnDestroy {
   @Input({ required: true }) public controlKey = '';

@@ -1,3 +1,17 @@
 .form-item {
   margin-bottom: 16px;
 }
+
+.form-group-amount {
+  display: grid;
+  grid-template-columns: 200px auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.form-group-name {
+  display: grid;
+  grid-template-columns: 300px auto;
+  gap: 16px;
+  align-items: center;
+}

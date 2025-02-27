@@ -21,9 +21,7 @@ import { BaggageForm, FlightBookForm } from './booking-editor.component.types';
 import { PassengerForm } from './steps/passenger-step/components/passenger-list/components/passenger-item/passenger-item.component';
 import { SeatSummaryItem } from './steps/seats-step/components/seat-selector/seat-selector.types';
 import Passenger from '../../../../../models/passenger.model';
-import {
-  SingleBaggageSummary
-} from './steps/baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
+import { SingleBaggageSummary } from './steps/baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
 
 @Component({
   selector: 'ono-booking-editor',
@@ -55,9 +53,7 @@ export class BookingEditorComponent {
         this.minPassengersValidator
       ),
       seats: this.fb.nonNullable.control<Record<string, SeatSummaryItem>>({}),
-      baggage: this.fb.nonNullable.control<BaggageForm>(
-        {},
-      ),
+      baggage: this.fb.nonNullable.control<BaggageForm>({}),
     });
 
     this.addInitialPassenger();
