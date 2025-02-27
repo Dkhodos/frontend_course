@@ -19,7 +19,7 @@ import { Booking, BookingFirestoreData } from '../models/booking.model';
   providedIn: 'root',
 })
 export class BookingsService {
-  private static readonly COLLECTION_NAME = 'bookings';
+  public static readonly COLLECTION_NAME = 'bookings';
 
   constructor(
     private firestore: Firestore,

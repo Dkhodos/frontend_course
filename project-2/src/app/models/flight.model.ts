@@ -1,6 +1,11 @@
 import { Timestamp } from '@angular/fire/firestore';
 import { dateUtils } from '../utils/date-utils';
 
+export enum FlightStatus {
+  Enabled = 'enabled',
+  Disabled = 'disabled',
+}
+
 export enum PlaneType {
   Embraer190 = 'embraer-190',
   AirbusA320 = 'airbus-a320',
@@ -18,7 +23,8 @@ export interface FlightFirestoreData {
   planeType: PlaneType;
   seatCount: number;
   price: number;
-  seatsTaken: string[]; // now a list of seat IDs
+  seatsTaken: string[];
+  status: FlightStatus;
 }
 
 export class Flight {
@@ -33,7 +39,8 @@ export class Flight {
     public arrivalTime: string, // hh:mm
     public seatCount: number,
     public price: number,
-    public seatsTaken: string[] = []
+    public seatsTaken: string[] = [],
+    public status: FlightStatus = FlightStatus.Enabled
   ) {}
 
   get flightSeatStatus() {
@@ -55,7 +62,8 @@ export class Flight {
       dateUtils.fromTimestampToTime(data.arrivalDate),
       data.seatCount,
       data.price,
-      data.seatsTaken || []
+      data.seatsTaken || [],
+      data.status
     );
   }
 
@@ -70,6 +78,7 @@ export class Flight {
       seatsTaken: this.seatsTaken,
       price: this.price,
       planeType: this.planeType,
+      status: this.status,
     };
   }
 }

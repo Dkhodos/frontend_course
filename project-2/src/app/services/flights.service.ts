@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import {
-  Firestore,
   collection,
+  deleteDoc,
   doc,
+  Firestore,
   getDoc,
   getDocs,
-  setDoc,
-  query,
   orderBy,
+  query,
+  setDoc,
   updateDoc,
-  deleteDoc,
   where,
 } from '@angular/fire/firestore';
-import { Flight, FlightFirestoreData } from '../models/flight.model';
+import {
+  Flight,
+  FlightFirestoreData,
+  FlightStatus,
+} from '../models/flight.model';
 import { BookingFirestoreData, PassengerData } from '../models/booking.model';
+import { BookingsService } from './bookings.service';
 
 interface FlightsFilters {
   dateRange?: { start: string; end: string };
@@ -189,5 +194,64 @@ export class FlightsService {
     constraints.push(orderBy('boardingDate', 'desc'));
 
     return constraints;
+  }
+
+  async disable(flightNumber: string) {
+    const bookingsExist = await this.validateNoBookingsForFlight(flightNumber);
+    if (bookingsExist) {
+      throw new Error('Bookings with this flight exist in the system.');
+    }
+
+    return this.modifyStatus(flightNumber, FlightStatus.Disabled);
+  }
+
+  private async validateNoBookingsForFlight(
+    flightNumber: string
+  ): Promise<boolean> {
+    // Use the bookings collection name.
+    // If you wish to avoid circular dependency, use the literal 'bookings'
+    // or define a local constant (e.g., private static readonly BOOKINGS_COLLECTION = 'bookings';).
+    const bookingsRef = collection(
+      this.firestore,
+      BookingsService.COLLECTION_NAME
+    );
+
+    // Create a document reference for the flight.
+    const flightDocRef = doc(this.firestore, `flights/${flightNumber}`);
+
+    // Query the bookings collection for documents where the 'flight' field matches the flightDocRef.
+    const bookingsQuery = query(
+      bookingsRef,
+      where('flight', '==', flightDocRef)
+    );
+    const bookingsSnapshot = await getDocs(bookingsQuery);
+
+    // Return true if any bookings exist, false otherwise.
+    return bookingsSnapshot.size > 0;
+  }
+
+  async enable(flightNumber: string) {
+    return this.modifyStatus(flightNumber, FlightStatus.Enabled);
+  }
+
+  private async modifyStatus(flightNumber: string, status: FlightStatus) {
+    console.log(`Flight number ${flightNumber} moving status to ${status}...`);
+
+    const flightsDoc = doc(
+      this.firestore,
+      FlightsService.COLLECTION_NAME,
+      flightNumber
+    );
+
+    try {
+      await updateDoc(flightsDoc, { status });
+      console.log(`✅ Flight number ${flightNumber} status is now ${status}`);
+    } catch (error) {
+      console.error(
+        `❌ Failed to update flight number ${flightNumber} status :`,
+        error
+      );
+      throw error;
+    }
   }
 }

@@ -5,4 +5,6 @@ export enum FlightTableAction {
   Filter = 'filter',
   View = 'view',
   Delete = 'delete',
+  Enable = 'enable',
+  Disable = 'disable',
 }

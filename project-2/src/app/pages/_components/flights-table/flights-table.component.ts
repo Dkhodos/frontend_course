@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FlightTableAction } from './flights-table.component.types';
-import { Flight } from '../../../models/flight.model';
+import { Flight, FlightStatus } from '../../../models/flight.model';
 import { Destination } from '../../../models/destination.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +31,7 @@ import {
   FilterFlightDialogComponent,
   FlightFilterData,
 } from './components/filter-flight-dialog/filter-flight-dialog.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-flights-table',
@@ -56,9 +57,12 @@ export class FlightsTableComponent {
   @Input() isLoading = false;
   @Output() filter = new EventEmitter<FlightFilterData>();
   @Output() deleteFlight = new EventEmitter<Flight>();
+  @Output() disableFlight = new EventEmitter<Flight>();
+  @Output() enableFlight = new EventEmitter<Flight>();
 
   constructor(
     private urlService: UrlService,
+    private sanitizer: DomSanitizer,
     private confirmationDialogService: ConfirmationDialogService,
     private dialog: MatDialog // Inject MatDialog
   ) {}
@@ -66,6 +70,22 @@ export class FlightsTableComponent {
   protected readonly FlightTableAction = FlightTableAction;
 
   columns: TableColumn<Flight>[] = [
+    {
+      key: 'status',
+      header: 'Status',
+      renderCell: (row: Flight): SafeHtml => {
+        const icon =
+          row.status === 'enabled'
+            ? 'airplanemode_active'
+            : 'airplanemode_inactive';
+
+        return this.sanitizer.bypassSecurityTrustHtml(
+          `<i class="material-icons">${icon}</i>`
+        );
+      },
+
+      sortable: false,
+    },
     {
       key: 'flightNumber',
       header: 'Flight No.',
@@ -171,11 +191,25 @@ export class FlightsTableComponent {
       });
     }
 
-    if (this.actions.includes(FlightTableAction.Delete)) {
+    if (
+      this.actions.includes(FlightTableAction.Enable) &&
+      row.status === FlightStatus.Disabled
+    ) {
       options.push({
-        value: FlightTableAction.Delete,
-        title: 'Delete',
-        icon: 'delete',
+        value: FlightTableAction.Enable,
+        title: 'Enable',
+        icon: 'airplanemode_active',
+      });
+    }
+
+    if (
+      this.actions.includes(FlightTableAction.Disable) &&
+      row.status === FlightStatus.Enabled
+    ) {
+      options.push({
+        value: FlightTableAction.Disable,
+        title: 'Disable',
+        icon: 'airplanemode_inactive',
         section: 'Danger',
         color: '#fa5252',
       });
@@ -189,13 +223,15 @@ export class FlightsTableComponent {
   }
 
   onOptionClicked(option: MenuOption, flight: Flight) {
-    if (option.value === FlightTableAction.Delete) {
+    if (option.value === FlightTableAction.Disable) {
       this.confirmationDialogService.show({
-        title: 'Delete Flight?',
+        title: 'Disable Flight?',
         variant: 'warning',
-        description: `Are you sure you want to delete flight ${flight.flightNumber}?`,
-        onConfirm: () => this.deleteFlight.emit(flight),
+        description: `Are you sure you want to disable flight ${flight.flightNumber}?`,
+        onConfirm: () => this.disableFlight.emit(flight),
       });
+    } else if (option.value === FlightTableAction.Enable) {
+      this.enableFlight.emit(flight);
     }
   }
 

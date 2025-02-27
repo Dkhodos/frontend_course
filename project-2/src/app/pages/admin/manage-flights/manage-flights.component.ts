@@ -50,21 +50,42 @@ export class ManageFlightsComponent implements OnInit {
     await this.fetchData();
   }
 
-  async onDeleteFlight(flight: Flight) {
+  async onDisableFlight(flight: Flight) {
     try {
-      await this.flightsService.delete(flight.flightNumber);
+      await this.flightsService.disable(flight.flightNumber);
       this.toastService.add({
-        id: 'flight-delete-success',
-        title: 'Flight deleted!',
-        description: `Flight ${flight.flightNumber} deleted.`,
+        id: 'flight-disable-success',
+        title: 'Flight disabled!',
+        description: `Flight ${flight.flightNumber} disabled.`,
         variant: 'success',
       });
       await this.fetchData();
     } catch (e) {
       console.error(e);
       this.toastService.add({
-        id: 'flight-delete-success',
-        title: 'Flight was not deleted!',
+        id: 'flight-disable-error',
+        title: 'Flight was not disabled!',
+        description: String(e),
+        variant: 'error',
+      });
+    }
+  }
+
+  async onEnableFlight(flight: Flight) {
+    try {
+      await this.flightsService.enable(flight.flightNumber);
+      this.toastService.add({
+        id: 'flight-enable-success',
+        title: 'Flight enabled!',
+        description: `Flight ${flight.flightNumber} enabled.`,
+        variant: 'success',
+      });
+      await this.fetchData();
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'flight-enable-error',
+        title: 'Flight was not enabled!',
         description: `We uncounted an unexpected error, please try again`,
         variant: 'error',
       });
