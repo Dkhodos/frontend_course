@@ -80,7 +80,8 @@ export class FlightEditPageComponent implements OnInit {
         flightData.boardingArrival.endTime,
         flightData.seatCount,
         flightData.price,
-        this.flight()?.seatsTaken
+        this.flight()?.seatsTaken,
+        this.flight()?.status
       );
 
       await this.flightsService.update(updatedFlight);

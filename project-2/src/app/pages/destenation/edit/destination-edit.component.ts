@@ -68,7 +68,8 @@ export class DestinationEditPageComponent implements OnInit {
         destinationData.airportName,
         destinationData.airportUrl,
         destinationData.imageUrl,
-        destinationData.email
+        destinationData.email,
+        this.destination()?.status
       );
 
       await this.destinationsService.update(updatedDestination);

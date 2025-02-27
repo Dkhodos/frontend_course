@@ -1,6 +1,10 @@
 import { DocumentReference } from '@angular/fire/firestore';
 import Passenger from './passenger.model';
 
+interface BookingModel {
+
+}
+
 /**
  * Firestore data structure for a Booking.
  */
