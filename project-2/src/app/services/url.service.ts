@@ -18,6 +18,12 @@ export class UrlService {
       'add',
       flightNumber,
     ],
+    flightEditBook: (flightNumber: string) => [
+      '/flight',
+      'book',
+      'edit',
+      flightNumber,
+    ],
     flightEdit: (flightNumber: string) => ['/flight', 'edit', flightNumber],
     flightAdd: () => ['/flight', 'add'],
     couponAdd: () => ['/coupon', 'add'],
@@ -73,5 +79,9 @@ export class UrlService {
 
   getCouponsManageURL() {
     return this.AppRoutes.couponManage();
+  }
+
+  getEditFlightBookingURL(flightNumber: string){
+    return this.AppRoutes.flightEditBook(flightNumber)
   }
 }

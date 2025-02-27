@@ -12,6 +12,9 @@ import { BookingItem } from './components/destinations-cards/destinations-cards.
 import { MyBookingsService } from './services/my-bookings.service';
 import { LoaderComponent } from '../../../components/loader/loader.component';
 import { CommonModule } from '@angular/common';
+import { ToastService } from '../../../components/toast/toast.service';
+import { Booking } from '../../../models/booking.model';
+import { Flight } from '../../../models/flight.model';
 
 @Component({
   selector: 'app-my-bookings',
@@ -36,9 +39,17 @@ export class MyBookingsComponent implements OnInit {
   previousBookings: BookingItem[] = [];
   isLoading = true; // 🔄 Add loading state
 
-  constructor(private myBookingsService: MyBookingsService) {}
+  constructor(
+    private myBookingsService: MyBookingsService,
+    private toastService: ToastService
+  ) {}
 
   async ngOnInit(): Promise<void> {
+    this.fetchBookings();
+  }
+
+  async fetchBookings() {
+    this.isLoading = true;
     try {
       const { upcomingBookings, previousBookings } =
         await this.myBookingsService.getFormattedBookings();
@@ -49,6 +60,48 @@ export class MyBookingsComponent implements OnInit {
       console.error('❌ Error loading bookings:', error);
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  async onDisableBooking(booking: Booking) {
+    try {
+      await this.myBookingsService.disable(booking.flightNumber);
+      this.toastService.add({
+        id: 'booking-disable-success',
+        title: 'Booking disabled!',
+        description: `Booking for flight ${booking.flightNumber} disabled.`,
+        variant: 'success',
+      });
+      await this.fetchBookings();
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'booking-disable-error',
+        title: 'Booking was not disabled!',
+        description: String(e),
+        variant: 'error',
+      });
+    }
+  }
+
+  async onEnableBooking(booking: Booking) {
+    try {
+      await this.myBookingsService.enable(booking.flightNumber);
+      this.toastService.add({
+        id: 'booking-enable-success',
+        title: 'Booking enabled!',
+        description: `Booking for Flight ${booking.flightNumber} enabled.`,
+        variant: 'success',
+      });
+      await this.fetchBookings();
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'booking-enable-error',
+        title: 'Booking was not enabled!',
+        description: `We uncounted an unexpected error, please try again`,
+        variant: 'error',
+      });
     }
   }
 }

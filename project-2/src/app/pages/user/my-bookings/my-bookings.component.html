@@ -14,7 +14,11 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <app-destinations-cards [bookings]="upcomingBookings" />
+        <app-destinations-cards
+          [bookings]="upcomingBookings"
+          (enableBooking)="onEnableBooking($event)"
+          (disableBooking)="onDisableBooking($event)"
+        />
       </mat-expansion-panel>
 
       <!-- Previous Bookings Section -->
@@ -26,7 +30,11 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <app-destinations-cards [bookings]="previousBookings" />
+        <app-destinations-cards
+          [bookings]="previousBookings"
+          [canBeDisabled]="false"
+          (enableBooking)="onEnableBooking($event)"
+        />
       </mat-expansion-panel>
     </mat-accordion>
   </ng-template>

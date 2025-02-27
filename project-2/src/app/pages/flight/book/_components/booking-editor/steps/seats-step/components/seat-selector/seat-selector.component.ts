@@ -22,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Flight } from '../../../../../../../../../models/flight.model';
 import Passenger from '../../../../../../../../../models/passenger.model';
 import { PlaneTypeToInfo } from '../../../../../../../_components/flight-editor/flight-editor.consts';
+import { AUTO_ASSIGNED_PLACE } from '../../../../booking-editor.consts';
 
 @Component({
   selector: 'app-seat-selector',
@@ -80,8 +81,10 @@ export class SeatSelectorComponent implements OnInit {
     if (!this.seatCurrentPassengerId) {
       return null;
     }
-    const item = this.seatSummaries[this.seatCurrentPassengerId];
-    return item ? item.seatId : null;
+    const item = this.passengers.find(
+      (p) => p.passportNumber === this.seatCurrentPassengerId
+    );
+    return item ? item.seatNumber : null;
   }
 
   get seatSummaryState(): SeatSummaryState {
@@ -89,8 +92,20 @@ export class SeatSelectorComponent implements OnInit {
   }
 
   get occupiedSeats() {
-    return Object.values(this.seatSummaries)
+    console.log(this.passengers)
+
+    const sessionSeats = this.passengers
       .filter((p) => p.passportNumber !== this.seatCurrentPassengerId)
-      .map((p) => p.seatId);
+      .map((p) => p.seatNumber);
+
+    const currentPassenger = this.passengers.find(
+      (p) => p.passportNumber === this.seatCurrentPassengerId
+    );
+
+    const flightSeats = this.flight.seatsTaken ?? [];
+
+    return Array.from(new Set([...sessionSeats, ...flightSeats])).filter(
+      (s) => s !== AUTO_ASSIGNED_PLACE && s !== currentPassenger?.seatNumber
+    );
   }
 }

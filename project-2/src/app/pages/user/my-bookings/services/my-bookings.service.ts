@@ -5,7 +5,7 @@ import { DestinationsService } from '../../../../services/destinations.service';
 import { BookingItem } from '../components/destinations-cards/destinations-cards.component.types';
 import { Flight } from '../../../../models/flight.model';
 import { Destination } from '../../../../models/destination.model';
-import { Booking } from '../../../../models/booking.model';
+import { Booking, BookingStatus } from '../../../../models/booking.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,11 +44,16 @@ export class MyBookingsService {
       ).filter((item) => item !== null) as BookingItem[];
 
       // Separate upcoming and past bookings
-      const upcomingBookings = allBookingItems.filter((item) =>
-        this.isUpcoming(item.details!.flight)
+      const upcomingBookings = allBookingItems.filter(
+        (item) =>
+          this.isUpcoming(item.details!.flight) &&
+          item.booking.status !== BookingStatus.Disabled
       );
+
       const previousBookings = allBookingItems.filter(
-        (item) => !this.isUpcoming(item.details!.flight)
+        (item) =>
+          !this.isUpcoming(item.details!.flight) ||
+          item.booking.status === BookingStatus.Disabled
       );
 
       return { upcomingBookings, previousBookings };
@@ -76,6 +81,14 @@ export class MyBookingsService {
     if (!origin || !destination) return null;
 
     return { flight, origin, destination };
+  }
+
+  public async enable(flightNumber: string) {
+    return this.bookingsService.enableBooking(flightNumber);
+  }
+
+  public async disable(flightNumber: string) {
+    return this.bookingsService.disableBooking(flightNumber);
   }
 
   private isUpcoming(flight: Flight): boolean {

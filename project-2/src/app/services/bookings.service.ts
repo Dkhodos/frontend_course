@@ -9,11 +9,14 @@ import {
   query,
   where,
   updateDoc,
-  deleteDoc,
   DocumentReference,
 } from '@angular/fire/firestore';
 import { FlightsService } from './flights.service';
-import { Booking, BookingFirestoreData } from '../models/booking.model';
+import {
+  Booking,
+  BookingFirestoreData,
+  BookingStatus,
+} from '../models/booking.model';
 
 @Injectable({
   providedIn: 'root',
@@ -87,8 +90,7 @@ export class BookingsService {
   }
 
   /**
-   * Update an existing booking.
-   * Also triggers an update of the flight's seat reservations.
+   * Update a single booking by its document id.
    */
   async update(bookingId: string, booking: Booking): Promise<void> {
     console.log(
@@ -114,18 +116,70 @@ export class BookingsService {
   }
 
   /**
-   * Delete a booking.
-   * Also triggers an update of the flight's seat reservations.
+   * Update the status of the booking for a given flight.
+   * Since there is only one booking per flight, only the first document is updated.
    */
-  async delete(bookingId: string, flightNumber: string): Promise<void> {
-    console.log(`Deleting booking ${bookingId} for flight ${flightNumber}...`);
-    const bookingDocRef = doc(
-      this.firestore,
-      BookingsService.COLLECTION_NAME,
-      bookingId
+  async modifyStatusByFlightNumber(
+    flightNumber: string,
+    status: BookingStatus
+  ): Promise<void> {
+    console.log(
+      `Updating status to ${status} for booking with flight ${flightNumber}...`
     );
-    await deleteDoc(bookingDocRef);
-    console.log(`✅ Booking ${bookingId} deleted successfully`);
+    const flightDocRef = doc(this.firestore, `flights/${flightNumber}`);
+    const bookingQuery = query(
+      collection(this.firestore, BookingsService.COLLECTION_NAME),
+      where('flight', '==', flightDocRef)
+    );
+    const bookingSnapshot = await getDocs(bookingQuery);
+    if (bookingSnapshot.empty) {
+      console.warn(`❌ No booking found for flight ${flightNumber}`);
+      return;
+    }
+    const bookingDoc = bookingSnapshot.docs[0];
+    await updateDoc(bookingDoc.ref, { status });
+    console.log(
+      `✅ Booking for flight ${flightNumber} updated to status ${status}`
+    );
+  }
+
+  /**
+   * Enable the booking for a given flight.
+   */
+  async enableBooking(flightNumber: string): Promise<void> {
+    await this.modifyStatusByFlightNumber(flightNumber, BookingStatus.Enabled);
+  }
+
+  /**
+   * Disable the booking for a given flight.
+   */
+  async disableBooking(flightNumber: string): Promise<void> {
+    await this.modifyStatusByFlightNumber(flightNumber, BookingStatus.Disabled);
+  }
+
+  /**
+   * Update the booking for a given flight with new booking data.
+   * Since there is only one booking per flight, only the first document is updated.
+   */
+  async updateBookingByFlightNumber(
+    flightNumber: string,
+    booking: Booking
+  ): Promise<void> {
+    console.log(`Updating booking for flight ${flightNumber}...`);
+    const flightDocRef = doc(this.firestore, `flights/${flightNumber}`);
+    const bookingQuery = query(
+      collection(this.firestore, BookingsService.COLLECTION_NAME),
+      where('flight', '==', flightDocRef)
+    );
+    const bookingSnapshot = await getDocs(bookingQuery);
+    if (bookingSnapshot.empty) {
+      console.warn(`❌ No booking found for flight ${flightNumber}`);
+      return;
+    }
+    const bookingDoc = bookingSnapshot.docs[0];
+    const firestoreData = booking.toFirestore(flightDocRef);
+    await updateDoc(bookingDoc.ref, { ...firestoreData });
+    console.log(`✅ Booking for flight ${flightNumber} has been updated.`);
     await this.flightsService.adjustSeatReservations(flightNumber);
   }
 

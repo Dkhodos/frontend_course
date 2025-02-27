@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Flight } from '../../../../../models/flight.model';
 import {
@@ -22,6 +22,8 @@ import { PassengerForm } from './steps/passenger-step/components/passenger-list/
 import { SeatSummaryItem } from './steps/seats-step/components/seat-selector/seat-selector.types';
 import Passenger from '../../../../../models/passenger.model';
 import { SingleBaggageSummary } from './steps/baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
+import { AUTO_ASSIGNED_PLACE } from './booking-editor.consts';
+import { BookingEditorService } from './booking-editor.service';
 
 @Component({
   selector: 'ono-booking-editor',
@@ -39,14 +41,17 @@ import { SingleBaggageSummary } from './steps/baggage-step/baggage-editor/compon
     FlightInformationComponent,
   ],
 })
-export class BookingEditorComponent {
+export class BookingEditorComponent implements OnInit {
   @Input() flight!: Flight;
   @Input() initialState: Booking | undefined;
   @Output() save = new EventEmitter<Booking>();
 
   form: FormGroup<FlightBookForm>;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private bookingEditorService: BookingEditorService
+  ) {
     this.form = this.fb.group<FlightBookForm>({
       passengers: this.fb.array<FormGroup<PassengerForm>>(
         [],
@@ -55,8 +60,14 @@ export class BookingEditorComponent {
       seats: this.fb.nonNullable.control<Record<string, SeatSummaryItem>>({}),
       baggage: this.fb.nonNullable.control<BaggageForm>({}),
     });
+  }
 
-    this.addInitialPassenger();
+  ngOnInit(): void {
+    if (this.initialState) {
+      this.handleInitialState();
+    } else {
+      this.addInitialPassenger();
+    }
   }
 
   private addInitialPassenger(): void {
@@ -75,6 +86,14 @@ export class BookingEditorComponent {
       }),
     });
     (this.form.get('passengers') as FormArray).push(passengerGroup);
+  }
+
+  private handleInitialState(): void {
+    this.bookingEditorService.initializeBookingState(
+      this.initialState!,
+      this.flight,
+      this.form
+    );
   }
 
   // Validator to ensure at least one passenger is present
@@ -101,7 +120,7 @@ export class BookingEditorComponent {
       return new Passenger(
         `${firstName} ${lastName}`,
         passportId,
-        seats?.[passportId]?.seatId ?? 'auto-assigned',
+        seats?.[passportId]?.seatId ?? AUTO_ASSIGNED_PLACE,
         baggage?.[passportId]?.items ?? []
       );
     });

@@ -14,9 +14,9 @@ import { UrlService } from '../../../../services/url.service';
 import { BookingEditorComponent } from '../_components/booking-editor/booking-editor.component';
 
 @Component({
-  selector: 'ono-flight-book',
-  templateUrl: './add-flight-booking.component.html',
-  styleUrls: ['./add-flight-booking.component.scss'],
+  selector: 'ono-edit-flight-booking',
+  templateUrl: './edit-flight-booking.component.html',
+  styleUrls: ['./edit-flight-booking.component.scss'],
   standalone: true,
   imports: [
     PageComponent,
@@ -27,8 +27,9 @@ import { BookingEditorComponent } from '../_components/booking-editor/booking-ed
     BookingEditorComponent,
   ],
 })
-export class AddFlightBookingComponent implements OnInit {
+export class EditFlightBookingComponent implements OnInit {
   flight = signal<Flight | null>(null);
+  booking = signal<Booking | null>(null);
   isLoading = signal<boolean>(true);
 
   constructor(
@@ -42,23 +43,32 @@ export class AddFlightBookingComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const flightId = this.route.snapshot.paramMap.get('flightNumber');
-    if (!flightId) return;
 
-    const booking = await this.bookingsService.get(flightId);
-    if (booking) {
-      await this.router.navigate(
-        this.urlService.getEditFlightBookingURL(flightId)
-      );
-      return;
-    }
+    if (flightId) {
+      try {
+        const fetchedFlight = await this.flightsService.get(flightId);
+        this.flight.set(fetchedFlight);
 
-    try {
-      const fetchedFlight = await this.flightsService.get(flightId);
-      this.flight.set(fetchedFlight);
-    } catch (error) {
-      console.error('❌ Error fetching flight:', error);
+        const booking = await this.bookingsService.get(flightId);
+        this.booking.set(booking);
+      } catch (error) {
+        console.error('❌ Error fetching booking:', error);
+      }
     }
     this.isLoading.set(false);
+  }
+
+  get filteredFlight() {
+    if (!this.flight() || !this.booking()) return null;
+
+    const passengerSeats = new Set(
+      this.booking()!.passengers.map((p) => p.seatNumber)
+    );
+
+    const flight = this.flight()!.copy();
+
+    flight.seatsTaken = flight.seatsTaken.filter((s) => !passengerSeats.has(s));
+    return flight;
   }
 
   async onBook(booking: Booking): Promise<void> {

@@ -13,33 +13,74 @@
           />
         </div>
         <div class="details-grid">
+          <!-- Flight number -->
           <p class="details-item">
-            <strong>Origin:</strong> {{ item.details.origin.name }}
+            <strong>Flight No.:</strong> {{ item.details.flight.flightNumber }}
           </p>
+          <!-- Destinations -->
           <p class="details-item">
-            <strong>Boarding:</strong> {{ item.details.flight.boardingDate }} /
+            <strong>Destinations:</strong>
+            {{ item.details.origin.name }} → {{ item.details.destination.name }}
+          </p>
+          <!-- Dates -->
+          <p class="details-item">
+            <strong>Boarding:</strong>
+            {{ item.details.flight.boardingDate }} /
             {{ item.details.flight.boardingTime }}
           </p>
           <p class="details-item">
-            <strong>Destination:</strong> {{ item.details.destination.name }}
-          </p>
-          <p class="details-item">
-            <strong>Landing:</strong> {{ item.details.flight.arrivalDate }} /
+            <strong>Landing:</strong>
+            {{ item.details.flight.arrivalDate }} /
             {{ item.details.flight.arrivalTime }}
           </p>
+          <!-- Seat Numbers -->
           <p class="details-item">
-            <strong>No. of passengers:</strong>
-            {{ item.booking.passengerCount }}
+            <strong>Seat Numbers:</strong> {{ getSeatNumbers(item.booking) }}
+          </p>
+          <!-- Baggages -->
+          <p class="details-item" *ngIf="getBaggages(item.booking)">
+            <strong>Baggages:</strong> {{ getBaggages(item.booking) }}
+          </p>
+          <!-- Price -->
+          <p class="details-item">
+            <strong>Price:</strong>
+            {{ item.booking.finalPrice | currency:'USD':'symbol' }}
+          </p>
+          <!-- Seats Left -->
+          <p class="details-item">
+            <strong>Seats Left:</strong> {{ item.details.flight.flightSeatStatus }}
+          </p>
+          <!-- Passenger Count -->
+          <p class="details-item">
+            <strong>Passenger Count:</strong> {{ item.booking.passengerCount }}
           </p>
         </div>
-        <button
-          mat-icon-button
-          class="view-button"
-          [routerLink]="getBookingPageURL(item.booking.flightNumber)"
-        >
-          <mat-icon>visibility</mat-icon>
-          View
+        <!-- Kebab Menu for Actions -->
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="action-menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onEdit(item.booking)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button
+            *ngIf="item.booking.status === 'enabled' && canBeDisabled"
+            mat-menu-item
+            (click)="onDisable(item.booking)"
+          >
+            <mat-icon>block</mat-icon>
+            <span>Disable</span>
+          </button>
+          <button
+            *ngIf="item.booking.status === 'disabled' && item.details.flight.isValid()"
+            mat-menu-item
+            (click)="onEnable(item.booking)"
+          >
+            <mat-icon>check_circle</mat-icon>
+            <span>Enable</span>
+          </button>
+        </mat-menu>
       </div>
     </mat-card>
   </ng-container>

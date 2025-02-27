@@ -12,6 +12,7 @@
 .card-content {
   display: flex;
   align-items: flex-start;
+  position: relative;
 }
 
 .image-container {
@@ -30,36 +31,20 @@
 
 .details-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-template-columns: repeat(3, 1fr); /* Two columns */
   grid-template-rows: auto auto auto;
   column-gap: 16px;
   row-gap: 8px;
   flex: 1;
-  max-width: 480px;
+  width: 100%;
 }
 
 .details-item {
   margin: 0;
 }
 
-.view-button {
+.action-menu {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  width: 80px;
-  justify-content: space-between;
-
-  .mat-mdc-button-persistent-ripple {
-    border-radius: 4px;
-  }
-}
-
-.booking-card:hover .view-button {
-  opacity: 1;
+  top: 4px;
+  right: 4px;
 }

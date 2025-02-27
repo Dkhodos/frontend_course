@@ -50,6 +50,30 @@ export class Flight {
     return `${seatsLeft}/${this.seatCount}`;
   }
 
+  copy(){
+    return new Flight(
+      this.flightNumber,
+      this.planeType,
+      this.originCode,
+      this.destinationCode,
+      this.boardingDate,
+      this.boardingTime,
+      this.arrivalDate,
+      this.arrivalTime,
+      this.seatCount,
+      this.price,
+      this.seatsTaken,
+      this.status
+    )
+  }
+
+  isValid(): boolean {
+    const startTS = dateUtils.toTimestamp(this.boardingDate, this.boardingTime);
+    const endTS = dateUtils.toTimestamp(this.arrivalDate, this.arrivalTime);
+
+    return startTS.seconds < endTS.seconds;
+  }
+
   static fromFirestore(data: FlightFirestoreData): Flight {
     return new Flight(
       data.flightNumber,
