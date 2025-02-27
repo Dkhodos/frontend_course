@@ -12,6 +12,7 @@ import {
 import {
   Destination,
   DestinationFirestoreData,
+  DestinationStatus,
 } from '../models/destination.model';
 import { Flight } from '../models/flight.model';
 
@@ -108,6 +109,32 @@ export class DestinationsService {
       console.log(`✅ Destination ${code} deleted successfully`);
     } catch (error) {
       console.error(`❌ Failed to deleted Destination ${code}:`, error);
+      throw error;
+    }
+  }
+
+  async disable(code: string) {
+    return this.modifyStatus(code, DestinationStatus.Disabled);
+  }
+
+  async enable(code: string) {
+    return this.modifyStatus(code, DestinationStatus.Disabled);
+  }
+
+  private async modifyStatus(code: string, status: DestinationStatus) {
+    console.log(`destination ${code} moving status to ${status}...`);
+
+    const destinationDoc = doc(
+      this.firestore,
+      DestinationsService.COLLECTION_NAME,
+      code
+    );
+
+    try {
+      await updateDoc(destinationDoc, { status: DestinationStatus.Disabled });
+      console.log(`✅ Destination ${code} status is now ${status}`);
+    } catch (error) {
+      console.error(`❌ Failed to update destination ${code} status :`, error);
       throw error;
     }
   }

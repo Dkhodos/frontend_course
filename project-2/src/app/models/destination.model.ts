@@ -1,3 +1,8 @@
+export enum DestinationStatus {
+  Enabled = 'enabled',
+  Disabled = 'disabled',
+}
+
 export interface DestinationFirestoreData {
   code: string;
   name: string;
@@ -5,6 +10,7 @@ export interface DestinationFirestoreData {
   airportUrl: string;
   imageUrl: string;
   email: string;
+  status: DestinationStatus;
 }
 
 export class Destination {
@@ -14,7 +20,8 @@ export class Destination {
     public airportName: string,
     public airportUrl: string,
     public imageUrl: string,
-    public email: string
+    public email: string,
+    public status: DestinationStatus = DestinationStatus.Enabled
   ) {}
 
   static fromFirestore(data: DestinationFirestoreData): Destination {
@@ -24,7 +31,8 @@ export class Destination {
       data.airportName,
       data.airportUrl,
       data.imageUrl,
-      data.email
+      data.email,
+      data.status
     );
   }
 
@@ -36,6 +44,7 @@ export class Destination {
       airportUrl: this.airportUrl,
       imageUrl: this.imageUrl,
       email: this.email,
+      status: this.status,
     };
   }
 }

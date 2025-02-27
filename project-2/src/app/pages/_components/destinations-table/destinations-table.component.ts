@@ -49,6 +49,22 @@ export class DestinationsTableComponent {
 
   columns: TableColumn<Destination>[] = [
     {
+      key: 'status',
+      header: 'Status',
+      renderCell: (row: Destination): SafeHtml => {
+        const icon =
+          row.status === 'enabled'
+            ? 'airplanemode_active'
+            : 'airplanemode_inactive';
+
+        return this.sanitizer.bypassSecurityTrustHtml(
+          `<i class="material-icons">${icon}</i>`
+        );
+      },
+
+      sortable: false,
+    },
+    {
       key: 'imageUrl',
       header: 'Image',
       renderCell: (row: Destination): SafeHtml =>
