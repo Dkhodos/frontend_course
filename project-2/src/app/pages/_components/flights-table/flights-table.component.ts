@@ -26,6 +26,11 @@ import {
 } from '../../../components/menu/menu.component';
 import { ConfirmationDialogService } from '../../../components/conformation-dialog/confirmation-dialog.service';
 import { PlaneTypeToInfo } from '../../flight/_components/flight-editor/flight-editor.consts';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  FilterFlightDialogComponent,
+  FlightFilterData,
+} from './components/filter-flight-dialog/filter-flight-dialog.component';
 
 @Component({
   selector: 'app-flights-table',
@@ -49,12 +54,13 @@ export class FlightsTableComponent {
   @Input() destinations!: Destination[];
   @Input() actions: FlightTableAction[] = [];
   @Input() isLoading = false;
-  @Output() filter = new EventEmitter<void>();
+  @Output() filter = new EventEmitter<FlightFilterData>();
   @Output() deleteFlight = new EventEmitter<Flight>();
 
   constructor(
     private urlService: UrlService,
-    private confirmationDialogService: ConfirmationDialogService
+    private confirmationDialogService: ConfirmationDialogService,
+    private dialog: MatDialog // Inject MatDialog
   ) {}
 
   protected readonly FlightTableAction = FlightTableAction;
@@ -191,5 +197,16 @@ export class FlightsTableComponent {
         onConfirm: () => this.deleteFlight.emit(flight),
       });
     }
+  }
+
+  onFilter(): void {
+    const dialogRef = this.dialog.open(FilterFlightDialogComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe((filterData: FlightFilterData) => {
+      if (filterData) {
+        this.filter.emit(filterData);
+      }
+    });
   }
 }

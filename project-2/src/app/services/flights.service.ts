@@ -15,6 +15,12 @@ import {
 import { Flight, FlightFirestoreData } from '../models/flight.model';
 import { BookingFirestoreData, PassengerData } from '../models/booking.model';
 
+interface FlightsFilters {
+  dateRange?: { start: string; end: string };
+  origin?: string;
+  destination?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,14 +29,18 @@ export class FlightsService {
 
   constructor(private firestore: Firestore) {}
 
-  async list(): Promise<Flight[]> {
-    console.log('Fetching flights...');
+  // flights.service.ts
+
+  async list(filters?: FlightsFilters): Promise<Flight[]> {
+    console.log('Fetching flights with filters...', filters);
 
     const flightsRef = collection(
       this.firestore,
       FlightsService.COLLECTION_NAME
     );
-    const flightsQuery = query(flightsRef, orderBy('boardingDate', 'desc'));
+    const constraints = this.buildConstraints(filters);
+
+    const flightsQuery = query(flightsRef, ...constraints);
     const snapshot = await getDocs(flightsQuery);
 
     const flights = snapshot.docs.map((doc) =>
@@ -153,5 +163,31 @@ export class FlightsService {
     await updateDoc(flightDoc, { seatsTaken: uniqueSeats });
 
     console.log(`✅ Seat reservations adjusted for flight ${flightNumber}`);
+  }
+
+  private buildConstraints(filters?: FlightsFilters) {
+    const constraints = [];
+
+    if (filters) {
+      if (filters.dateRange?.start) {
+        constraints.push(where('boardingDate', '>=', filters.dateRange.start));
+      }
+      if (filters.dateRange?.end) {
+        constraints.push(where('boardingDate', '<=', filters.dateRange.end));
+      }
+      if (filters.origin) {
+        constraints.push(where('originCode', '==', filters.origin));
+      }
+      if (filters.destination) {
+        constraints.push(where('destinationCode', '==', filters.destination));
+      }
+      if (constraints.length === 0) {
+        throw new Error('At least one filter must be selected');
+      }
+    }
+
+    constraints.push(orderBy('boardingDate', 'desc'));
+
+    return constraints;
   }
 }

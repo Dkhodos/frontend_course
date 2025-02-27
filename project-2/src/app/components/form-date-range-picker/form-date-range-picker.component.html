@@ -17,7 +17,7 @@
   </mat-form-field>
 
   <!-- Time fields row -->
-  <div class="time-row" [formGroup]="rangeGroup">
+  <div class="time-row" [formGroup]="rangeGroup" *ngIf="timeSelector">
     <mat-form-field appearance="fill" class="form-time">
       <mat-label>Start Time</mat-label>
       <input type="time" matInput formControlName="startTime" />

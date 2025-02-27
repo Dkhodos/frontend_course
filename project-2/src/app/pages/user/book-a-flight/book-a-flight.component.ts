@@ -6,8 +6,8 @@ import { Destination } from '../../../models/destination.model';
 import { Flight } from '../../../models/flight.model';
 import { FlightsService } from '../../../services/flights.service';
 import { DestinationsService } from '../../../services/destinations.service';
-import { BookFilterModalComponent } from './components/book-filter-modal/book-filter-modal.component';
 import { FlightsTableComponent } from '../../_components/flights-table/flights-table.component';
+import { FlightFilterData } from '../../_components/flights-table/components/filter-flight-dialog/filter-flight-dialog.component';
 
 @Component({
   selector: 'book-a-flight-page',
@@ -24,8 +24,7 @@ export class BookAFlightComponent implements OnInit {
 
   constructor(
     private flightsService: FlightsService,
-    private destinationsService: DestinationsService,
-    private dialog: MatDialog // Inject MatDialog
+    private destinationsService: DestinationsService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -44,7 +43,32 @@ export class BookAFlightComponent implements OnInit {
     this.isLoading.set(false);
   }
 
-  onFilter(): void {
-    this.dialog.open(BookFilterModalComponent);
+  async fetchFlights(filterData: FlightFilterData) {
+    this.isLoading.set(true);
+
+    const dateRange =
+      filterData.boardingArrival &&
+      filterData.boardingArrival.start &&
+      filterData.boardingArrival.end
+        ? {
+            start: filterData.boardingArrival.start,
+            end: filterData.boardingArrival.end,
+          }
+        : undefined;
+
+    const serviceFilters = {
+      dateRange,
+      origin: filterData.origin,
+      destination: filterData.destination,
+    };
+
+    try {
+      const flights = await this.flightsService.list(serviceFilters);
+      this.flights.set(flights);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }

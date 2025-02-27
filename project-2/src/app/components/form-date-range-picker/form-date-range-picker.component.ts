@@ -4,7 +4,7 @@ import {
   OnInit,
   OnDestroy,
   ViewEncapsulation,
-  inject,
+  inject, input,
 } from '@angular/core';
 import {
   ControlContainer,
@@ -43,6 +43,7 @@ export class FormDateRangePickerComponent implements OnInit, OnDestroy {
   @Input() endPlaceholder = 'End Date';
   @Input() required = false;
   @Input() errorMessages?: Record<string, string>;
+  @Input() timeSelector = true;
 
   protected parentContainer = inject(ControlContainer);
 

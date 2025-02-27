@@ -22,11 +22,12 @@ import { AuthService } from '../../services/auth.service';
   ],
 })
 export class FirebaseAuthComponent implements OnInit {
-  loading = false;
+  loading = true;
 
   constructor(private authService: AuthService) {}
 
   async ngOnInit() {
+    this.loading = true;
     try {
       await this.authService.login();
       console.log('Login successful');

@@ -1,0 +1,58 @@
+<div class="dialog-root">
+  <mat-dialog-content>
+    <div class="dialog-loader" *ngIf="isLoading; else filters">
+      <ono-flight-loader />
+    </div>
+
+    <ng-template #filters>
+      <h2 mat-dialog-title>
+        <mat-icon>filter_list</mat-icon>
+        Filter booking...
+      </h2>
+
+      <form [formGroup]="form">
+        <app-form-select
+          controlKey="origin"
+          label="Origin"
+          [options]="destinationOptions()"
+          [errorMessages]="{
+            required: 'Origin is required.',
+          }"
+        ></app-form-select>
+
+        <app-form-select
+          controlKey="destination"
+          label="Destination"
+          [options]="filteredDestinationOptions"
+          [errorMessages]="{
+            sameDestination: 'Origin and Destination cannot be the same.',
+          }"
+        ></app-form-select>
+
+        <app-form-date-range-picker
+          controlKey="boardingArrival"
+          label="Boarding & Arrival date"
+          startPlaceholder="Boarding date"
+          endPlaceholder="Arrival date"
+          [timeSelector]="false"
+        />
+
+        <div *ngIf="form.errors?.['atLeastOneRequired']" class="error">
+          Please select at least one filter option.
+        </div>
+      </form>
+    </ng-template>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)="close()">Close</button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="isLoading"
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>

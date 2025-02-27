@@ -20,7 +20,7 @@
     mat-button
     class="edit-button"
     *ngIf="actions.includes(FlightTableAction.Filter)"
-    (click)="this.filter.emit()"
+    (click)="this.onFilter()"
   >
     <mat-icon>filter_list</mat-icon>
     Filter

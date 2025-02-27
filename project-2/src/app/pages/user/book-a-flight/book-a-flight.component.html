@@ -3,7 +3,7 @@
     [flights]="flights()"
     [destinations]="destinations()"
     [actions]="[FlightTableAction.BookNow, FlightTableAction.Filter]"
-    (filter)="onFilter()"
     [isLoading]="isLoading()"
+    (filter)="fetchFlights($event)"
   />
 </page>
