@@ -73,7 +73,10 @@ export class EditFlightBookingComponent implements OnInit {
 
   async onBook(booking: Booking): Promise<void> {
     try {
-      await this.bookingsService.add(booking);
+      await this.bookingsService.updateBookingByFlightNumber(
+        booking.flightNumber,
+        booking
+      );
       this.toastService.add({
         id: 'booking-success',
         title: 'Booking Successful',
