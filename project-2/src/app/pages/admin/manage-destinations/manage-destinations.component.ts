@@ -26,7 +26,7 @@ export class ManageDestinationsComponent implements OnInit {
 
   constructor(
     private destinationsService: DestinationsService,
-    private toastService: ToastService
+    private toastService: ToastService,
   ) {}
 
   async fetchDestinations() {
@@ -43,6 +43,48 @@ export class ManageDestinationsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.fetchDestinations();
+  }
+
+  async disableDestination(destination: Destination) {
+    try {
+      await this.destinationsService.disable(destination.code);
+      this.toastService.add({
+        id: 'destination-disable-success',
+        title: 'Destination disabled!',
+        description: `Destination ${destination.code} disabled.`,
+        variant: 'success',
+      });
+      await this.fetchDestinations();
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'destination-disable-error',
+        title: 'Destination was not disabled!',
+        description: String(e),
+        variant: 'error',
+      });
+    }
+  }
+
+  async enableDestinations(destination: Destination) {
+    try {
+      await this.destinationsService.enable(destination.code);
+      this.toastService.add({
+        id: 'destination-enable-success',
+        title: 'Destination enabled!',
+        description: `Destination ${destination.code} enabled.`,
+        variant: 'success',
+      });
+      await this.fetchDestinations();
+    } catch (e) {
+      console.error(e);
+      this.toastService.add({
+        id: 'destination-enable-success',
+        title: 'Destination was not enabled!',
+        description: `We uncounted an unexpected error, please try again`,
+        variant: 'error',
+      });
+    }
   }
 
   async deleteDestination(destination: Destination) {

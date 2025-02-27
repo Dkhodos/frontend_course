@@ -15,6 +15,7 @@ import {
   DestinationStatus,
 } from '../models/destination.model';
 import { Flight } from '../models/flight.model';
+import { FlightsService } from './flights.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,10 @@ import { Flight } from '../models/flight.model';
 export class DestinationsService {
   private static readonly COLLECTION_NAME = 'destinations';
 
-  constructor(private firestore: Firestore) {}
+  constructor(
+    private firestore: Firestore,
+    private flightService: FlightsService
+  ) {}
 
   async list(): Promise<Destination[]> {
     console.log('Fetching destinations...'); // ✅ Debugging Log
@@ -114,11 +118,21 @@ export class DestinationsService {
   }
 
   async disable(code: string) {
+    let flights = await this.flightService.list({ origin: code });
+    if (flights.length > 0) {
+      throw Error('Flights with this origin exist in the system ');
+    }
+
+    flights = await this.flightService.list({ destination: code });
+    if (flights.length > 0) {
+      throw Error('Flights with this destination exist in the system ');
+    }
+
     return this.modifyStatus(code, DestinationStatus.Disabled);
   }
 
   async enable(code: string) {
-    return this.modifyStatus(code, DestinationStatus.Disabled);
+    return this.modifyStatus(code, DestinationStatus.Enabled);
   }
 
   private async modifyStatus(code: string, status: DestinationStatus) {
@@ -131,7 +145,7 @@ export class DestinationsService {
     );
 
     try {
-      await updateDoc(destinationDoc, { status: DestinationStatus.Disabled });
+      await updateDoc(destinationDoc, { status });
       console.log(`✅ Destination ${code} status is now ${status}`);
     } catch (error) {
       console.error(`❌ Failed to update destination ${code} status :`, error);

@@ -6,7 +6,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Destination } from '../../../models/destination.model';
+import {
+  Destination,
+  DestinationStatus,
+} from '../../../models/destination.model';
 import { MatIconModule } from '@angular/material/icon';
 import {
   TableColumn,
@@ -40,6 +43,8 @@ import { DestinationTableAction } from './destinations-table.component.types';
 export class DestinationsTableComponent {
   @Input() destinations!: Destination[];
   @Output() deleteDestination = new EventEmitter<Destination>();
+  @Output() disableDestination = new EventEmitter<Destination>();
+  @Output() enableDestination = new EventEmitter<Destination>();
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -95,7 +100,7 @@ export class DestinationsTableComponent {
   }
 
   getDestinationTableOptions(row: Destination): MenuOption[] {
-    return [
+    const options: MenuOption[] = [
       {
         value: DestinationTableAction.View,
         title: 'View',
@@ -108,14 +113,25 @@ export class DestinationsTableComponent {
         icon: 'edit',
         link: this.urlService.getDestinationEditPageURL(row.code),
       },
-      {
-        value: DestinationTableAction.Delete,
-        title: 'Delete',
-        icon: 'delete',
+    ];
+
+    if (row.status === DestinationStatus.Enabled) {
+      options.push({
+        value: DestinationTableAction.Disable,
+        title: 'Disable',
+        icon: 'airplanemode_inactive',
         section: 'Danger',
         color: '#fa5252',
-      },
-    ];
+      });
+    } else {
+      options.push({
+        value: DestinationTableAction.Enable,
+        title: 'Enable',
+        icon: 'airplanemode_active',
+      });
+    }
+
+    return options;
   }
 
   getDestinationTableOptionsHeader(destination: Destination) {
@@ -123,13 +139,15 @@ export class DestinationsTableComponent {
   }
 
   onOptionClicked(option: MenuOption, destination: Destination) {
-    if (option.value === DestinationTableAction.Delete) {
+    if (option.value === DestinationTableAction.Disable) {
       this.confirmationDialogService.show({
-        title: 'Delete Destination?',
+        title: 'Disable Destination?',
         variant: 'warning',
-        description: `Are you sure you want to delete destination ${destination.name} (${destination.code})?`,
-        onConfirm: () => this.deleteDestination.emit(destination),
+        description: `Are you sure you want to Disable destination ${destination.name} (${destination.code})?`,
+        onConfirm: () => this.disableDestination.emit(destination),
       });
+    } else if (option.value === DestinationTableAction.Enable) {
+      this.enableDestination.emit(destination);
     }
   }
 }

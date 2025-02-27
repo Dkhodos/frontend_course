@@ -10,6 +10,8 @@
     <app-destinations-table
       [destinations]="destinations()"
       (deleteDestination)="deleteDestination($event)"
+      (disableDestination)="disableDestination($event)"
+      (enableDestination)="enableDestinations($event)"
     />
   </ng-template>
 </page>
