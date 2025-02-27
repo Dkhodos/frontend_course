@@ -1,18 +1,10 @@
-import { Component, Input } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormArray, FormGroup } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  PassengerForm,
-  PassengerItemComponent,
-} from './components/passenger-item/passenger-item.component';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { PassengerItemComponent } from './components/passenger-item/passenger-item.component';
+import { BookingFormService } from '../../../../services/booking-form.service';
 
 @Component({
   selector: 'app-passenger-list',
@@ -22,35 +14,29 @@ import { MatButton } from '@angular/material/button';
     ReactiveFormsModule,
     MatIconModule,
     PassengerItemComponent,
-    MatButton,
+    MatButtonModule,
   ],
   templateUrl: './passenger-list.component.html',
-  styleUrl: './passenger-list.component.scss',
+  styleUrls: ['./passenger-list.component.scss'],
 })
 export class PassengerListComponent {
-  @Input() passengers!: FormArray<FormGroup<PassengerForm>>;
+  constructor(public bookingFormService: BookingFormService) {}
 
-  constructor(private fb: FormBuilder) {}
-
-  addPassenger() {
-    const passengerGroup = this.fb.group<PassengerForm>({
-      firstName: this.fb.control<string>('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      lastName: this.fb.control<string>('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      passportId: this.fb.control<string>('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-      }),
-    });
-    this.passengers.push(passengerGroup);
+  // Expose the passengers FormArray from the service.
+  get passengers(): FormArray {
+    return this.bookingFormService.passengers;
   }
 
-  removePassenger(index: number) {
-    this.passengers.removeAt(index);
+  // Create a typed getter that casts the controls to FormGroup[]
+  get passengerGroups(): FormGroup[] {
+    return this.passengers.controls as FormGroup[];
+  }
+
+  addPassenger(): void {
+    this.bookingFormService.addPassenger();
+  }
+
+  removePassenger(index: number): void {
+    this.bookingFormService.removePassenger(index);
   }
 }

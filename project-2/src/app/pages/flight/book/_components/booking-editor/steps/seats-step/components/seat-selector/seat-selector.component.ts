@@ -1,28 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  OnInit,
-  Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PassengerSummaryComponent } from './components/passenger-summary/passenger-summary.component';
 import { PassengerSelectionComponent } from '../../../../components/passenger-selection/passenger-selection.component';
 import { SeatSectionComponent } from './components/seat-section/seat-section.component';
-import {
-  SeatSummaryItem,
-  SeatSummaryState,
-  SectionConfig,
-} from './seat-selector.types';
+import { SeatSummaryState, SectionConfig } from './seat-selector.types';
 import { SeatSelectorService } from './seat-selector.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { Flight } from '../../../../../../../../../models/flight.model';
-import Passenger from '../../../../../../../../../models/passenger.model';
-import { PlaneTypeToInfo } from '../../../../../../../_components/flight-editor/flight-editor.consts';
 import { AUTO_ASSIGNED_PLACE } from '../../../../booking-editor.consts';
+import { BookingFormService } from '../../../../services/booking-form.service';
 
 @Component({
   selector: 'app-seat-selector',
@@ -40,72 +32,56 @@ import { AUTO_ASSIGNED_PLACE } from '../../../../booking-editor.consts';
   templateUrl: './seat-selector.component.html',
   styleUrls: ['./seat-selector.component.scss'],
 })
-export class SeatSelectorComponent implements OnInit {
+export class SeatSelectorComponent {
   @Input() flight!: Flight;
-  @Input() passengers: Passenger[] = [];
-  @Input() seatsControl!: FormControl<Record<string, SeatSummaryItem>>;
-  @Input() seatCurrentPassengerId: string | null = null;
-  @Output() changeCurrentPassengerId = new EventEmitter<string>();
 
-  seatSummaries: Record<string, SeatSummaryItem> = {};
-  sections: SectionConfig[] = [];
-  isMedium = true;
-
-  constructor(private seatService: SeatSelectorService) {}
-
-  ngOnInit(): void {
-    // No need to retrieve the form from ControlContainer now.
-    this.seatSummaries = {};
-    const planeInfo = PlaneTypeToInfo[this.flight.planeType];
-    this.isMedium = planeInfo.size === 'medium';
-    this.sections = this.seatService.getSectionConfigs(this.flight);
-  }
-
-  selectPassenger(passengerId: string): void {
-    this.changeCurrentPassengerId.emit(passengerId);
-  }
+  constructor(
+    private bookingFormService: BookingFormService,
+    private seatSelectorService: SeatSelectorService
+  ) {}
 
   onSeatSectionSelected(seatId: string): void {
-    if (!this.seatCurrentPassengerId) {
+    const seatCurrentPassengerId =
+      this.bookingFormService.getCurrentSeatPassengerId();
+    if (!seatCurrentPassengerId) {
       return;
     }
-    const passenger = this.passengers.find(
-      (p) => p.passportNumber === this.seatCurrentPassengerId
-    )!;
-    this.seatSummaries[this.seatCurrentPassengerId] =
-      this.seatService.computeSeatSummaryItemForPassenger(passenger, seatId);
-    this.seatsControl.setValue({ ...this.seatSummaries });
+
+    const passenger = this.bookingFormService.getCurrentSeatPassenger();
+    if (!passenger) return;
+
+    passenger.get('seat')?.setValue(seatId);
   }
 
   getSelectedSeat(): string | null {
-    if (!this.seatCurrentPassengerId) {
-      return null;
-    }
-    const item = this.passengers.find(
-      (p) => p.passportNumber === this.seatCurrentPassengerId
-    );
-    return item ? item.seatNumber : null;
+    const passenger = this.bookingFormService.getCurrentSeatPassenger();
+    if (!passenger) return null;
+
+    return passenger.get('seat')?.value;
+  }
+
+  get sections(): SectionConfig[] {
+    return this.seatSelectorService.getSectionConfigs(this.flight);
   }
 
   get seatSummaryState(): SeatSummaryState {
-    return this.seatService.getSeatSummary(this.seatSummaries, this.passengers);
+    return this.bookingFormService.getSeatSummaryState();
   }
 
-  get occupiedSeats() {
-    console.log(this.passengers)
+  get occupiedSeats(): string[] {
+    const seatCurrentPassengerId =
+      this.bookingFormService.getCurrentSeatPassengerId();
 
-    const sessionSeats = this.passengers
-      .filter((p) => p.passportNumber !== this.seatCurrentPassengerId)
-      .map((p) => p.seatNumber);
+    const sessionSeats = this.bookingFormService.passengers.controls
+      .filter((p) => p.get('passportId') !== seatCurrentPassengerId)
+      .map((p) => p.get('seat')?.value);
 
-    const currentPassenger = this.passengers.find(
-      (p) => p.passportNumber === this.seatCurrentPassengerId
-    );
-
+    const currentPassenger = this.bookingFormService.getCurrentSeatPassenger();
     const flightSeats = this.flight.seatsTaken ?? [];
 
     return Array.from(new Set([...sessionSeats, ...flightSeats])).filter(
-      (s) => s !== AUTO_ASSIGNED_PLACE && s !== currentPassenger?.seatNumber
+      (s) =>
+        s !== AUTO_ASSIGNED_PLACE && s !== currentPassenger?.get('seat')?.value
     );
   }
 }

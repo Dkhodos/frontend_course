@@ -1,12 +1,6 @@
 <div class="step-container">
   <div class="selector">
-    <app-seat-selector
-      [flight]="flight"
-      [passengers]="passengers"
-      [seatsControl]="seatsControl"
-      [seatCurrentPassengerId]="seatCurrentPassengerId"
-      (changeCurrentPassengerId)="onChangeCurrentPassengerId($event)"
-    />
+    <app-seat-selector [flight]="flight" />
   </div>
 
   <div class="step-actions">

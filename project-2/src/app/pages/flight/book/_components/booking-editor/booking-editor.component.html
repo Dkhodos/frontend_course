@@ -5,33 +5,21 @@
   <form [formGroup]="form">
     <mat-horizontal-stepper linear #stepper>
       <!-- Step 1: Passengers -->
-      <mat-step [stepControl]="form.controls.passengers">
+      <mat-step>
         <ng-template matStepLabel>Passengers</ng-template>
-        <app-passenger-step
-          [passengers]="form.controls.passengers"
-          [stepper]="stepper"
-        />
+        <app-passenger-step [stepper]="stepper" />
       </mat-step>
 
       <!-- Step 2: Baggage -->
       <mat-step>
         <ng-template matStepLabel>Baggage</ng-template>
-        <app-baggage-step
-          [stepper]="stepper"
-          [passengers]="passengersState"
-          [baggageControl]="form.controls.baggage"
-        ></app-baggage-step>
+        <app-baggage-step [stepper]="stepper"></app-baggage-step>
       </mat-step>
 
       <!-- Step 3: Seats -->
       <mat-step>
         <ng-template matStepLabel>Seats</ng-template>
-        <app-seats-step
-          [stepper]="stepper"
-          [flight]="flight"
-          [passengers]="passengersState"
-          [seatsControl]="form.controls.seats"
-        />
+        <app-seats-step [stepper]="stepper" [flight]="flight" />
       </mat-step>
 
       <!-- Step 4: Summary -->
@@ -40,11 +28,8 @@
         <app-summary-step
           [stepper]="stepper"
           [flight]="flight"
-          [passengers]="passengersState"
-          [seatSummaryItems]="seatSummary"
-          [baggageSummary]="baggageSummary"
           (book)="onBook($event)"
-        ></app-summary-step>
+        />
       </mat-step>
     </mat-horizontal-stepper>
   </form>

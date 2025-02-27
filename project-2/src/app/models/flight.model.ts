@@ -50,7 +50,7 @@ export class Flight {
     return `${seatsLeft}/${this.seatCount}`;
   }
 
-  copy(){
+  copy() {
     return new Flight(
       this.flightNumber,
       this.planeType,
@@ -64,7 +64,7 @@ export class Flight {
       this.price,
       this.seatsTaken,
       this.status
-    )
+    );
   }
 
   isValid(): boolean {

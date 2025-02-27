@@ -1,9 +1,5 @@
 <div class="baggage-editor">
-  <app-passenger-selection
-    [passengers]="passengers"
-    [selectedPassengerNumber]="seatCurrentPassengerId"
-    (selectPassenger)="selectPassenger($event)"
-  />
+  <app-passenger-selection />
 
   <div class="baggage-selection">
     <mat-accordion class="baggage-left">
@@ -13,14 +9,13 @@
       >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <mat-icon>{{ baggageDescriptions[baggage].icon }}</mat-icon>
+            <mat-icon>{{ baggage }}</mat-icon>
             {{ baggage | titlecase }} Baggage
           </mat-panel-title>
         </mat-expansion-panel-header>
-
         <form [formGroup]="form">
           <app-baggage-counter
-            [controlKey]="baggageControlKeys[baggage]"
+            [controlKey]="baggage.toLowerCase()"
             [baggageType]="baggage"
             [dimensions]="baggageDescriptions[baggage].dimensions"
             [weight]="baggageDescriptions[baggage].weight"
@@ -32,7 +27,7 @@
       </mat-expansion-panel>
     </mat-accordion>
     <div class="baggage-right">
-      <app-baggage-summary [summary]="baggageSummary" />
+      <app-baggage-summary [summary]="baggageSummary"></app-baggage-summary>
     </div>
   </div>
 </div>

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { FormArray } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { MatIcon } from '@angular/material/icon';
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
@@ -19,6 +18,5 @@ import { StepDescriptionComponent } from '../../components/step-description/step
   styleUrls: ['./passenger-step.component.scss'],
 })
 export class PassengerStepComponent {
-  @Input() passengers!: FormArray;
   @Input() stepper!: MatStepper;
 }

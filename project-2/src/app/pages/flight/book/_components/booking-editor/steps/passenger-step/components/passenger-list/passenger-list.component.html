@@ -4,12 +4,12 @@
   </section>
 
   <section class="passenger-list-section">
-    <div *ngFor="let passenger of passengers.controls; let i = index">
+    <div *ngFor="let passenger of passengerGroups; let i = index">
       <app-passenger-item
         [group]="passenger"
         (remove)="removePassenger(i)"
         [index]="i + 1"
-      />
+      ></app-passenger-item>
     </div>
 
     <button mat-button (click)="addPassenger()">

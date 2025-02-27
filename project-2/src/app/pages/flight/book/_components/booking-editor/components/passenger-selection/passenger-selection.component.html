@@ -2,14 +2,14 @@
   <h3>Select Passenger</h3>
   <div class="passenger-buttons">
     <button
-      *ngFor="let p of passengers"
+      *ngFor="let p of passengers()"
       mat-button
       type="button"
-      (click)="onSelect(p.passportNumber)"
-      [ngClass]="{ active: selectedPassengerNumber === p.passportNumber }"
+      (click)="onSelect(p.value)"
+      [ngClass]="{ active: selectedPassengerNumber === p.value }"
     >
-      <header>{{ p.name }}</header>
-      <small>{{ p.passportNumber }}</small>
+      <header>{{ p.label | titlecase }}</header>
+      <small>{{ p.value }}</small>
     </button>
   </div>
 </div>

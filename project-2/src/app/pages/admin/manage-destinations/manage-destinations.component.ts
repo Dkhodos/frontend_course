@@ -26,7 +26,7 @@ export class ManageDestinationsComponent implements OnInit {
 
   constructor(
     private destinationsService: DestinationsService,
-    private toastService: ToastService,
+    private toastService: ToastService
   ) {}
 
   async fetchDestinations() {

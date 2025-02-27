@@ -3,11 +3,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { Flight } from '../../../../../../../models/flight.model';
-import Passenger from '../../../../../../../models/passenger.model';
 import { SeatSelectorComponent } from './components/seat-selector/seat-selector.component';
-import { FormControl } from '@angular/forms';
-import { SeatSummaryItem } from './components/seat-selector/seat-selector.types';
 import { Subscription } from 'rxjs';
+import { BookingFormService } from '../../services/booking-form.service';
 
 @Component({
   selector: 'app-seats-step',
@@ -19,22 +17,26 @@ import { Subscription } from 'rxjs';
 export class SeatsStepComponent implements OnInit, OnDestroy {
   @Input() stepper!: MatStepper;
   @Input() flight!: Flight;
-  @Input() passengers: Passenger[] = [];
-  @Input() seatsControl!: FormControl<Record<string, SeatSummaryItem>>;
 
-  seatCurrentPassengerId: string | null = null;
   private stepperSubscription!: Subscription;
+
+  constructor(private bookingFormService: BookingFormService) {}
 
   ngOnInit(): void {
     if (this.stepper) {
       this.stepperSubscription = this.stepper.selectionChange.subscribe(
         (event) => {
           if (
-            event.selectedIndex === 2 &&
-            this.seatCurrentPassengerId === null &&
-            this.passengers.length > 0
-          ) {
-            this.seatCurrentPassengerId = this.passengers[0].passportNumber;
+            event.selectedIndex !== 1 ||
+            this.bookingFormService.passengers.length == 0 ||
+            this.bookingFormService.getCurrentSeatPassengerId()
+          )
+            return;
+
+          const firstPassenger = this.bookingFormService.passengers.at(0);
+          const passportId = firstPassenger.get('passportId')?.value;
+          if (passportId) {
+            this.bookingFormService.setCurrentSeatPassengerId(passportId);
           }
         }
       );
@@ -43,9 +45,5 @@ export class SeatsStepComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stepperSubscription?.unsubscribe();
-  }
-
-  onChangeCurrentPassengerId(passengerId: string) {
-    this.seatCurrentPassengerId = passengerId;
   }
 }

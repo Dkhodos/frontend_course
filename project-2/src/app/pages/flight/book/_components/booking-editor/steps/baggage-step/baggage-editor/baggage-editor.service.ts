@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastService } from '../../../../../../../../components/toast/toast.service';
-import Passenger, {
-  Baggage,
-} from '../../../../../../../../models/passenger.model';
+import Passenger from '../../../../../../../../models/passenger.model';
 import {
   BAGGAGE_LIMIT_IN_TOTAL,
   BAGGAGE_LIMIT_PER_PASSENGER,
@@ -14,12 +12,6 @@ export interface EditorState {
   medium: number;
   large: number;
 }
-
-const DEFAULT_EDITOR_STATE: EditorState = {
-  small: 0,
-  medium: 0,
-  large: 0,
-};
 
 @Injectable({
   providedIn: 'root',
@@ -65,46 +57,6 @@ export class BaggageEditorService {
 
     this.updateHistory(seatCurrentPassengerId, { large, small, medium });
     return true;
-  }
-
-  public getStateFromPassengers(
-    passengers: Passenger[],
-    currentID: string,
-    form: FormGroup
-  ) {
-    const passenger = passengers.find((p) => p.passportNumber === currentID);
-    if (!passenger || passenger.baggage.length === 0) {
-      form.patchValue(DEFAULT_EDITOR_STATE);
-      this.updateHistory(currentID, DEFAULT_EDITOR_STATE);
-      return;
-    }
-
-    if (this.history.has(currentID)) {
-      form.patchValue(this.history.get(currentID)!);
-    } else {
-      form.patchValue(DEFAULT_EDITOR_STATE);
-      this.updateHistory(currentID, DEFAULT_EDITOR_STATE);
-    }
-  }
-
-  public getItemsExplain(types: Baggage[]) {
-    if (types.length === 0) return '-';
-
-    const summary = types.reduce(
-      (current, item) => {
-        if (item in current) {
-          current[item]++;
-        } else {
-          current[item] = 1;
-        }
-        return current;
-      },
-      {} as Record<Baggage, number>
-    );
-
-    return Object.entries(summary)
-      .map(([item, count]) => `${item} baggage (x${count})`)
-      .join(', ');
   }
 
   /** Calculate total baggage count across all passengers */

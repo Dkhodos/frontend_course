@@ -44,11 +44,12 @@
           <!-- Price -->
           <p class="details-item">
             <strong>Price:</strong>
-            {{ item.booking.finalPrice | currency:'USD':'symbol' }}
+            {{ item.booking.finalPrice | currency: 'USD' : 'symbol' }}
           </p>
           <!-- Seats Left -->
           <p class="details-item">
-            <strong>Seats Left:</strong> {{ item.details.flight.flightSeatStatus }}
+            <strong>Seats Left:</strong>
+            {{ item.details.flight.flightSeatStatus }}
           </p>
           <!-- Passenger Count -->
           <p class="details-item">
@@ -73,7 +74,10 @@
             <span>Disable</span>
           </button>
           <button
-            *ngIf="item.booking.status === 'disabled' && item.details.flight.isValid()"
+            *ngIf="
+              item.booking.status === 'disabled' &&
+              item.details.flight.isValid()
+            "
             mat-menu-item
             (click)="onEnable(item.booking)"
           >

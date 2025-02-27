@@ -17,7 +17,7 @@ import { AddFlightBookingComponent } from './pages/flight/book/add/add-flight-bo
 import { ManageCouponsComponent } from './pages/admin/manage-coupons/manage-coupons.component';
 import { CouponAddPageComponent } from './pages/coupons/add/coupon-add.component';
 import { CouponEditPageComponent } from './pages/coupons/edit/coupon-edit.component';
-import {EditFlightBookingComponent} from './pages/flight/book/edit/edit-flight-booking.component';
+import { EditFlightBookingComponent } from './pages/flight/book/edit/edit-flight-booking.component';
 
 export const routes: Routes = [
   {

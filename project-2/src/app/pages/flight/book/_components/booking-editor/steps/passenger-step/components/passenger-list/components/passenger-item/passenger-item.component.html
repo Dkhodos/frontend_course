@@ -1,7 +1,12 @@
 <div mat-card [formGroup]="group">
   <header>
     <h3>Passenger No.{{ index }}</h3>
-    <button mat-icon-button (click)="remove.emit()" class="delete-btn">
+    <button
+      mat-icon-button
+      (click)="remove.emit()"
+      class="delete-btn"
+      *ngIf="index > 1"
+    >
       <mat-icon>delete</mat-icon>
     </button>
   </header>
@@ -25,9 +30,11 @@
     [controlKey]="'passportId'"
     label="Passport ID"
     [required]="true"
+    hint="8 digits, numbers only"
     [errorMessages]="{
       required: 'Passport ID is required',
       pattern: 'Passport ID must be exactly 8 digits',
+      duplicatePassportIds: 'Passport ID is uniq per passenger',
     }"
   />
 </div>

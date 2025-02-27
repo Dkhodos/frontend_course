@@ -1,38 +1,21 @@
+import { Component, OnInit, OnDestroy, effect } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import Passenger, {
-  Baggage,
-} from '../../../../../../../../models/passenger.model';
-import {
-  FormControl,
   FormGroup,
-  ReactiveFormsModule,
+  FormControl,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { BaggageForm } from '../../../booking-editor.component.types';
-import { PassengerSelectionComponent } from '../../../components/passenger-selection/passenger-selection.component';
-import { BaggageCounterComponent } from './components/baggage-counter/baggage-counter.component';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {
-  BAGGAGE_LIMIT_PER_PASSENGER,
-  BAGGAGE_TYPE_TO_CONTROL_KEY,
-  BAGGAGE_TYPE_TO_DESCRIPTION,
-} from './components/baggage-counter/baggage-counter.component.const';
 import { MatIcon } from '@angular/material/icon';
-import { SingleBaggageSummary } from './components/baggage-counter/baggage-counter.component.types';
+import { BaggageCounterComponent } from './components/baggage-counter/baggage-counter.component';
 import { BaggageSummaryComponent } from './components/baggage-summary/baggage-summary.component';
 import { BaggageEditorService } from './baggage-editor.service';
-import tick from '../../../../../../../../utils/tick';
+import { BookingFormService } from '../../../services/booking-form.service';
+import { Baggage } from '../../../../../../../../models/passenger.model';
+import { PassengerSelectionComponent } from '../../../components/passenger-selection/passenger-selection.component';
+import { BAGGAGE_TYPE_TO_DESCRIPTION } from './components/baggage-counter/baggage-counter.component.const';
 
 @Component({
   selector: 'app-baggage-editor',
@@ -40,138 +23,121 @@ import tick from '../../../../../../../../utils/tick';
   templateUrl: './baggage-editor.component.html',
   styleUrls: ['./baggage-editor.component.scss'],
   imports: [
-    PassengerSelectionComponent,
     ReactiveFormsModule,
-    BaggageCounterComponent,
     CommonModule,
     MatExpansionModule,
     MatIcon,
+    BaggageCounterComponent,
     BaggageSummaryComponent,
+    PassengerSelectionComponent,
   ],
 })
-export class BaggageEditorComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() passengers!: Passenger[];
-  @Input() baggageControl!: FormControl<BaggageForm>;
-  @Input() seatCurrentPassengerId: string | null = null;
-  @Output() changeCurrentPassengerId = new EventEmitter<string>();
-
-  baggageTypes = Object.values(Baggage) as Baggage[];
-  baggageDescriptions = BAGGAGE_TYPE_TO_DESCRIPTION;
-  baggageControlKeys = BAGGAGE_TYPE_TO_CONTROL_KEY;
-
+export class BaggageEditorComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private subscription?: Subscription;
 
-  selectPassenger(passengerId: string): void {
-    this.changeCurrentPassengerId.emit(passengerId);
-  }
+  baggageTypes = [Baggage.Small, Baggage.Medium, Baggage.Large];
+  baggageDescriptions = BAGGAGE_TYPE_TO_DESCRIPTION;
 
-  constructor(private baggageService: BaggageEditorService) {
+  constructor(
+    private bookingFormService: BookingFormService,
+    private baggageService: BaggageEditorService
+  ) {
     this.form = new FormGroup({
-      small: new FormControl(0, [
-        Validators.min(0),
-        Validators.max(BAGGAGE_LIMIT_PER_PASSENGER),
-      ]),
-      medium: new FormControl(0, [
-        Validators.min(0),
-        Validators.max(BAGGAGE_LIMIT_PER_PASSENGER),
-      ]),
-      large: new FormControl(0, [
-        Validators.min(0),
-        Validators.max(BAGGAGE_LIMIT_PER_PASSENGER),
-      ]),
+      small: new FormControl(0, [Validators.min(0)]),
+      medium: new FormControl(0, [Validators.min(0)]),
+      large: new FormControl(0, [Validators.min(0)]),
+    });
+
+    effect(() => {
+      if (!this.bookingFormService.currentPassengerBaggageId()) return;
+      this.selectPassenger();
     });
   }
 
   ngOnInit() {
+    // Whenever the local form changes, update the current passenger's baggage in the service.
     this.subscription = this.form.valueChanges.subscribe(() => {
-      if (!this.seatCurrentPassengerId) return;
+      const currentPassengerId =
+        this.bookingFormService.getCurrentBaggagePassengerId();
+      console.log('currentPassengerId', currentPassengerId);
+      if (!currentPassengerId) return;
 
-      const baggage = this.baggageControl.getRawValue();
-      const items = [
-        ...this.getBaggageItems(
-          this.form.get('small')?.value ?? 0,
-          Baggage.Small
-        ),
-        ...this.getBaggageItems(
-          this.form.get('medium')?.value ?? 0,
-          Baggage.Medium
-        ),
-        ...this.getBaggageItems(
-          this.form.get('large')?.value ?? 0,
-          Baggage.Large
-        ),
-      ];
+      const passengerGroup =
+        this.bookingFormService.getCurrentBaggagePassenger();
+      console.log('currentPassengerId', currentPassengerId);
+      if (!passengerGroup) return;
 
-      const passenger = this.passengers.find(
-        (p) => p.passportNumber === this.seatCurrentPassengerId
-      );
-
-      const baggageData: BaggageForm = {
-        [this.seatCurrentPassengerId]: {
-          items,
-          price: this.getBaggagePrice(items),
-          passengerName: passenger?.name ?? '',
-          passportNumber: passenger?.passportNumber ?? '',
-          itemsExplain: this.getItemsExplain(items),
-        },
-      };
+      const items = this.getBaggageFromForm();
 
       if (
         !this.baggageService.validate(
-          this.seatCurrentPassengerId,
+          currentPassengerId,
           this.form,
-          this.passengers
+          this.getAllPassengers()
         )
       ) {
         return;
       }
 
-      this.baggageControl.patchValue({ ...baggage, ...baggageData });
+      passengerGroup.get('baggage')?.setValue(items);
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['seatCurrentPassengerId'] && this.seatCurrentPassengerId) {
-      tick(() => {
-        this.baggageService.getStateFromPassengers(
-          this.passengers,
-          changes['seatCurrentPassengerId'].currentValue,
-          this.form
-        );
-      });
-    }
   }
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }
 
-  get baggageSummary(): SingleBaggageSummary[] {
-    const baggage = this.baggageControl.getRawValue();
+  private selectPassenger(): void {
+    const passengerGroup = this.bookingFormService.getCurrentBaggagePassenger();
+    if (!passengerGroup) return;
 
-    return this.passengers.map((p) => ({
-      passengerName: p.name,
-      passportNumber: p.passportNumber,
-      items: baggage[p.passportNumber]?.items ?? [],
-      price: this.getBaggagePrice(baggage[p.passportNumber]?.items ?? []),
-      itemsExplain: this.getItemsExplain(
-        baggage[p.passportNumber]?.items ?? []
-      ),
-    }));
+    const baggage = passengerGroup.get('baggage')?.value || [];
+    const smallCount = baggage.filter(
+      (b: string) => b === Baggage.Small
+    ).length;
+    const mediumCount = baggage.filter(
+      (b: string) => b === Baggage.Medium
+    ).length;
+    const largeCount = baggage.filter(
+      (b: string) => b === Baggage.Large
+    ).length;
+
+    this.form.patchValue({
+      small: smallCount,
+      medium: mediumCount,
+      large: largeCount,
+    });
   }
 
-  private getBaggageItems(count: number, type: Baggage) {
-    return Array(count).fill(type);
+  // Helper: get raw passenger data from the service.
+  private getAllPassengers() {
+    return this.bookingFormService.passengers.controls.map(
+      (group) => group.value
+    );
   }
 
-  private getBaggagePrice(types: Baggage[]) {
-    return types.reduce((current, item) => {
-      return current + BAGGAGE_TYPE_TO_DESCRIPTION[item].price;
-    }, 0);
+  // Use the service’s computed summary.
+  get baggageSummary() {
+    return this.bookingFormService.getBaggageSummary();
   }
 
-  private getItemsExplain(types: Baggage[]) {
-    return this.baggageService.getItemsExplain(types);
+  get currentPassengerId() {
+    return this.bookingFormService.getCurrentBaggagePassengerId();
+  }
+
+  private getBaggageFromForm() {
+    // Build the baggage items array based on local counts.
+    const small = Number(this.form.get('small')?.value ?? 0);
+    const medium = Number(this.form.get('medium')?.value ?? 0);
+    const large = Number(this.form.get('large')?.value ?? 0);
+
+    const items: Baggage[] = [
+      ...Array(small).fill(Baggage.Small),
+      ...Array(medium).fill(Baggage.Medium),
+      ...Array(large).fill(Baggage.Small),
+    ];
+
+    return items;
   }
 }

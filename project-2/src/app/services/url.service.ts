@@ -81,7 +81,7 @@ export class UrlService {
     return this.AppRoutes.couponManage();
   }
 
-  getEditFlightBookingURL(flightNumber: string){
-    return this.AppRoutes.flightEditBook(flightNumber)
+  getEditFlightBookingURL(flightNumber: string) {
+    return this.AppRoutes.flightEditBook(flightNumber);
   }
 }

@@ -4,7 +4,8 @@ import {
   OnInit,
   OnDestroy,
   ViewEncapsulation,
-  inject, input,
+  inject,
+  input,
 } from '@angular/core';
 import {
   ControlContainer,

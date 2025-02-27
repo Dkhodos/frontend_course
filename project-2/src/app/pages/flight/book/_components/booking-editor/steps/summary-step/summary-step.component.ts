@@ -11,16 +11,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Flight } from '../../../../../../../models/flight.model';
 import Passenger from '../../../../../../../models/passenger.model';
-import { SeatSummaryItem } from '../seats-step/components/seat-selector/seat-selector.types';
 import { MatStepper } from '@angular/material/stepper';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from '../../../../../../../components/form-input/form-input.component';
 import { ButtonComponent } from '../../../../../../../components/button/button.component';
 import { CouponsService } from '../../../../../../../services/coupons.service';
 import { ToastService } from '../../../../../../../components/toast/toast.service';
-import { SingleBaggageSummary } from '../baggage-step/baggage-editor/components/baggage-counter/baggage-counter.component.types';
 import { SummaryStepService } from './summary-step.service';
 import { CouponType } from '../../../../../../../models/coupon.model';
+import { BookingFormService } from '../../services/booking-form.service';
 
 @Component({
   selector: 'app-summary-step',
@@ -42,13 +41,7 @@ import { CouponType } from '../../../../../../../models/coupon.model';
 export class SummaryStepComponent {
   @Input() stepper!: MatStepper;
   @Input() flight!: Flight;
-  @Input() passengers: Passenger[] = [];
-  @Input() seatSummaryItems!: SeatSummaryItem[];
-  @Input() baggageSummary!: SingleBaggageSummary[];
-  @Output() book = new EventEmitter<{
-    discount: number;
-    discountType: CouponType;
-  }>();
+  @Output() book = new EventEmitter<number>();
 
   form: FormGroup;
   discount = 0;
@@ -58,6 +51,7 @@ export class SummaryStepComponent {
   constructor(
     private couponService: CouponsService,
     private toastService: ToastService,
+    private bookingFormService: BookingFormService,
     private summaryStepService: SummaryStepService
   ) {
     this.form = new FormGroup({
@@ -65,12 +59,11 @@ export class SummaryStepComponent {
     });
   }
 
-  // --- New Getters using PriceCalculationService ---
   get finalPrice(): number {
     return this.summaryStepService.getFinalPrice(
       this.flight,
-      this.seatSummaryItems,
-      this.baggageSummary
+      this.bookingFormService.getSeatSummaryState().items,
+      this.bookingFormService.getBaggageSummary()
     );
   }
 
@@ -90,26 +83,30 @@ export class SummaryStepComponent {
     );
   }
 
-  // --- Other methods remain largely unchanged ---
+  get passengers() {
+    return this.bookingFormService.getPassengers();
+  }
+
   getSeatSummaryText(passenger: Passenger): string {
-    const item = this.seatSummaryItems.find(
-      (s) => s.passportNumber === passenger.passportNumber
-    );
+    const item = this.bookingFormService
+      .getSeatSummaryState()
+      .items.find((s) => s.passportNumber === passenger.passportNumber);
     return item && item.seatId ? item.seatId : 'auto assigned';
   }
 
   getBaggageSummaryText(passenger: Passenger): string {
-    const item = this.baggageSummary.find(
-      (b) => b.passportNumber === passenger.passportNumber
-    );
+    const item = this.bookingFormService
+      .getBaggageSummary()
+      .find((b) => b.passportNumber === passenger.passportNumber);
     return item && item.items.length > 0
       ? `selected ${item.itemsExplain}`
       : 'no baggage';
   }
 
   getSeatPrices() {
-    return this.seatSummaryItems
-      .map((seat) => ({
+    return this.bookingFormService
+      .getSeatSummaryState()
+      .items.map((seat) => ({
         label: `Seat (${seat.seatType})`,
         value: seat.extraCost,
       }))
@@ -117,7 +114,8 @@ export class SummaryStepComponent {
   }
 
   getBaggagePrices() {
-    return this.baggageSummary
+    return this.bookingFormService
+      .getBaggageSummary()
       .map((b) => ({
         label: b.itemsExplain,
         value: b.price,
@@ -126,10 +124,7 @@ export class SummaryStepComponent {
   }
 
   onBook(): void {
-    this.book.emit({
-      discount: this.discount,
-      discountType: this.discountType,
-    });
+    this.book.emit(this.overallPrice);
   }
 
   get discountLabelSymbol() {

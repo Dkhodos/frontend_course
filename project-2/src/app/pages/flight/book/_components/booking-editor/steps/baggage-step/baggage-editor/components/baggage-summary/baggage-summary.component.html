@@ -11,9 +11,11 @@
     <tbody>
       <tr *ngFor="let item of summary">
         <td>
-          {{ item.passengerName }}<br /><small>{{ item.passportNumber }}</small>
+          {{ item.passengerName | titlecase }}<br /><small>{{
+            item.passportNumber
+          }}</small>
         </td>
-        <td>{{ item.itemsExplain }}</td>
+        <td>{{ item.itemsExplain | titlecase }}</td>
         <td>{{ item.price | currency: 'USD' : 'symbol' }}</td>
       </tr>
     </tbody>

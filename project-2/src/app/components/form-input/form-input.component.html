@@ -11,6 +11,9 @@
       [min]="min"
       [max]="max"
     />
+
+    <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+
     <span matPrefix *ngIf="adornmentStart"
       ><mat-icon>{{ adornmentStart }}</mat-icon></span
     >
