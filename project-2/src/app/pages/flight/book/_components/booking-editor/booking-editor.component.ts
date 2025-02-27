@@ -36,10 +36,7 @@ export class BookingEditorComponent implements OnInit {
   constructor(private bookingFormService: BookingFormService) {}
 
   ngOnInit() {
-    if (!this.initialState) {
-      this.bookingFormService.addPassenger({});
-    } else {
-      console.log(this.initialState);
+    if (this.initialState) {
       this.bookingFormService.addBooking(this.initialState);
     }
   }

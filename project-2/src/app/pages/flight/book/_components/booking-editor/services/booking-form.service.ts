@@ -19,8 +19,8 @@ import {
   SEAT_TYPE_TO_EXTRA_COST,
 } from '../steps/seats-step/components/seat-selector/seat-selector.consts';
 import { AUTO_ASSIGNED_PLACE } from '../booking-editor.consts';
-import { CouponType } from '../../../../../../models/coupon.model';
 import { Flight } from '../../../../../../models/flight.model';
+import { uniquePassportIdValidator } from '../validators/uniquePassportIdValidator';
 
 export interface BookingFormPassenger {
   firstName: string;
@@ -49,9 +49,7 @@ export class BookingFormService {
 
   private createForm(): FormGroup {
     return this.fb.group({
-      // Passengers FormArray with baggage stored per passenger.
       passengers: this.fb.array([]),
-      // (Other fields for baggage, seats, etc. could be added later.)
     });
   }
 
@@ -72,7 +70,7 @@ export class BookingFormService {
         [Validators.required, Validators.pattern(/^\d{8}$/)],
       ],
       seat: [passengerData?.seat || '', Validators.required],
-      baggage: [passengerData?.baggage || []], // baggage is an array of strings (e.g. 'Small', 'Medium', 'Large')
+      baggage: [passengerData?.baggage || []],
     });
   }
 

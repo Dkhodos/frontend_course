@@ -1,40 +1,26 @@
-<div mat-card [formGroup]="group">
+<div class="passenger-item">
   <header>
-    <h3>Passenger No.{{ index }}</h3>
-    <button
-      mat-icon-button
-      (click)="remove.emit()"
-      class="delete-btn"
-      *ngIf="index > 1"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
+    <div class="header-buttons">
+      <button mat-icon-button color="primary" (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="onDelete()"
+        *ngIf="canDelete"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </header>
-
-  <div class="full-name">
-    <app-form-input
-      [controlKey]="'firstName'"
-      [required]="true"
-      label="First Name"
-      [errorMessages]="{ required: 'First Name is required' }"
-    />
-    <app-form-input
-      [controlKey]="'lastName'"
-      [required]="true"
-      label="Last Name"
-      [errorMessages]="{ required: 'Last Name is required' }"
-    />
+  <div class="passenger-info">
+    <p>
+      <strong>Name:</strong> {{ group.get('firstName')?.value }}
+      {{ group.get('lastName')?.value }}
+    </p>
+    <p>
+      <strong>Passport Number:</strong> {{ group.get('passportId')?.value }}
+    </p>
   </div>
-
-  <app-form-input
-    [controlKey]="'passportId'"
-    label="Passport ID"
-    [required]="true"
-    hint="8 digits, numbers only"
-    [errorMessages]="{
-      required: 'Passport ID is required',
-      pattern: 'Passport ID must be exactly 8 digits',
-      duplicatePassportIds: 'Passport ID is uniq per passenger',
-    }"
-  />
 </div>

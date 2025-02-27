@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Add New Passenger</h2>
+<mat-dialog-content [formGroup]="passengerForm">
+  <app-form-input
+    [controlKey]="'firstName'"
+    [required]="true"
+    label="First Name"
+    [errorMessages]="{ required: 'First Name is required' }"
+  ></app-form-input>
+
+  <app-form-input
+    [controlKey]="'lastName'"
+    [required]="true"
+    label="Last Name"
+    [errorMessages]="{ required: 'Last Name is required' }"
+  ></app-form-input>
+
+  <app-form-input
+    [controlKey]="'passportId'"
+    label="Passport ID"
+    [required]="true"
+    hint="8 digits, numbers only"
+    [errorMessages]="{
+      required: 'Passport ID is required',
+      pattern: 'Passport ID must be exactly 8 digits',
+      duplicatePassportIds: 'Passport ID must be unique per passenger',
+    }"
+  ></app-form-input>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="passengerForm.invalid"
+  >
+    Save
+  </button>
+</mat-dialog-actions>

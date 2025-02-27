@@ -1,18 +1,27 @@
 <div class="passenger-list">
   <section class="passenger-list-section">
-    <h3>No. of passengers: {{ passengers.length }}</h3>
-  </section>
+    <mat-accordion [multi]="false">
+      <mat-expansion-panel
+        *ngFor="let passenger of passengerGroups; let i = index"
+        [expanded]="i === 0"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Passenger No.{{ i + 1 }} :
+            {{ passenger.get('firstName')?.value | titlecase }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-passenger-item
+          [group]="passenger"
+          (remove)="removePassenger(i)"
+          (edit)="editPassenger(i)"
+          [index]="i + 1"
+          [canDelete]="passengers.length > 1"
+        ></app-passenger-item>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-  <section class="passenger-list-section">
-    <div *ngFor="let passenger of passengerGroups; let i = index">
-      <app-passenger-item
-        [group]="passenger"
-        (remove)="removePassenger(i)"
-        [index]="i + 1"
-      ></app-passenger-item>
-    </div>
-
-    <button mat-button (click)="addPassenger()">
+    <button mat-button (click)="openAddPassengerDialog()">
       <mat-icon>add</mat-icon>
       Add Passenger
     </button>
